@@ -47,4 +47,23 @@ public class ProductController extends BaseSimpleFormController {
 		String products = JSONObject.toJSONString(productList);
 		return products;
 	}
+	
+	@RequestMapping(value = "/findProductById.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String findProductById(String productId) {
+		String result = "";
+		if (StringUtils.isNotBlank(productId)) {
+			int id = Integer.parseInt(productId);
+			Product product = new Product();
+			product = productService.findProductById(id);
+			result = JSONObject.toJSONString(product);
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/saveProduct.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public void saveProduct(Product product) {
+		productService.saveProduct(product);
+	}
 }

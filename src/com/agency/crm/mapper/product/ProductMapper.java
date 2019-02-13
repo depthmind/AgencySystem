@@ -10,4 +10,7 @@ public interface ProductMapper extends BaseMapper {
 
 	List<Product> selectAllProduct(Map<String, Object> params);
 
+	Product selectProductById(int id);
+	
+	int insertProduct(Product product);
 }
