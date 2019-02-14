@@ -139,24 +139,6 @@ public class ParameterService extends BaseService {
 		}
 	   return null;
 	}
-	//查询所有目的地名称
-	public List<EntityList> selectAllDestinationName(){
-		try {
-			return parameterMapper.selectAllDestinationName();
-		} catch (Exception e) {
-			logger.error("parameterService.selectAllDestinationName()-->" + e.getMessage());
-		}
-	   return null;
-	}
-	
-	public List<EntityList> selectAllAreaCode() {
-		try {
-			return parameterMapper.selectAllAreaCode();
-		} catch (Exception e) {
-			logger.error("parameterService.selectAllAreaCode()-->" + e.getMessage());
-		}
-	   return null;
-	}
 	
 	/**
 	 * 
@@ -164,7 +146,7 @@ public class ParameterService extends BaseService {
 	 * @author liuhan
 	 * @todo 通过para_domain查询参数
 	 */
-	public List<Parameter> getChineseByParaDomain(String paraDomain) {
+	public List<Parameter> findParameterByParaDomain(String paraDomain) {
 		List<Parameter> list = new ArrayList<Parameter>();
 		try {
 			list = parameterMapper.selectParameterByParaDomain(paraDomain);

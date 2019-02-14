@@ -11,28 +11,21 @@ import com.agency.crm.entity.Parameter;
 
 public interface ParameterMapper extends BaseMapper {
 	
-	public List<Parameter> queryParameter(Map<String, Object> params);
+	List<Parameter> queryParameter(Map<String, Object> params);
 	
-	public long countParameter(Parameter Parameter);
+	long countParameter(Parameter Parameter);
 	
-	public void saveParameter(Parameter Parameter);
+	void saveParameter(Parameter Parameter);
 
-	public void updateParameter(Parameter Parameter);
+	void updateParameter(Parameter Parameter);
 
-	public void deleteParameterById(int ParameterId);
+	void deleteParameterById(int ParameterId);
 	
-	public Parameter getParameterById(int ParameterId);
+	Parameter getParameterById(int ParameterId);
 	
-	public List<EntityList> selectAllActivityName();
-	
-	public List<EntityList> selectAllDestinationName();
-	
-	
-	public List<EntityList> selectAllAreaCode();
+	List<EntityList> selectAllActivityName();
 	
 	List<Parameter> selectParameterByParaDomain(String paraDomain);
 	
-	public String selectParaValue(@Param("chinese")String chinese,@Param("domain")String domain);
-	
-	public String selectParaValueById(@Param("enterpriseId")Integer enterpriseId,@Param("domain")String domain);
+	String selectParaValue(@Param("chinese")String chinese,@Param("domain")String domain);
 }

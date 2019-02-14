@@ -1,5 +1,8 @@
 package com.agency.crm.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +20,7 @@ import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
 import com.agency.crm.entity.Parameter;
 import com.agency.crm.service.ParameterService;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 @RequestMapping("/parameter")
@@ -111,5 +115,21 @@ public class ParameterController extends BaseSimpleFormController {
 		}
 		
 		return json;
+	}
+	
+	/**
+	 * 
+	 * @date 2019年2月14日 上午11:49:11
+	 * @author LiuHan
+	 * @TODO 从参数表查询信息，如产品分类等
+	 */
+	@RequestMapping(value = "/findParameter.do")
+	@ResponseBody
+	public String findParameter(String paraDomain) {
+		String result = "";
+		List<Parameter> list = new ArrayList<Parameter>();
+		list = service.findParameterByParaDomain(paraDomain);
+		result = JSONObject.toJSONString(list);
+		return result;
 	}
 }
