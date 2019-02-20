@@ -1,5 +1,11 @@
 package com.agency.crm.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +17,7 @@ import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.AgencyContact;
 import com.agency.crm.service.AgencyBaseService;
 import com.agency.crm.service.AgencyContactService;
+import com.alibaba.fastjson.JSONObject;
 
 @Controller
 @RequestMapping("/agency")
@@ -45,5 +52,22 @@ public class AgencyController extends BaseSimpleFormController {
 			agencyContactService.saveAgencyContact(agencyContact);
 		}
 		return json;
+	}
+	
+	@RequestMapping(value = "/findAgencyBase.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String findAgencyBase(String offset, String limit) {
+		String result = "";
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (StringUtils.isNotBlank(offset) && StringUtils.isNotBlank(limit)) {
+			int offsetInt = Integer.parseInt(offset);
+			int limitInt = Integer.parseInt(limit);
+			map.put("start", offsetInt);
+			map.put("length", limitInt);
+		}
+		List<AgencyBase> list = new ArrayList<AgencyBase>();
+		list = agencyBaseService.findAgencyBase(map);
+		result = JSONObject.toJSONString(list);
+		return result;
 	}
 }

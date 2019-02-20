@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.nearbyAgency.NearbyAgencyMapper">
+	
+	<insert id="insertAgencyBase" parameterType="NearbyAgency">
+		insert into nearby_agency (
+		agency_name,
+		sys_user_name,
+		sys_user_password,
+		mobilePhone,
+		email,
+		open_id,
+		is_cooperation,
+		city,
+		location,
+		address,
+		create_time,
+		update_time,
+		is_del
+		) values (
+		#{agencyName,jdbcType=VARCHAR},
+		#{sysUserName,jdbcType=VARCHAR},
+		#{sysUserPassword,jdbcType=VARCHAR},
+		#{mobilePhone,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{openId,jdbcType=VARCHAR},
+		#{isCooperation,jdbcType=Integer},
+		#{city,jdbcType=VARCHAR},
+		#{location,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		now(),
+		now(),
+		0
+		)
+	</insert>
+</mapper>
+
+
+
+
