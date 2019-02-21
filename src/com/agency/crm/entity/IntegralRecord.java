@@ -7,7 +7,7 @@ import com.agency.crm.common.framework.BaseBean;
 class IntegralRecord extends BaseBean<IntegralRecord> {
 
 	/**
-	 * 
+	 * 积分
 	 */
 	private static final long serialVersionUID = -2188477654955244199L;
 
