@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.agencyContact.AgencyContactMapper">
+
+	<insert id="insertAgencyContact" parameterType="AgencyContact">
+		insert into agency_contact (
+			agency_id,
+			contact_name,
+			mobilePhone,
+			address,
+			city,
+			location,
+			latitude,
+			longitude,
+			create_time,
+			update_time,
+			id_del
+		) values (
+			#{agencyId,jdbcType=VARCHAR},
+			#{contactName,jdbcType=VARCHAR},
+			#{mobilePhone,jdbcType=VARCHAR},
+			#{address,jdbcType=VARCHAR},
+			#{city,jdbcType=VARCHAR},
+			#{location,jdbcType=VARCHAR},
+			#{latitude,jdbcType=VARCHAR},
+			#{longitude,jdbcType=VARCHAR},
+			now(),
+			now(),
+			0
+		)
+	</insert>
+</mapper>
+
+
+
+

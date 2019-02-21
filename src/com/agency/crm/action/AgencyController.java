@@ -15,8 +15,10 @@ import com.agency.crm.common.action.BaseSimpleFormController;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.AgencyContact;
+import com.agency.crm.entity.NearbyAgency;
 import com.agency.crm.service.AgencyBaseService;
 import com.agency.crm.service.AgencyContactService;
+import com.agency.crm.service.NearbyAgencyService;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
@@ -27,6 +29,8 @@ public class AgencyController extends BaseSimpleFormController {
 	private AgencyBaseService agencyBaseService;
 	@Autowired
 	private AgencyContactService agencyContactService;
+	@Autowired
+	private NearbyAgencyService nearbyAgencyService;
 	
 	@RequestMapping(value = "/saveAgencyBase.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
@@ -69,5 +73,20 @@ public class AgencyController extends BaseSimpleFormController {
 		list = agencyBaseService.findAgencyBase(map);
 		result = JSONObject.toJSONString(list);
 		return result;
+	}
+	
+	/**
+	 * 新增附近二批功能
+	 */
+	@RequestMapping(value = "/saveNearbyAgency.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json saveNearbyAgency(NearbyAgency nearbyAgency) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = nearbyAgencyService.saveNearbyAgency(nearbyAgency);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		return json;
 	}
 }
