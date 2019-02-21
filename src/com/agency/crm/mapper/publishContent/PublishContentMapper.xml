@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.publishContent.PublishContentMapper">
+	
+	<insert id="insertPublishContent" parameterType="PublishContent">
+		insert into publish_content (
+		category,
+		description,
+		images,
+		contact_name,
+		mobilePhone,
+		city,
+		location,
+		is_top,
+		create_time,
+		update_time,
+		is_del
+		) values (
+		#{category,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
+		#{images,jdbcType=VARCHAR},
+		#{contactName,jdbcType=VARCHAR},
+		#{mobilePhone,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR},
+		#{location,jdbcType=VARCHAR},
+		#{isTop,jdbcType=VARCHAR},
+		now(),
+		now(),
+		0
+		)
+	</insert>
+	
+	<select id="selectAgencyBase" resultType="AgencyBase" parameterType="map">
+		select 
+		id,
+		agency_name as agencyName,
+		sys_user_name as sysUserName,
+		sys_user_password as sysUserPassword,
+		mobilePhone as mobilePhone,
+		email as email,
+		open_id as openId,
+		is_cooperation as isCooperation,
+		city,
+		location,
+		address,
+		create_time as createTime,
+		update_time as updateTime,
+		is_del as isDel
+		from agency_base
+		where is_del = 0
+		limit #{start},#{length}
+	</select>
+</mapper>
+
+
+
+
