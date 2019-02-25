@@ -26,7 +26,21 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String latitude;
 	private String longitude;
 	private String address;
+	private String wechatImagePath;
+	private String logoImagePath;
 	
+	public String getWechatImagePath() {
+		return wechatImagePath;
+	}
+	public void setWechatImagePath(String wechatImagePath) {
+		this.wechatImagePath = wechatImagePath;
+	}
+	public String getLogoImagePath() {
+		return logoImagePath;
+	}
+	public void setLogoImagePath(String logoImagePath) {
+		this.logoImagePath = logoImagePath;
+	}
 	public String getAddress() {
 		return address;
 	}

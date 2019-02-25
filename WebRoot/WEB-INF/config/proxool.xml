@@ -17,11 +17,11 @@
 		</driver-properties> -->
 		
 		
-		<driver-url>jdbc:mysql://localhost:3306/agency?characterEncoding=utf8</driver-url>
+		<driver-url>jdbc:mysql://47.105.169.49:3306/agency?characterEncoding=utf8</driver-url>
 		<driver-class>com.mysql.jdbc.Driver</driver-class>
 		<driver-properties>
 		 <property name="user" value="root" />
-		 <property name="password" value="root" />
+		 <property name="password" value="^j9UaqkV" />
 		</driver-properties>
 		
 		<!-- 开发库 end -->
