@@ -24,48 +24,122 @@ import com.alibaba.fastjson.JSONObject;
 @Controller
 @RequestMapping("/pay")
 public class JSAPIPayController {
+//	@RequestMapping(value = "/jsapiPay")
+//	@ResponseBody
+//	public String jsapiPay(HttpServletRequest request, HttpServletResponse response, Model model) {
+//		String tradeNo = request.getParameter("tradeNo");
+//		String timestamp = String.valueOf((new Date()).getTime() / 1000L);;
+//		float totalFee = Float.valueOf(request.getParameter("totalFee"));
+//		System.out.println("totalFee="+totalFee);
+//		String displayFee = String.valueOf(totalFee);
+//		String fee = String.valueOf(totalFee * 100);
+//		int index = fee.indexOf(".");
+//		String sendFee = String.valueOf(totalFee * 100).substring(0, index);
+//		String ip = getIpAddress(request);
+//		if (StringUtils.isNotBlank(ip) && ip.contains(",")) {
+//			ip = ip.substring(0, ip.indexOf(","));
+//		}
+//		reqData.put("appid", Constants.APP_ID);
+//		reqData.put("attach", "tourmade");
+//		reqData.put("body", "公众号H5支付测试");
+//		reqData.put("detail", "支付测试");
+//		reqData.put("total_fee", sendFee);
+//		reqData.put("openid", "o-MzH5QEtFKbIWltxWk1xK4gceBE");
+//		reqData.put("out_trade_no", tradeNo);
+//		reqData.put("spbill_create_ip", ip);
+//		reqData.put("total_fee", sendFee);
+//		reqData.put("trade_type", Constants.TRADE_TYPE_JSAPI);
+//		String prepayId = "";
+//		String sign = "";
+//		try {
+//			WXPay wxPay = new WXPay(config, Constants.NOTIFY_URL);
+//			respData = wxPay.unifiedOrder(reqData);
+//			prepayId = "prepay_id=" + respData.get("prepay_id");
+//			sign = respData.get("sign");
+//			System.out.println("prepayId=" + prepayId);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		PayEntity payEntity = new PayEntity();
+//		payEntity.setTimeStamp(timestamp);
+//		payEntity.setNonceStr(WXPayUtil.generateUUID());
+//		payEntity.setPrepayId(prepayId);
+//		payEntity.setPaySign(sign);
+//		String result = JSONObject.toJSONString(payEntity);
+//		return result;
+//	}
+	
 	@RequestMapping(value = "/jsapiPay")
 	@ResponseBody
 	public String jsapiPay(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Map<String, String> reqData = new HashMap<String, String>();
 		Map<String, String> respData = new HashMap<String, String>();
 		WXPayConfigImpl config = new WXPayConfigImpl();
+		String prepayId = "";
+		String sign = "";
+		String nonce_str = "AJHJFHJKU";
+		
 		String tradeNo = request.getParameter("tradeNo");
-		String timestamp = String.valueOf((new Date()).getTime() / 1000L);;
+		System.out.println("tradeNo=" + tradeNo);
+		tradeNo = (tradeNo + "-" + WXPayUtil.generateUUID()).substring(0, 32);
+		
+		//String openId = request.getParameter("openId");
+		System.out.println("openId=" + "o-MzH5QEtFKbIWltxWk1xK4gceBE");
+		
+		String destinationTmp = request.getParameter("destination");
+		System.out.println("destinationTmp=" + destinationTmp);
+		String destination = destinationTmp != null ? destinationTmp : "";
+		
+		String timestamp = String.valueOf((new Date()).getTime() / 1000L);
+		
 		float totalFee = Float.valueOf(request.getParameter("totalFee"));
-		System.out.println("totalFee="+totalFee);
+		System.out.println("totalFee=" + totalFee);
 		String displayFee = String.valueOf(totalFee);
-		String fee = String.valueOf(totalFee * 100);
-		int index = fee.indexOf(".");
+		int index = String.valueOf(totalFee * 100).indexOf(".");
 		String sendFee = String.valueOf(totalFee * 100).substring(0, index);
 		String ip = getIpAddress(request);
 		if (StringUtils.isNotBlank(ip) && ip.contains(",")) {
 			ip = ip.substring(0, ip.indexOf(","));
 		}
-		reqData.put("attach", "tourmade");
-		reqData.put("body", "公众号H5支付测试");
-		reqData.put("detail", "支付测试");
-		reqData.put("total_fee", sendFee);
-		reqData.put("openid", "o-MzH5QEtFKbIWltxWk1xK4gceBE");
-		reqData.put("out_trade_no", tradeNo);
-		reqData.put("spbill_create_ip", ip);
-		reqData.put("total_fee", sendFee);
-		reqData.put("trade_type", Constants.TRADE_TYPE_JSAPI);
-		String prepayId = "";
-		String sign = "";
+		
 		try {
+			reqData.put("appid", Constants.APP_ID);
+			reqData.put("mch_id", Constants.MCH_ID);
+			reqData.put("nonce_str", nonce_str);
+			reqData.put("sign", nonce_str);
+			reqData.put("attach", "tourmade");
+			reqData.put("body", "body");
+			reqData.put("openid", "o-MzH5QEtFKbIWltxWk1xK4gceBE");
+			reqData.put("out_trade_no", tradeNo);
+			reqData.put("spbill_create_ip", "127.0.0.1");
+			reqData.put("total_fee", sendFee);
+			reqData.put("trade_type", Constants.TRADE_TYPE_JSAPI);
+			reqData.put("notify_url", Constants.NOTIFY_URL);
+			String beforeSign = WXPayUtil.generateSignedXml(reqData, Constants.KEY);
+			Map<String, String> m = WXPayUtil.xmlToMap(beforeSign);
 			WXPay wxPay = new WXPay(config, Constants.NOTIFY_URL);
-			respData = wxPay.unifiedOrder(reqData);
+			respData = wxPay.unifiedOrder(m);
 			prepayId = "prepay_id=" + respData.get("prepay_id");
-			sign = respData.get("sign");
-			System.out.println("prepayId=" + prepayId);
+			String tmp = "appId=" + Constants.APP_ID + "&nonceStr=" + "KJDJFK" + "&package=" + prepayId
+					+ "&signType=" + Constants.SIGN_TYPE_MD5 + "&timeStamp=" + timestamp + "&key=" + Constants.KEY;
+			/*Map<String, String> m = new HashMap<String, String>();
+			m.put("appId", Constants.APP_ID);
+			m.put("nonceStr", nonce_str);
+			m.put("package", prepayId);
+			m.put("signType", Constants.SIGN_TYPE_MD5);
+			m.put("timeStamp", timestamp);
+			String a = WXPayUtil.generateSignedXml(m, Constants.KEY);
+			System.out.println(a);*/
+			sign = WXPayUtil.MD5("appId=" + Constants.APP_ID + "&nonceStr=" + nonce_str + "&package=" + prepayId
+					+ "&signType=" + Constants.SIGN_TYPE_MD5 + "&timeStamp=" + timestamp + "&key=" + Constants.KEY).toUpperCase();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		PayEntity payEntity = new PayEntity();
 		payEntity.setTimeStamp(timestamp);
-		payEntity.setNonceStr(WXPayUtil.generateUUID());
+		payEntity.setNonceStr(nonce_str);
 		payEntity.setPrepayId(prepayId);
 		payEntity.setPaySign(sign);
 		String result = JSONObject.toJSONString(payEntity);
