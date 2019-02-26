@@ -28,7 +28,35 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String address;
 	private String wechatImagePath;
 	private String logoImagePath;
+	private String licence1ImagePath;
+	private String licence2ImagePath;
+	private Date expiryDate;
+	private String validPeriod;
 	
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+	public String getValidPeriod() {
+		return validPeriod;
+	}
+	public void setValidPeriod(String validPeriod) {
+		this.validPeriod = validPeriod;
+	}
+	public String getLicence1ImagePath() {
+		return licence1ImagePath;
+	}
+	public void setLicence1ImagePath(String licence1ImagePath) {
+		this.licence1ImagePath = licence1ImagePath;
+	}
+	public String getLicence2ImagePath() {
+		return licence2ImagePath;
+	}
+	public void setLicence2ImagePath(String licence2ImagePath) {
+		this.licence2ImagePath = licence2ImagePath;
+	}
 	public String getWechatImagePath() {
 		return wechatImagePath;
 	}

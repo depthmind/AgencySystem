@@ -11,4 +11,6 @@ public interface AgencyBaseMapper extends BaseMapper {
 	int insertAgencyBase(AgencyBase agencyBase);
 	
 	List<AgencyBase> selectAgencyBase(Map<String, Object> map);
+	
+	AgencyBase selectAgencyBaseByOpenId(String openId);
 }

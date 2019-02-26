@@ -29,7 +29,8 @@ public class AgencyBaseService extends BaseService {
 	public int saveAgencyBase(AgencyBase agencyBase) {
 		int result = 0;
 		try {
-			result = agencyBaseMapper.insertAgencyBase(agencyBase);
+			agencyBaseMapper.insertAgencyBase(agencyBase);
+			result = agencyBase.getId();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,6 +47,22 @@ public class AgencyBaseService extends BaseService {
 		List<AgencyBase> result = new ArrayList<AgencyBase>();
 		try {
 			result = agencyBaseMapper.selectAgencyBase(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	/**
+	 * 
+	 * @date 2019年2月26日 下午4:42:09
+	 * @author LiuHan
+	 * @TODO 根据小程序openId查询代理商信息
+	 */
+	public AgencyBase findAgencyBaseByOpenId(String openId) {
+		AgencyBase result = new AgencyBase();
+		try {
+			result = agencyBaseMapper.selectAgencyBaseByOpenId(openId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

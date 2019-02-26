@@ -107,7 +107,7 @@ public class JSAPIPayController {
 			reqData.put("appid", Constants.APP_ID);
 			reqData.put("mch_id", Constants.MCH_ID);
 			reqData.put("nonce_str", nonce_str);
-			reqData.put("sign", nonce_str);
+			//reqData.put("sign", nonce_str);
 			reqData.put("attach", "tourmade");
 			reqData.put("body", "body");
 			reqData.put("openid", "o-MzH5QEtFKbIWltxWk1xK4gceBE");

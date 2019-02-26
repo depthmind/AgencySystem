@@ -89,4 +89,14 @@ public class AgencyController extends BaseSimpleFormController {
 		}
 		return json;
 	}
+	
+	@RequestMapping(value = "/findAgencyByOpenId.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String findAgencyByOpenId(String openId) {
+		String result = "";
+		AgencyBase agencyBase = new AgencyBase();
+		agencyBase = agencyBaseService.findAgencyBaseByOpenId(openId);
+		result = JSONObject.toJSONString(agencyBase);
+		return result;
+	}
 }
