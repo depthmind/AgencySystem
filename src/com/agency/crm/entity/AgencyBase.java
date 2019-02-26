@@ -33,7 +33,16 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private Date expiryDate;
 	private String validPeriod;
 	private String pic;
+	private String isAd;
 
+
+	public String getIsAd() {
+		return isAd;
+	}
+
+	public void setIsAd(String isAd) {
+		this.isAd = isAd;
+	}
 
 	public String getPic() {
 		return pic;

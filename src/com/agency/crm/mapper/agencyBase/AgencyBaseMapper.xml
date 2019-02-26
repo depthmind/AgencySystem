@@ -95,6 +95,12 @@
 		where is_del = 0
 		and open_id = #{openId}
 	</select>
+
+
+	<select id="selectAdAgency" resultType="AgencyBase">
+		select id, agency_name as agencyName, agency_pic as pic from agency_base where isAd = 1
+	</select>
+
 </mapper>
 
 

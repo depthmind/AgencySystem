@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.Product;
 import com.agency.crm.mapper.agencyBase.AgencyBaseMapper;
 import com.agency.crm.mapper.product.ProductMapper;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Service
 @Transactional(readOnly = false)
@@ -68,4 +70,15 @@ public class AgencyBaseService extends BaseService {
 		}
 		return result;
 	}
+
+	/**
+	 * 2019.2.26
+	 * kongzheng
+	 * 获取轮播图信息
+	 */
+	public List<AgencyBase> getAdAgencyBase() {
+		return agencyBaseMapper.selectAdAgency();
+	}
+
+
 }

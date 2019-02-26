@@ -99,4 +99,12 @@ public class AgencyController extends BaseSimpleFormController {
 		result = JSONObject.toJSONString(agencyBase);
 		return result;
 	}
+
+	@RequestMapping(value = "/findAdAgency.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String findAdAgency() {
+		List<AgencyBase> agencyBaseList = agencyBaseService.getAdAgencyBase();
+		return JSONObject.toJSONString(agencyBaseList);
+	}
+
 }
