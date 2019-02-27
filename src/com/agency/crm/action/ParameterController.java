@@ -123,7 +123,7 @@ public class ParameterController extends BaseSimpleFormController {
 	 * @author LiuHan
 	 * @TODO 从参数表查询信息，如产品分类等
 	 */
-	@RequestMapping(value = "/findParameter.do")
+	@RequestMapping(value = "/findParameter.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String findParameter(String paraDomain) {
 		String result = "";
