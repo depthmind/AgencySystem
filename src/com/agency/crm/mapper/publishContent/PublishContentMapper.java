@@ -12,4 +12,6 @@ public interface PublishContentMapper extends BaseMapper {
 	int insertPublishContent(PublishContent publishContent);
 	
 	List<AgencyBase> selectAgencyBase(Map<String, Object> map);
+
+	List<PublishContent> selectPublishContent(Map<String, Object> map);
 }

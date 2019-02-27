@@ -81,4 +81,13 @@ public class AgencyBaseService extends BaseService {
 	}
 
 
+	/**
+	 * 2019.2.27
+	 * kongzheng
+	 * 根据名称模糊查询agency
+	 */
+	public List<AgencyBase> findAgencyBaseByName(Map map) {
+		return agencyBaseMapper.selectAgencyByName(map);
+	}
+
 }

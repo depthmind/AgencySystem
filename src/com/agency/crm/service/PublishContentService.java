@@ -37,5 +37,10 @@ public class PublishContentService extends BaseService {
 		}
 		return result;
 	}
-	
+
+
+	public List<PublishContent> getPublishContent(Map<String, Object> map) {
+		return publishContentMapper.selectPublishContent(map);
+	}
+
 }

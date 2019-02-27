@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
@@ -66,5 +69,29 @@ public class PublishContentController extends BaseSimpleFormController {
 			}
 		}
 		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getPublish.do", produces = "application/json;charset=UTF-8")
+	public String getPublishContent(@RequestParam(required = false) String latitude, @RequestParam(required = false) String longitude){
+
+		Map params = new HashMap();
+		List<PublishContent> publishContents = publishContentService.getPublishContent(params);
+
+		if (!StringUtils.isEmpty(latitude) && !StringUtils.isEmpty(longitude)) {
+			BigDecimal latitude_num = new BigDecimal(latitude);
+			BigDecimal longitude_num = new BigDecimal(longitude);
+			BigDecimal base = new BigDecimal("0.005");	//经纬度相差0.005之内表示附近
+			for (int i = 0; i < publishContents.size(); i++) {
+				String[] locationStr = publishContents.get(i).getLocation().split(",");
+				BigDecimal location_lat = new BigDecimal(locationStr[0]);
+				BigDecimal location_lon = new BigDecimal(locationStr[1]);
+				if ((location_lat.subtract(latitude_num)).abs().compareTo(base) != -1 || (location_lon.subtract(longitude_num)).abs().compareTo(base) != -1) {
+					publishContents.remove(i);	//删除不在附近的publish
+				}
+			}
+		}
+
+		return JSONObject.toJSONString(publishContents);
 	}
 }

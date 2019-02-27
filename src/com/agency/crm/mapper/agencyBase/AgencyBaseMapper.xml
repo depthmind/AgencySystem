@@ -101,6 +101,10 @@
 		select id, agency_name as agencyName, agency_pic as pic from agency_base where isAd = 1
 	</select>
 
+	<select id="selectAgencyByName" resultType="AgencyBase" parameterType="Map">
+		select id, agency_name as agencyName from agency_base where agency_name like #{name} limit #{offset}, #{rows}
+	</select>
+
 </mapper>
 
 

@@ -23,7 +23,7 @@
             and agency_id = #{agencyId}
         </if>
         <if test="goodsName != null and goodsName != ''">
-            and goods_name = #{goodsName}
+            and goods_name like #{goodsName}
         </if>
         <if test="goodsDescription != null and goodsDescription != ''">
             and goods_description = #{goodsDescription}

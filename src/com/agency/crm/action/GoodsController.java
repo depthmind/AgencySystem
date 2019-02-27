@@ -42,7 +42,7 @@ public class GoodsController {
         if (!StringUtils.isEmpty(agencyId))
             params.put("agencyId", Long.parseLong(agencyId));
         if (!StringUtils.isEmpty(goodsName))
-            params.put("goodsName", goodsName);
+            params.put("goodsName", "%" + goodsName + "%");
         if (!StringUtils.isEmpty(goodsDescription))
             params.put("goodsDescription", goodsDescription);
         if (!StringUtils.isEmpty(isTop))
@@ -55,7 +55,6 @@ public class GoodsController {
             params.put("rows", Integer.parseInt(rows));
 
         List<Goods> goodsList = goodsService.getGoods(params);
-
         return JSON.toJSONString(goodsList);
     }
 
