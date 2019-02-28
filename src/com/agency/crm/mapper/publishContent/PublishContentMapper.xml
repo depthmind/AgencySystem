@@ -56,6 +56,12 @@
 		select id, category, description, images, contact_name, mobilePhone, city, location, update_time from publish_content
 	</select>
 
+	<select id="selectPublishContentById" resultType="PublishContent" parameterType="int">
+		select id, category, description, images, contact_name as contactName, mobilePhone, city, location,
+		update_time as updateTime, create_time as createTime from publish_content
+		where id = #{id}
+		and isdel = 0
+	</select>
 </mapper>
 
 

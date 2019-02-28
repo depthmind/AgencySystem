@@ -94,4 +94,14 @@ public class PublishContentController extends BaseSimpleFormController {
 
 		return JSONObject.toJSONString(publishContents);
 	}
+	
+	@RequestMapping(value = "/findPublishContentById.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String findPublishContentById(@RequestParam(value="id") Integer id) {
+		String result = "";
+		PublishContent publishContent = new PublishContent();
+		publishContent = publishContentService.findPublishContentById(id);
+		result = JSONObject.toJSONString(publishContent);
+		return result;
+	}
 }
