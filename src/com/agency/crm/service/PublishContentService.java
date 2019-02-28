@@ -43,4 +43,19 @@ public class PublishContentService extends BaseService {
 		return publishContentMapper.selectPublishContent(map);
 	}
 
+	/**
+	 * 
+	 * @date 2019年2月28日 下午4:04:42
+	 * @author LiuHan
+	 * @TODO 根据id查询发布内容详情
+	 */
+	public PublishContent findPublishContentById(int id) {
+		PublishContent result = new PublishContent();
+		try {
+			result = publishContentMapper.selectPublishContentById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
