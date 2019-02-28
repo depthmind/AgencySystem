@@ -53,7 +53,7 @@
 	</select>
 
 	<select id="selectPublishContent" resultType="PublishContent" parameterType="map">
-		select id, category, description, images, contact_name, mobilePhone, city, location, update_time from publish_content
+		select id, category, description, images, contact_name, mobilePhone, city, location, update_time from publish_content limit #{offset}, #{rows}
 	</select>
 
 </mapper>
