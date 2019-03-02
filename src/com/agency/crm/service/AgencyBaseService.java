@@ -76,8 +76,8 @@ public class AgencyBaseService extends BaseService {
 	 * kongzheng
 	 * 获取轮播图信息
 	 */
-	public List<AgencyBase> getAdAgencyBase() {
-		return agencyBaseMapper.selectAdAgency();
+	public List<AgencyBase> getAdAgencyBase(Map params) {
+		return agencyBaseMapper.selectAdAgency(params);
 	}
 
 

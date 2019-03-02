@@ -103,7 +103,10 @@ public class AgencyController extends BaseSimpleFormController {
 	@RequestMapping(value = "/findAdAgency.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String findAdAgency(String offset, String rows) {
-		List<AgencyBase> agencyBaseList = agencyBaseService.getAdAgencyBase();
+		Map<String, Object> params = new HashMap<>();
+		params.put("offset", Integer.parseInt(offset));
+		params.put("rows", Integer.parseInt(rows));
+		List<AgencyBase> agencyBaseList = agencyBaseService.getAdAgencyBase(params);
 		return JSONObject.toJSONString(agencyBaseList);
 	}
 
