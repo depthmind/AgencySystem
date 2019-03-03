@@ -34,7 +34,15 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String validPeriod;
 	private String pic;
 	private String isAd;
+	private String area;
 
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public String getIsAd() {
 		return isAd;

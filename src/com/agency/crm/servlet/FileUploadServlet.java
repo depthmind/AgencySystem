@@ -26,6 +26,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.agency.crm.utils.WXPayUtil;
 import com.alibaba.fastjson.JSON;
 
 /**
@@ -89,7 +90,7 @@ public class FileUploadServlet extends HttpServlet {
             System.out.println("picture=" + picture);
             String timestamp = String.valueOf((new Date()).getTime() / 1000L);
             //自定义上传图片的名字为userId.jpg
-            String fileName = timestamp + ".jpg";
+            String fileName = (timestamp + WXPayUtil.generateUUID()).substring(0, 32) + ".jpg";
             destPath = path + fileName;
             logger.debug("destPath=" + destPath);
 

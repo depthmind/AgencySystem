@@ -9,9 +9,10 @@
 		description,
 		images,
 		contact_name,
-		mobilePhone,
+		mobilephone,
 		city,
 		location,
+		address,
 		is_top,
 		create_time,
 		update_time,
@@ -21,9 +22,10 @@
 		#{description,jdbcType=VARCHAR},
 		#{images,jdbcType=VARCHAR},
 		#{contactName,jdbcType=VARCHAR},
-		#{mobilePhone,jdbcType=VARCHAR},
+		#{mobilephone,jdbcType=VARCHAR},
 		#{city,jdbcType=VARCHAR},
 		#{location,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
 		#{isTop,jdbcType=VARCHAR},
 		now(),
 		now(),
@@ -37,7 +39,7 @@
 		agency_name as agencyName,
 		sys_user_name as sysUserName,
 		sys_user_password as sysUserPassword,
-		mobilePhone as mobilePhone,
+		mobilephone as mobilephone,
 		email as email,
 		open_id as openId,
 		is_cooperation as isCooperation,
@@ -53,11 +55,11 @@
 	</select>
 
 	<select id="selectPublishContent" resultType="PublishContent" parameterType="map">
-		select id, category, description, images, contact_name, mobilePhone, city, location, update_time from publish_content limit #{offset}, #{rows}
+		select id, category, description, images, contact_name, mobilephone, city, location, update_time from publish_content limit #{offset}, #{rows}
 	</select>
 
 	<select id="selectPublishContentById" resultType="PublishContent" parameterType="int">
-		select id, category, description, images, contact_name as contactName, mobilePhone, city, location,
+		select id, category, description, images, contact_name as contactName, mobilephone, city, location,
 		update_time as updateTime, create_time as createTime from publish_content
 		where id = #{id}
 		and isdel = 0

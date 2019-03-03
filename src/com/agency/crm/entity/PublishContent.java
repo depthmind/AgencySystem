@@ -28,7 +28,9 @@ public class PublishContent extends BaseBean<PublishContent> {
 	
 	private String contactName;
 	
-	private String mobilePhone;
+	private String mobilephone;
+	
+	private String city;
 	
 	private String location;
 	
@@ -39,6 +41,24 @@ public class PublishContent extends BaseBean<PublishContent> {
 	private Date updateTime;
 	
 	private Integer isDel;
+	
+	private String address;
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	public String getImages() {
 		return images;
@@ -80,12 +100,12 @@ public class PublishContent extends BaseBean<PublishContent> {
 		this.contactName = contactName;
 	}
 
-	public String getMobilePhone() {
-		return mobilePhone;
+	public String getMobilephone() {
+		return mobilephone;
 	}
 
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
+	public void setMobilephone(String mobilephone) {
+		this.mobilephone = mobilephone;
 	}
 
 	public String getLocation() {
