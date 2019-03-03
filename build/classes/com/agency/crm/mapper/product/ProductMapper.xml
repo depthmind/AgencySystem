@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.product.ProductMapper">
+
+	<select id="selectAllProduct" parameterType="Map" resultType="Product">
+		select 
+			id as id,
+			product_name as productName,
+			description as description,
+			price as price,
+			stock as stock,
+			is_top as isTop,
+			state as state,
+			category as category,
+			publish_time as publishTime,
+			create_time as createTime,
+			update_time as updateTime,
+			is_del as isDel
+		from product
+		where 1=1
+		<if test="id != null and id != ''">
+			and id = #{id}
+		</if>
+		<if test="productName != null and productName != ''">
+			and product_name = #{productName}
+		</if>
+		<if test="isTop != null and isTop != ''">
+			and is_top = #{isTop}
+		</if>
+		<if test="state != null and state != ''">
+			and state = #{state}
+		</if>
+		<if test="category != null and category != ''">
+			and category = #{category}
+		</if>
+		order by is_top,update_time desc
+	</select>
+	
+	<select id="selectProductById" parameterType="int" resultType="Product">
+		select 
+			id as id,
+			product_name as productName,
+			description as description,
+			price as price,
+			stock as stock,
+			is_top as isTop,
+			state as state,
+			category as category,
+			publish_time as publishTime,
+			create_time as createTime,
+			update_time as updateTime,
+			is_del as isDel
+		from product
+		where id = #{id}
+	</select>
+	
+	<insert id="insertProduct" parameterType="Product">
+		insert into product (
+			product_name,
+			description,
+			price,
+			stock,
+			is_top,
+			state,
+			category,
+			publish_time,
+			create_time,
+			is_del
+		) values (
+			#{productName,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR},
+			#{price,jdbcType=Decimal},
+			#{stock,jdbcType=Integer},
+			#{isTop,jdbcType=Integer},
+			#{state,jdbcType=Integer},
+			#{category,jdbcType=Integer},
+			now(),
+			now(),
+			0
+		)
+	</insert>
+</mapper>
+
+
+
+

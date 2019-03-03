@@ -99,8 +99,8 @@
 	</select>
 
 
-	<select id="selectAdAgency" resultType="AgencyBase">
-		select id, agency_name as agencyName, agency_pic as pic from agency_base where isAd = 1
+	<select id="selectAdAgency" resultType="AgencyBase" parameterType="Map">
+		select id, agency_name as agencyName, agency_pic as pic from agency_base where isAd = 1 limit #{offset}, #{rows}
 	</select>
 
 	<select id="selectAgencyByName" resultType="AgencyBase" parameterType="Map">
@@ -108,7 +108,3 @@
 	</select>
 
 </mapper>
-
-
-
-

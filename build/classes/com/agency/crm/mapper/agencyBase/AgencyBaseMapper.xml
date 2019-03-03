@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="GBK" ?> 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -112,3 +113,117 @@
 
 
 
+=======
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.agencyBase.AgencyBaseMapper">
+	
+	<insert id="insertAgencyBase" parameterType="AgencyBase">
+		<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
+		insert into agency_base (
+		agency_name,
+		sys_user_name,
+		sys_user_password,
+		mobilePhone,
+		email,
+		open_id,
+		is_cooperation,
+		city,
+		location,
+		wechat_image_path,
+		logo_image_path,
+		licence1_image_path,
+		licence2_image_path,
+		address,
+		expiry_date,
+		valid_period,
+		create_time,
+		update_time,
+		is_del
+		) values (
+		#{agencyName,jdbcType=VARCHAR},
+		#{sysUserName,jdbcType=VARCHAR},
+		#{sysUserPassword,jdbcType=VARCHAR},
+		#{mobilephone,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{openId,jdbcType=VARCHAR},
+		#{isCooperation,jdbcType=INTEGER},
+		#{city,jdbcType=VARCHAR},
+		#{location,jdbcType=VARCHAR},
+		#{wechatImagePath,jdbcType=VARCHAR},
+		#{logoImagePath,jdbcType=VARCHAR},
+		#{licence1ImagePath,jdbcType=VARCHAR},
+		#{licence2ImagePath,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{expiryDate,jdbcType=VARCHAR},
+		#{validPeriod,jdbcType=VARCHAR},
+		now(),
+		now(),
+		0
+		)
+	</insert>
+	
+	<select id="selectAgencyBase" resultType="AgencyBase" parameterType="map">
+		select 
+		id,
+		agency_name as agencyName,
+		sys_user_name as sysUserName,
+		sys_user_password as sysUserPassword,
+		mobilePhone as mobilePhone,
+		email as email,
+		open_id as openId,
+		is_cooperation as isCooperation,
+		city,
+		location,
+		address,
+		wechat_image_path as wechatImagePath,
+		logo_image_path as logoImagePath,
+		create_time as createTime,
+		update_time as updateTime,
+		is_del as isDel
+		from agency_base
+		where is_del = 0
+		limit #{start},#{length}
+	</select>
+	
+	<select id="selectAgencyBaseByOpenId" resultType="AgencyBase" parameterType="String">
+		select 
+		id,
+		agency_name as agencyName,
+		sys_user_name as sysUserName,
+		sys_user_password as sysUserPassword,
+		mobilePhone as mobilePhone,
+		email as email,
+		open_id as openId,
+		is_cooperation as isCooperation,
+		city,
+		location,
+		address,
+		wechat_image_path as wechatImagePath,
+		logo_image_path as logoImagePath,
+		create_time as createTime,
+		update_time as updateTime,
+		is_del as isDel
+		from agency_base
+		where is_del = 0
+		and open_id = #{openId}
+	</select>
+
+
+	<select id="selectAdAgency" resultType="AgencyBase" parameterType="Map">
+		select id, agency_name as agencyName, agency_pic as pic from agency_base where isAd = 1 limit #{offset}, #{rows}
+	</select>
+
+	<select id="selectAgencyByName" resultType="AgencyBase" parameterType="Map">
+		select id, agency_name as agencyName from agency_base where agency_name like #{name} limit #{offset}, #{rows}
+	</select>
+
+</mapper>
+
+
+
+
+>>>>>>> 9abb84c6fedce434784118e1085048e9591cd466

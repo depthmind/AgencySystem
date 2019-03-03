@@ -14,7 +14,7 @@ public interface AgencyBaseMapper extends BaseMapper {
 	
 	AgencyBase selectAgencyBaseByOpenId(String openId);
 
-	List<AgencyBase> selectAdAgency();
+	List<AgencyBase> selectAdAgency(Map params);
 
 	List<AgencyBase> selectAgencyByName(Map map);
 }
