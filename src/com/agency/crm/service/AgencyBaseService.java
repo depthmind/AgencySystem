@@ -90,4 +90,18 @@ public class AgencyBaseService extends BaseService {
 		return agencyBaseMapper.selectAgencyByName(map);
 	}
 
+	/**
+	 * 根据id查询代理商信息
+	 * @param id
+	 * @return
+	 */
+	public AgencyBase findAgencyBaseById(int id) {
+		AgencyBase agencyBase = new AgencyBase();
+		try {
+			agencyBase = agencyBaseMapper.selectAgencyBaseById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return agencyBase;
+	}
 }

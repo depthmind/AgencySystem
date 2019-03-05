@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.agency.crm.common.action.BaseSimpleFormController;
@@ -123,4 +124,18 @@ public class AgencyController extends BaseSimpleFormController {
 		return JSONObject.toJSONString(agencyBaseList);
 	}
 
+	/**
+	 * 用于查询代理商详情
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/findAgencyById.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String findAgencyById(@RequestParam(value="id") Integer id) {
+		String result = "";
+		AgencyBase agencyBase = new AgencyBase();
+		agencyBase = agencyBaseService.findAgencyBaseById(id);
+		result = JSONObject.toJSONString(agencyBase);
+		return result;
+	}
 }
