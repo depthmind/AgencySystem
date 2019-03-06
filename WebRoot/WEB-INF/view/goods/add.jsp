@@ -4,6 +4,10 @@
 <html lang="en">
 <head>
 <%@ include file="../assets/pages/head.jsp"%>
+	<link rel="stylesheet" type="text/css" href="../assets/jquery-easyui-1.7.0themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../assets/jquery-easyui-1.7.0/themes/icon.css">
+	<script type="text/javascript" src="../assets/jquery-easyui-1.7.0／jquery.min.js"></script>
+	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
 </head>
 
 <body>
@@ -14,7 +18,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="glyphicon glyphicon-cog"></i> 产品管理 <span>新增产品</span>
+					<i class="glyphicon glyphicon-cog"></i> 商品管理 <span>新增商品</span>
 				</h2>
 			</div>
 
@@ -26,64 +30,98 @@
           <div class="panel-btns">
             <a href="" class="minimize">&minus;</a>
           </div>
-          <h4 class="panel-title">产品基本信息</h4>
-          <p>填写下表，完成产品创建。</p>
+          <h4 class="panel-title">商品基本信息</h4>
+          <p>填写下表，完成商品创建。</p>
         </div>
         <form class="form-horizontal" id="form">
         <div class="panel-body panel-body-nopadding">
 	        <div class="section-block">    
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">产品名称 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">商品名称 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="产品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">产品编码 </label>
+	              <label class="col-sm-4 control-label">商品编码 </label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsCode" name="goodsCode" placeholder="产品编码" class="form-control" />
+	                <input type="text" id="goodsCode" name="goodsCode" placeholder="商品编码" class="form-control" />
 	              </div>
-	            </div> 			
+	            </div> 		
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">描述 <span class="asterisk">&nbsp;</span></label>
+	              <label class="col-sm-4 control-label">已售数量 </label>
 	              <div class="col-sm-8">
-	                <input type="text" name="depict" placeholder="描述（少于30字）" class="form-control" />
+	                <input type="text" id="soldAmount" name=""soldAmount"" placeholder="前端展示的销量=实际销量+已出售量" class="form-control" />
 	              </div>
 	            </div> 	
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label"> 缩略图 <span class="asterisk">*</span></label>
+	              <div class="col-sm-8">
+	                <input type="file" onchange="xmTanUploadImg(this)" id="thumbnail" name="thumbnail" class="form-control" />
+	              </div>
+	            </div>
+	            <div id="pic"></div>
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label"> 商品图片 <span class="asterisk">*</span></label>
+	              <div class="col-sm-8">
+	                <input type="file" onchange="uploadGoodsPic(this)" id="goodsPic" name="goodsPic" class="form-control" />
+	              </div>
+	            </div>
+	            <div id="pics"></div>
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label">售价 <span class="asterisk">&nbsp;</span></label>
+	              <div class="col-sm-8">
+	                <input type="text" name="sellPrice" placeholder="售价（单位：元）" class="form-control" />
+	              </div>
+	            </div> 	
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label">商品库存 <span class="asterisk">&nbsp;</span></label>
+	              <div class="col-sm-8">
+	                <input type="text" name="stock" placeholder="商品库存" class="form-control" />
+	              </div>
+	            </div> 
 	        </div>
 	        <div class="section-block"> 
-	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">中文 <span class="asterisk">*</span></label>
-	              <div class="col-sm-8">
-	                <input type="text" name="chinese" placeholder="中文（少于30字）" class="form-control" />
-	              </div>
-	            </div>    
-	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">英文 <span class="asterisk">&nbsp;</span></label>
-	              <div class="col-sm-8">
-	                <input type="text" name="english" placeholder="英文（少于32字符）" class="form-control" />
-	              </div>
-	            </div>
-	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">排序标记 <span class="asterisk">*</span></label>
-	              <div class="col-sm-8">
-	                <input type="text" name="sort" placeholder="排序标记" class="form-control" value="0"/>
-	              </div>
-	            </div>
-	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">是否显示 <span class="asterisk">&nbsp;</span></label>
-	              <div class="col-sm-8">
-	                <div class="rdio rdio-primary rdio-inline">
-	                  <input type="radio" id="yes" value="1" name="isdisplay" checked />
-	                  <label for="yes">是</label>
-	                </div><!-- rdio -->
-	                <div class="rdio rdio-primary rdio-inline">
-	                  <input type="radio" id="no" value="0" name="isdisplay">
-	                  <label for="no">否</label>
-	                </div><!-- rdio -->
-	                <label class="error" for="language"></label>
-	              </div>
-	            </div><!-- form-group -->   
+	        	<table id="dg" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:700px;height:auto"
+			data-options="
+				iconCls: 'icon-edit',
+				singleSelect: true,
+				toolbar: '#tb',
+				url: 'datagrid_data1.json',
+				method: 'get',
+				onClickRow: onClickRow
+			">
+		<thead>
+			<tr>
+				<th data-options="field:'itemid',width:80">Item ID</th>
+				<th data-options="field:'productid',width:100,
+						formatter:function(value,row){
+							return row.productname;
+						},
+						editor:{
+							type:'combobox',
+							options:{
+								valueField:'productid',
+								textField:'productname',
+								method:'get',
+								url:'products.json',
+								required:true
+							}
+						}">Product</th>
+				<th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">List Price</th>
+				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">Unit Cost</th>
+				<th data-options="field:'attr1',width:250,editor:'textbox'">Attribute</th>
+				<th data-options="field:'status',width:60,align:'center',editor:{type:'checkbox',options:{on:'P',off:''}}">Status</th>
+			</tr>
+		</thead>
+	</table>
+	<div id="tb" style="height:auto">
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+	</div>
 	        </div>                                          
         </div><!-- panel-body -->
         
@@ -93,7 +131,6 @@
 		</div><!-- panel-footer -->
      </form>   
       </div><!-- panel -->
-
 			</div>
 
 		</div>
@@ -101,30 +138,16 @@
 		<%@ include file="../assets/pages/rightpanel.jsp"%>
 	</section>
 
-
-<!-- Modal -->
-<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">信息</h4>
-      </div>
-      <div class="modal-body">
-        保存数据时出错了
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-      </div>
-    </div><!-- modal-content -->
-  </div><!-- modal-dialog -->
-</div><!-- modal -->
-
-
 	<%@ include file="../assets/pages/foot.jsp"%>
 	<script src="${rootPath}assets/js/jquery.validate.min.js"></script>
 	
 	<script type="text/javascript">
+	var selectedGoodsPic = ''; //定义全局变量，用于存储已选图片
+	if (typeof FileReader == 'undefined') {
+        document.getElementById("xmTanDiv").InnerHTML = "<h1>当前浏览器不支持FileReader接口</h1>";
+        //使选择控件不可操作
+        document.getElementById("thumbnail").setAttribute("disabled", "disabled");
+    }
 	jQuery(document).ready(function() {	
 
 		$(".nav-parent").eq(9).addClass("nav-active");
@@ -227,7 +250,64 @@
 			}, "JSON");
 		}
 	
-		
+		function xmTanUploadImg(obj) {
+            var file = obj.files[0];
+            
+            console.log(obj);console.log(file);
+            console.log("file.size = " + file.size);  //file.size 单位为byte
+
+            var reader = new FileReader();
+
+            //读取文件过程方法
+            reader.onloadstart = function (e) {
+                console.log("开始读取....");
+            }
+            reader.onprogress = function (e) {
+                console.log("正在读取中....");
+            }
+            reader.onabort = function (e) {
+                console.log("中断读取....");
+            }
+            reader.onerror = function (e) {
+                console.log("读取异常....");
+            }
+            reader.onload = function (e) {
+                console.log("成功读取....");
+                var thumbnail = '<img src=\"' + e.target.result + '\"</img>'
+                document.getElementById('pic').innerHTML = thumbnail;
+            }
+            reader.readAsDataURL(file)
+        }
+		var arr = []; //定义存储文件的数组，用于删除已选图片
+		function uploadGoodsPic(obj) {
+            var file = obj.files[0];
+            arr.push(obj.files[0]);
+            console.log(arr);
+            //console.log(obj);console.log(file);
+            //console.log("file.size = " + file.size);  //file.size 单位为byte
+
+            var reader = new FileReader();
+
+            //读取文件过程方法
+            reader.onloadstart = function (e) {
+                console.log("开始读取....");
+            }
+            reader.onprogress = function (e) {
+                console.log("正在读取中....");
+            }
+            reader.onabort = function (e) {
+                console.log("中断读取....");
+            }
+            reader.onerror = function (e) {
+                console.log("读取异常....");
+            }
+            reader.onload = function (e) {
+                console.log("成功读取....");
+                selectedGoodsPic = selectedGoodsPic + '<img style="width:40px;height:40px" src=\"' + e.target.result + '\"</img>'
+                document.getElementById('pics').innerHTML = selectedGoodsPic;
+            }
+            reader.readAsDataURL(file)
+        }
 	</script>
 
 </body>

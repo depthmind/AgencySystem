@@ -54,7 +54,7 @@
 	
 
 	<!-- 拦截器 -->
- 	<mvc:interceptors>
+ 	<!-- <mvc:interceptors>
 		<mvc:interceptor>
 			 <mvc:mapping path="/**/*.html" /> 
 			 
@@ -79,7 +79,7 @@
 				</property>
 			</bean>
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
 
 	<!--通用视图解析器 -->
 	<bean id="viewResolverCommon"

@@ -63,7 +63,7 @@ public class GoodsController {
     @RequestMapping(value = "/addGoodsAndProduct.html", produces = "application/json;charset=utf-8")
     public String addGoodsPage(Model model) {
     	
-    	return "";
+    	return "/goods/add";
     }
     /**
      * 
