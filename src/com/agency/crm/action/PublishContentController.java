@@ -99,6 +99,12 @@ public class PublishContentController extends BaseSimpleFormController {
 		return JSONObject.toJSONString(publishContents);
 	}
 	
+	/**
+	 * 用于发布信息详情页面
+	 * @param id
+	 * @return
+	 * @author liuhan
+	 */
 	@RequestMapping(value = "/findPublishContentById.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String findPublishContentById(@RequestParam(value="id") Integer id) {

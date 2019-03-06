@@ -62,7 +62,7 @@
 		select id, category, description, images, contact_name as contactName, mobilephone, city, location,
 		update_time as updateTime, create_time as createTime from publish_content
 		where id = #{id}
-		and isdel = 0
+		and is_del = 0
 	</select>
 </mapper>
 

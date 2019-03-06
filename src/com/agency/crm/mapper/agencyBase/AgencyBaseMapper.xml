@@ -107,4 +107,28 @@
 		select id, agency_name as agencyName from agency_base where agency_name like #{name} limit #{offset}, #{rows}
 	</select>
 
+	<select id="selectAgencyBaseById" resultType="AgencyBase" parameterType="int">
+		select 
+		id,
+		agency_name as agencyName,
+		sys_user_name as sysUserName,
+		sys_user_password as sysUserPassword,
+		mobilePhone as mobilePhone,
+		email as email,
+		open_id as openId,
+		is_cooperation as isCooperation,
+		city,
+		location,
+		address,
+		wechat_image_path as wechatImagePath,
+		logo_image_path as logoImagePath,
+		licence1_image_path as licence1ImagePath,
+		licence2_image_path as licence2ImagePath,
+		create_time as createTime,
+		update_time as updateTime,
+		is_del as isDel
+		from agency_base
+		where is_del = 0
+		and id = #{id}
+	</select>
 </mapper>
