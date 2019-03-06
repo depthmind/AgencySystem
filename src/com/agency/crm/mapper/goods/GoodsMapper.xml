@@ -43,5 +43,28 @@
         <!--</if>-->
     </select>
 
-
+	<insert id="saveGoods" parameterType="Goods">
+		<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
+      	insert into goods(
+      		product_id,
+      		agency_id,
+      		goods_name,
+      		goods_description,
+      		is_top,
+      		create_time,
+      		update_time,
+      		is_del
+      	) values (
+      		#{productId,VARCHAR},
+      		#{agencyId,VARCHAR},
+      		#{goodsName,VARCHAR},
+      		#{goodsDescription,VARCHAR},
+      		#{isTop,INTEGER},
+      		now(),
+      		now(),
+      		0
+      	)
+	</insert>
 </mapper>

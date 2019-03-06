@@ -1,11 +1,13 @@
 package com.agency.crm.action;
 
+import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.entity.Goods;
 import com.agency.crm.service.GoodsService;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,5 +60,26 @@ public class GoodsController {
         return JSON.toJSONString(goodsList);
     }
 
-
+    @RequestMapping(value = "/addGoodsAndProduct.html", produces = "application/json;charset=utf-8")
+    public String addGoodsPage(Model model) {
+    	
+    	return "";
+    }
+    /**
+     * 
+     * @date 2019年3月6日 下午5:40:29
+     * @author LiuHan
+     * @TODO 新增产品
+     */
+    @RequestMapping(value = "/addGoodsAndProduct.do", produces = "application/json;charset=utf-8")
+    public Json addGoods(Goods goods) {
+    	Json json = new Json();
+    	json.setSuccess(false);
+    	int result = 0;
+    	result = goodsService.saveGoods(goods);
+    	if (result > 0) {
+    		json.setSuccess(true);
+    	}
+    	return json;
+    }
 }

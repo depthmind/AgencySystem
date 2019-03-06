@@ -20,4 +20,13 @@ public class GoodsService {
         return goodsMapper.selectGoods(params);
     }
 
+    public int saveGoods(Goods goods) {
+    	int result = 0;
+    	try {
+    		result = goodsMapper.saveGoods(goods);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return result;
+    }
 }

@@ -10,5 +10,5 @@ public interface GoodsMapper {
     //查询所有商品--分页
     List<Goods> selectGoods(Map<String, Object> params);
 
-
+    int saveGoods(Goods goods);
 }
