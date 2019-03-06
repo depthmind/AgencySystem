@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.agency.crm.utils.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +63,7 @@ public class AgencyController extends BaseSimpleFormController {
 	
 	@RequestMapping(value = "/findAgencyBase.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String findAgencyBase(String offset, String limit) {
+	public String findAgencyBase(String offset, String limit, @RequestParam(required = false) String currentLat, @RequestParam(required = false) String currentLon, @RequestParam(required = false) String city) {
 		String result = "";
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (StringUtils.isNotBlank(offset) && StringUtils.isNotBlank(limit)) {
@@ -69,9 +71,17 @@ public class AgencyController extends BaseSimpleFormController {
 			int limitInt = Integer.parseInt(limit);
 			map.put("start", offsetInt);
 			map.put("length", limitInt);
+			map.put("city", city);
 		}
 		List<AgencyBase> list = new ArrayList<AgencyBase>();
 		list = agencyBaseService.findAgencyBase(map);
+		if (StringUtils.isNotBlank(currentLat) && StringUtils.isNotBlank(currentLon) && list.size() > 0) {
+			for (AgencyBase agencyBase : list) {
+				if (StringUtils.isNotBlank(agencyBase.getLatitude()) && StringUtils.isNotBlank(agencyBase.getLongitude())) {
+					agencyBase.setDistance(String.valueOf(MapUtils.GetDistance(Double.parseDouble(currentLat), Double.parseDouble(currentLon), Double.parseDouble(agencyBase.getLatitude()), Double.parseDouble(agencyBase.getLongitude()))));
+				}
+			}
+		}
 		result = JSONObject.toJSONString(list);
 		return result;
 	}

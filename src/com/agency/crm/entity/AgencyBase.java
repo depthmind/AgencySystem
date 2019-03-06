@@ -32,9 +32,17 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String licence2ImagePath;
 	private Date expiryDate;
 	private String validPeriod;
-	private String pic;
 	private String isAd;
 	private String area;
+	private String distance;
+
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
 
 	public String getArea() {
 		return area;
@@ -52,13 +60,6 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 		this.isAd = isAd;
 	}
 
-	public String getPic() {
-		return pic;
-	}
-
-	public void setPic(String pic) {
-		this.pic = pic;
-	}
 
 	public Date getExpiryDate() {
 		return expiryDate;

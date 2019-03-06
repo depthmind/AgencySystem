@@ -69,9 +69,14 @@
 		logo_image_path as logoImagePath,
 		create_time as createTime,
 		update_time as updateTime,
+		latitude as latitude,
+		longitude as longitude,
 		is_del as isDel
 		from agency_base
 		where is_del = 0
+		<if test="city != null and city != ''">
+			and city = #{city}
+		</if>
 		limit #{start},#{length}
 	</select>
 	
@@ -100,7 +105,7 @@
 
 
 	<select id="selectAdAgency" resultType="AgencyBase" parameterType="Map">
-		select id, agency_name as agencyName, agency_pic as pic from agency_base where isAd = 1 limit #{offset}, #{rows}
+		select id, agency_name as agencyName, logo_image_path as logoImagePath from agency_base where isAd = 1 limit #{offset}, #{rows}
 	</select>
 
 	<select id="selectAgencyByName" resultType="AgencyBase" parameterType="Map">
