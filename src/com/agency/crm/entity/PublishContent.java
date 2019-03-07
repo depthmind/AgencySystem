@@ -31,6 +31,10 @@ public class PublishContent extends BaseBean<PublishContent> {
 	private String mobilephone;
 	
 	private String city;
+
+	private String province;
+
+	private String area;
 	
 	private String location;
 	
@@ -43,6 +47,23 @@ public class PublishContent extends BaseBean<PublishContent> {
 	private Integer isDel;
 	
 	private String address;
+
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
 
 	public String getCity() {
 		return city;

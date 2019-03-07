@@ -63,7 +63,6 @@
 		open_id as openId,
 		is_cooperation as isCooperation,
 		city,
-		location,
 		address,
 		wechat_image_path as wechatImagePath,
 		logo_image_path as logoImagePath,
@@ -76,6 +75,12 @@
 		where is_del = 0
 		<if test="city != null and city != ''">
 			and city = #{city}
+		</if>
+		<if test="province != null and province != ''">
+			and province = #{province}
+		</if>
+		<if test="area != null and area != ''">
+			and area = #{area}
 		</if>
 		limit #{start},#{length}
 	</select>
