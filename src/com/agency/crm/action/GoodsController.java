@@ -8,7 +8,6 @@ import com.alibaba.fastjson.JSON;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,27 +42,36 @@ public class GoodsController {
             @RequestParam(required = false) String isTop,
             @RequestParam(required = false) String isDel,
             @RequestParam(required = false) String offset,
-            @RequestParam(required = false) String rows) {
+            @RequestParam(required = false) String rows,
+            @RequestParam(required = false) String province,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String area) {
 
         Map params = new HashMap();
-        if (!StringUtils.isEmpty(id))
+        if (StringUtils.isNotBlank(id))
             params.put("id", Long.parseLong(id));
-        if (!StringUtils.isEmpty(productId))
+        if (StringUtils.isNotBlank(productId))
             params.put("productId", productId);
-        if (!StringUtils.isEmpty(agencyId))
+        if (StringUtils.isNotBlank(agencyId))
             params.put("agencyId", Long.parseLong(agencyId));
-        if (!StringUtils.isEmpty(goodsName))
+        if (StringUtils.isNotBlank(goodsName))
             params.put("goodsName", "%" + goodsName + "%");
-        if (!StringUtils.isEmpty(goodsDescription))
+        if (StringUtils.isNotBlank(goodsDescription))
             params.put("goodsDescription", goodsDescription);
-        if (!StringUtils.isEmpty(isTop))
+        if (StringUtils.isNotBlank(isTop))
             params.put("isTop", Integer.parseInt(isTop));
-        if (!StringUtils.isEmpty(isDel))
+        if (StringUtils.isNotBlank(isDel))
             params.put("isDel", Integer.parseInt(isDel));
-        if (!StringUtils.isEmpty(offset))
+        if (StringUtils.isNotBlank(offset))
             params.put("offset", Integer.parseInt(offset));
-        if (!StringUtils.isEmpty(rows))
+        if (StringUtils.isNotBlank(rows))
             params.put("rows", Integer.parseInt(rows));
+        if (StringUtils.isNotBlank(province))
+            params.put("province", province);
+        if (StringUtils.isNotBlank(city))
+            params.put("city", city);
+        if (StringUtils.isNotBlank(area))
+            params.put("area", area);
 
         List<Goods> goodsList = goodsService.getGoods(params);
         return JSON.toJSONString(goodsList);

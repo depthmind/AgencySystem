@@ -5,10 +5,14 @@ public class Goods {
     private long id;
     private long productId;
     private long agencyId;
+    private String province;
+    private String city;
+    private String area;
     private String productName;
     private String agencyName;
     private String goodsName;
     private String goodsDescription;
+    private String goodsPic;
 
     public Goods(long id, long productId, long agencyId, String productName, String agencyName, String goodsName, String goodsDescription) {
         this.id = id;
@@ -18,6 +22,38 @@ public class Goods {
         this.agencyName = agencyName;
         this.goodsName = goodsName;
         this.goodsDescription = goodsDescription;
+    }
+
+    public String getGoodsPic() {
+        return goodsPic;
+    }
+
+    public void setGoodsPic(String goodsPic) {
+        this.goodsPic = goodsPic;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public String getProductName() {

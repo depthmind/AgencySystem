@@ -19,6 +19,7 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String openId;
 	private Integer isCooperation;
 	private String city;
+	private String province;
 	private String location;
 	private Date createTime;
 	private Date updateTime;
@@ -38,6 +39,14 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 
 	public String getDistance() {
 		return distance;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
 	}
 
 	public void setDistance(String distance) {
