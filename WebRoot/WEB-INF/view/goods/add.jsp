@@ -3,6 +3,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<style type="text/css">
+        .img-div{
+            border: 1px solid #ddd;
+            border-radius: 100%;
+            float: left;
+            line-height: 1;
+            margin-left: 5px;
+            overflow: hidden;
+        }
+    </style>
 <%@ include file="../assets/pages/head.jsp"%>
 	<%-- <link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/icon.css"> --%>
@@ -31,7 +41,7 @@
           <h4 class="panel-title">商品基本信息</h4>
           <p>填写下表，完成商品创建。</p>
         </div>
-        <form class="form-horizontal" id="form">
+        <form class="form-horizontal" id="form" enctype="multipart/form-data" method="POST" action="${rootPath}upload/filesUpload">
         <div class="panel-body panel-body-nopadding">
 	        <div class="section-block">    
 	            <div class="form-group col-sm-4">
@@ -62,10 +72,18 @@
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label"> 商品图片 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="file" onchange="uploadGoodsPic(this)" id="goodsPic" name="goodsPic" class="form-control" />
+	                <input type="file" multiple="multiple" onchange="uploadGoodsPic(this)" id="goodsPic" name="goodsPic" class="form-control" />
 	              </div>
 	            </div>
 	            <div id="pics"></div>
+	            <div class="img-box" id="imgboxid">
+ 
+    </div>
+ 
+	                  <div id="xmTanDiv"></div><br/>
+	            <div id="errordiv"   style="margin-top:15px;width:100%;text-align:center;">
+	            <input id="bt" type="button" onclick="test(this)" value="提交" /> 
+            </div>
 	            <!-- <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">售价 <span class="asterisk">&nbsp;</span></label>
 	              <div class="col-sm-8">
@@ -151,7 +169,7 @@
         document.getElementById("thumbnail").setAttribute("disabled", "disabled");
     }
 	jQuery(document).ready(function() {	
-		jQuery("#form").validate({
+		/* jQuery("#form").validate({
 			rules: {
 				goodsName: {
 					required:true,
@@ -187,7 +205,7 @@
 		      form_submit();
 		      return false;
 		    }
-		  });
+		  }); */
 		$("#btn-back").click( function () {
 			history.go(-1);
 	    } ); 
@@ -215,7 +233,7 @@
 			      
 		function form_submit() {
 			var f = $("#form").serialize();
-			$.post('${rootPath}parameter/add.do', f, function(result) {
+			$.post('${rootPath}upload/filesUpload?filePath=' + fileObj, f, function(result) {
 				var rmsg = result.msg;
 				if (result.success) {
 					window.parent.location = "${rootPath}parameter/add.html";
@@ -223,6 +241,21 @@
 					$("#msgModal").modal('show');
 				}
 			}, "JSON");
+			/* $.ajax({
+			    url: '${rootPath}upload/filesUpload',
+			    type: 'post',
+			    dataType: 'multipart/form-data',
+			    data: {
+			    	filePath: JSON.stringify(arr),  //JSON.stringify() 方法用于将JavaScript值转换为 JSON 字符串，缺少此句传到后台的则为空值
+			        //sumID: sumID  //datagrid未显示出来的那个字段，表中的三行的这个字段相同，都为1L，传递到后台供保存到数据库时使用
+			    },
+			    success: function(response) {  //后台返回的要显示的消息
+			        $.messager.show({
+			            title:'提示',
+			            msg: response.msg
+			        });
+			    }
+			}); */
 		}
 	
 		function xmTanUploadImg(obj) {
@@ -254,8 +287,11 @@
             reader.readAsDataURL(file)
         }
 		var arr = []; //定义存储文件的数组，用于删除已选图片
+		var fileObj;
+		var fd = new FormData();
 		function uploadGoodsPic(obj) {
-            var file = obj.files[0];
+			fileObj = obj
+            /* var file = obj.files[0];
             arr.push(obj.files[0]);
             console.log(arr);
             //console.log(obj);console.log(file);
@@ -281,7 +317,41 @@
                 selectedGoodsPic = selectedGoodsPic + '<img style="width:40px;height:40px" src=\"' + e.target.result + '\"</img>'
                 document.getElementById('pics').innerHTML = selectedGoodsPic;
             }
-            reader.readAsDataURL(file)
+            reader.readAsDataURL(file) */
+			var fl=obj.files.length;
+	        for(var i=0;i<fl;i++){
+	            var file=obj.files[i];
+	            var reader = new FileReader();
+	 
+	            //读取文件过程方法
+	 
+	            reader.onloadstart = function (e) {
+	                console.log("开始读取....");
+	            }
+	            reader.onprogress = function (e) {
+	                console.log("正在读取中....");
+	            }
+	            reader.onabort = function (e) {
+	                console.log("中断读取....");
+	            }
+	            reader.onerror = function (e) {
+	                console.log("读取异常....");
+	            }
+	            reader.onload = function (e) {
+	                console.log("成功读取....");
+	 
+	                var imgstr='<img style="width:100px;height:100px;" src="'+e.target.result+'"/>';
+	                var oimgbox=document.getElementById("imgboxid");
+	                var ndiv=document.createElement("div");
+	 
+	                ndiv.innerHTML=imgstr;
+	                ndiv.className="img-div";
+	                oimgbox.appendChild(ndiv);
+	               
+	            }
+	 
+	            reader.readAsDataURL(file);
+	            fd.append(i,this.files[i]);
         }
 		
 		var editIndex = undefined;
@@ -361,6 +431,7 @@
 			var rows = $('#dg').datagrid('getChanges');
 			alert(rows.length+' rows are changed!');
 		}
+	}
 	</script>
 
 </body>

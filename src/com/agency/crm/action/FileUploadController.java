@@ -24,9 +24,10 @@ public class FileUploadController extends BaseSimpleFormController {
 	@RequestMapping("/filesUpload")
 	@ResponseBody
     //requestParam要写才知道是前台的那个数组
-    public String filesUpload(@RequestParam("filePath") MultipartFile[] files,
+    public String filesUpload(@RequestParam("goodsPic") MultipartFile[] files,
             HttpServletRequest request) {
         List<String> list = new ArrayList<String>();
+        String goodsName = request.getParameter("goodsName");
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
                 MultipartFile file = files[i];
