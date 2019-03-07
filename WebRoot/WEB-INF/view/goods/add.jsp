@@ -4,10 +4,8 @@
 <html lang="en">
 <head>
 <%@ include file="../assets/pages/head.jsp"%>
-	<link rel="stylesheet" type="text/css" href="../assets/jquery-easyui-1.7.0themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../assets/jquery-easyui-1.7.0/themes/icon.css">
-	<script type="text/javascript" src="../assets/jquery-easyui-1.7.0／jquery.min.js"></script>
-	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/icon.css">
 </head>
 
 <body>
@@ -82,45 +80,46 @@
 	            </div> 
 	        </div>
 	        <div class="section-block"> 
-	        	<table id="dg" class="easyui-datagrid" title="Row Editing in DataGrid" style="width:700px;height:auto"
+	        	<table id="dg" class="easyui-datagrid" title="规格管理" style="width:700px;height:auto"
 			data-options="
 				iconCls: 'icon-edit',
 				singleSelect: true,
+				rownumbers:true,
 				toolbar: '#tb',
-				url: 'datagrid_data1.json',
 				method: 'get',
 				onClickRow: onClickRow
 			">
 		<thead>
 			<tr>
-				<th data-options="field:'itemid',width:80">Item ID</th>
-				<th data-options="field:'productid',width:100,
+				<th data-options="field:'id',width:80" hidden="true">ID</th>
+				<th data-options="field:'productName',width:80,editor:'textbox'">规格名称</th>
+				<%-- <th data-options="field:'productName',width:100,
 						formatter:function(value,row){
-							return row.productname;
+							return row.productName;
 						},
 						editor:{
 							type:'combobox',
 							options:{
-								valueField:'productid',
-								textField:'productname',
+								valueField:'id',
+								textField:'productName',
 								method:'get',
-								url:'products.json',
+								url:'${rootPath }goods/findProductByGoodsId',
 								required:true
 							}
-						}">Product</th>
-				<th data-options="field:'listprice',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">List Price</th>
-				<th data-options="field:'unitcost',width:80,align:'right',editor:'numberbox'">Unit Cost</th>
-				<th data-options="field:'attr1',width:250,editor:'textbox'">Attribute</th>
-				<th data-options="field:'status',width:60,align:'center',editor:{type:'checkbox',options:{on:'P',off:''}}">Status</th>
+						}">规格名称</th> --%>
+				<th data-options="field:'price',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">价格</th>
+				<th data-options="field:'stock',width:80,align:'right',editor:'numberbox'">库存</th>
+				<th data-options="field:'description',width:250,editor:'textbox'">描述</th>
+				<th data-options="field:'status',width:60,align:'center',editor:{type:'checkbox',options:{on:'在售',off:'下架'}}">状态</th>
 			</tr>
 		</thead>
 	</table>
 	<div id="tb" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">Append</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">Remove</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">Accept</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">Reject</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">新增</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
+		<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a> -->
 	</div>
 	        </div>                                          
         </div><!-- panel-body -->
@@ -140,6 +139,8 @@
 
 	<%@ include file="../assets/pages/foot.jsp"%>
 	<script src="${rootPath}assets/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="${rootPath}assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${rootPath}assets/js/jquery.easyui.min.js"></script>
 	
 	<script type="text/javascript">
 	var selectedGoodsPic = ''; //定义全局变量，用于存储已选图片
@@ -308,6 +309,84 @@
             }
             reader.readAsDataURL(file)
         }
+		
+		var editIndex = undefined;
+		function endEditing(){
+			if (editIndex == undefined){return true}
+			if ($('#dg').datagrid('validateRow', editIndex)){
+				var ed = $('#dg').datagrid('getEditor', {index:editIndex,field:'productName'});
+				var productName = $(ed.target).combobox('getText');
+				$('#dg').datagrid('getRows')[editIndex]['productName'] = productName;
+				$('#dg').datagrid('endEdit', editIndex);
+				editIndex = undefined;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		function onClickRow(index){
+			if (editIndex != index){
+				if (endEditing()){
+					$('#dg').datagrid('selectRow', index)
+							.datagrid('beginEdit', index);
+					editIndex = index;
+				} else {
+					$('#dg').datagrid('selectRow', editIndex);
+				}
+			}
+		}
+		function append(){
+			if (endEditing()){
+				$('#dg').datagrid('appendRow',{status:'P'});
+				editIndex = $('#dg').datagrid('getRows').length-1;
+				$('#dg').datagrid('selectRow', editIndex)
+						.datagrid('beginEdit', editIndex);
+			}
+		}
+		function removeit(){
+			if (editIndex == undefined){return}
+			$('#dg').datagrid('cancelEdit', editIndex)
+					.datagrid('deleteRow', editIndex);
+			editIndex = undefined;
+		}
+		function accept(){
+			if (endEditing()){
+				$('#dg').datagrid('acceptChanges');
+				var addrows = $("#dg").datagrid('getRows'); //获取加项列表中的所有行，上面截图中datagrid的"id=additem"
+				var str = [];        //声明一个数组，是一个数组对象
+				for(var i=0; i<addrows.length; i++) {
+				    var arr = {};           //声明一个对象
+				    arr.id = addrows[i].id;  //未在datagrid中显示该字段,但数据库中存在，并且后面后台的保存操作也是根据该字段来进行
+				    arr.productName = addrows[i].productName;  //名称
+				    arr.price = addrows[i].price; 
+				    arr.stock = addrows[i].stock; 
+				    str[i] = arr;   //
+				}
+				$.ajax({
+				    url: '${rootPath}goods/saveProduct.do',
+				    type: 'post',
+				    dataType: 'json',
+				    data: {
+				        equations: JSON.stringify(str),  //JSON.stringify() 方法用于将JavaScript值转换为 JSON 字符串，缺少此句传到后台的则为空值
+				        //sumID: sumID  //datagrid未显示出来的那个字段，表中的三行的这个字段相同，都为1L，传递到后台供保存到数据库时使用
+				    },
+				    success: function(response) {  //后台返回的要显示的消息
+				        $.messager.show({
+				            title:'提示',
+				            msg: response.msg
+				        });
+				    }
+				});
+			}
+		}
+		function reject(){
+			$('#dg').datagrid('rejectChanges');
+			editIndex = undefined;
+		}
+		function getChanges(){
+			var rows = $('#dg').datagrid('getChanges');
+			alert(rows.length+' rows are changed!');
+		}
 	</script>
 
 </body>

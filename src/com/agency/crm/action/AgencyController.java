@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.agency.crm.utils.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -78,7 +77,7 @@ public class AgencyController extends BaseSimpleFormController {
 		if (StringUtils.isNotBlank(currentLat) && StringUtils.isNotBlank(currentLon) && list.size() > 0) {
 			for (AgencyBase agencyBase : list) {
 				if (StringUtils.isNotBlank(agencyBase.getLatitude()) && StringUtils.isNotBlank(agencyBase.getLongitude())) {
-					agencyBase.setDistance(String.valueOf(MapUtils.GetDistance(Double.parseDouble(currentLat), Double.parseDouble(currentLon), Double.parseDouble(agencyBase.getLatitude()), Double.parseDouble(agencyBase.getLongitude()))));
+					//agencyBase.setDistance(String.valueOf(MapUtils.GetDistance(Double.parseDouble(currentLat), Double.parseDouble(currentLon), Double.parseDouble(agencyBase.getLatitude()), Double.parseDouble(agencyBase.getLongitude()))));
 				}
 			}
 		}
