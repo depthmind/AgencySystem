@@ -4,8 +4,8 @@
 <html lang="en">
 <head>
 <%@ include file="../assets/pages/head.jsp"%>
-	<link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/icon.css">
+	<%-- <link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="${rootPath}assets/jquery-easyui-1.7.0/themes/icon.css"> --%>
 </head>
 
 <body>
@@ -66,7 +66,7 @@
 	              </div>
 	            </div>
 	            <div id="pics"></div>
-	            <div class="form-group col-sm-4">
+	            <!-- <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">售价 <span class="asterisk">&nbsp;</span></label>
 	              <div class="col-sm-8">
 	                <input type="text" name="sellPrice" placeholder="售价（单位：元）" class="form-control" />
@@ -77,9 +77,9 @@
 	              <div class="col-sm-8">
 	                <input type="text" name="stock" placeholder="商品库存" class="form-control" />
 	              </div>
-	            </div> 
+	            </div> --> 
 	        </div>
-	        <div class="section-block"> 
+	        <%-- <div class="section-block"> 
 	        	<table id="dg" class="easyui-datagrid" title="规格管理" style="width:700px;height:auto"
 			data-options="
 				iconCls: 'icon-edit',
@@ -87,13 +87,14 @@
 				rownumbers:true,
 				toolbar: '#tb',
 				method: 'get',
+				url:'${rootPath }miniApp/findAllProduct.do',
 				onClickRow: onClickRow
 			">
 		<thead>
 			<tr>
 				<th data-options="field:'id',width:80" hidden="true">ID</th>
 				<th data-options="field:'productName',width:80,editor:'textbox'">规格名称</th>
-				<%-- <th data-options="field:'productName',width:100,
+				<th data-options="field:'productName',width:100,
 						formatter:function(value,row){
 							return row.productName;
 						},
@@ -106,7 +107,7 @@
 								url:'${rootPath }goods/findProductByGoodsId',
 								required:true
 							}
-						}">规格名称</th> --%>
+						}">规格名称</th>
 				<th data-options="field:'price',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">价格</th>
 				<th data-options="field:'stock',width:80,align:'right',editor:'numberbox'">库存</th>
 				<th data-options="field:'description',width:250,editor:'textbox'">描述</th>
@@ -121,7 +122,7 @@
 		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
 		<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a> -->
 	</div>
-	        </div>                                          
+	        </div> --%>                                          
         </div><!-- panel-body -->
         
         <div class="panel-footer align-center">
@@ -139,8 +140,8 @@
 
 	<%@ include file="../assets/pages/foot.jsp"%>
 	<script src="${rootPath}assets/js/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="${rootPath}assets/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${rootPath}assets/js/jquery.easyui.min.js"></script>
+	<%-- <script type="text/javascript" src="${rootPath}assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="${rootPath}assets/js/jquery.easyui.min.js"></script> --%>
 	
 	<script type="text/javascript">
 	var selectedGoodsPic = ''; //定义全局变量，用于存储已选图片
@@ -150,55 +151,28 @@
         document.getElementById("thumbnail").setAttribute("disabled", "disabled");
     }
 	jQuery(document).ready(function() {	
-
-		$(".nav-parent").eq(9).addClass("nav-active");
-      	$(".nav-parent").eq(9).find(".children").show();
-
 		jQuery("#form").validate({
 			rules: {
-				domain: {
+				goodsName: {
 					required:true,
-					isDomain:true,
 				},
-				value:{  
-			         	required:true,  
-			            remote:{                           
-			            	url:"${rootPath}validate.do",
-			            	type:"post",
-			            	data: {
-		                         table: function () { return "tm_parameter"},
-		                         field: function () { return "para_value"},
-		                         filter_field: function () { return "para_domain"},
-		                         filter_name: function () { return $("#domain").val();},
-		                         name: function () { return $("#value").val();},
-		                         }
-			            },
-			        	isValue:true,
-			        },
-				chinese: {
+				goodsPic: {
 					required:true,
-					isChinese:true,
 				},
-				sort:"digits",
-				depict:{
-					isDepict:true,
-				},
-				english:{
-					isEnglish:true,
+				thumbnail: {
+					required:true,
 				}
 			},
 			messages: {
-				domain: {
-					required:"请输入作用域",
+				goodsName: {
+					required:"请输入商品名称",
 				},
-				value: {
-					required:"请输入值",
-					remote:"该值已存在，请重新输入",
+				goodsPic: {
+					required:"请上传商品图片",
 				},
-				chinese: {
-					required:"请输入中文",
-				},
-				sort: "排序标记必须是整数"
+				thumbnail: {
+					required:"请上传缩略图",
+				}
 			},
 		    highlight: function(element) {
 		      jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');

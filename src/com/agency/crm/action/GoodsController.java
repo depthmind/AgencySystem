@@ -2,8 +2,12 @@ package com.agency.crm.action;
 
 import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.entity.Goods;
+import com.agency.crm.entity.Product;
 import com.agency.crm.service.GoodsService;
 import com.alibaba.fastjson.JSON;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,8 +102,19 @@ public class GoodsController {
     @ResponseBody
     public Json saveProduct(HttpServletRequest request, String equations) {
     	Json json = new Json();
-    	Map maps = (Map)JSON.parse(equations);
-    	System.out.print(maps);
+    	Product product = null;
+    	List<Product> productList = new ArrayList<Product>();
+    	JSONArray jsonArray = JSONArray.fromObject(equations);
+    	for(int i = 0; i < jsonArray.size(); i++){
+    		product = new Product();
+    		JSONObject object = jsonArray.getJSONObject(i);
+    		System.out.println(object.getString("productName"));
+    		product.setPrice(new BigDecimal(object.getString("price")));
+    		product.setProductName(object.getString("productName"));
+    		product.setStock(object.getInt("stock"));
+    		productList.add(product);
+    	}
+    	int result = goodsService.saveProductByBatch(productList);
     	json.setSuccess(false);
     	System.out.print(equations);
     	return json;

@@ -1,6 +1,7 @@
 package com.agency.crm.mapper.goods;
 
 import com.agency.crm.entity.Goods;
+import com.agency.crm.entity.Product;
 
 import java.util.List;
 import java.util.Map;
@@ -11,4 +12,6 @@ public interface GoodsMapper {
     List<Goods> selectGoods(Map<String, Object> params);
 
     int saveGoods(Goods goods);
+    
+    int saveProductByBatch(List<Product> list);
 }

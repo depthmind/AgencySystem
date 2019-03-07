@@ -1,7 +1,10 @@
 package com.agency.crm.service;
 
 import com.agency.crm.entity.Goods;
+import com.agency.crm.entity.Product;
 import com.agency.crm.mapper.goods.GoodsMapper;
+import com.agency.crm.mapper.product.ProductMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,16 @@ public class GoodsService {
     	int result = 0;
     	try {
     		result = goodsMapper.saveGoods(goods);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return result;
+    }
+    
+    public int saveProductByBatch(List<Product> list) {
+    	int result = 0;
+    	try {
+    		result = goodsMapper.saveProductByBatch(list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

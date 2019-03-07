@@ -67,4 +67,25 @@
       		0
       	)
 	</insert>
+	
+	<insert id="saveProductByBatch" parameterType="Product">
+		insert into product(
+      		product_name,
+      		price,
+      		stock,
+      		create_time,
+      		update_time,
+      		is_del
+		) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.productName,jdbcType=VARCHAR},
+				#{item.price,jdbcType=DECIMAL},
+				#{item.stock,jdbcType=INTEGER},
+				now(),
+				now(),
+				0
+			)
+		</foreach>
+	</insert>
 </mapper>
