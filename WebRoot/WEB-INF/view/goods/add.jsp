@@ -41,7 +41,7 @@
           <h4 class="panel-title">商品基本信息</h4>
           <p>填写下表，完成商品创建。</p>
         </div>
-        <form class="form-horizontal" id="form" enctype="multipart/form-data" method="POST" action="${rootPath}upload/filesUpload">
+        <form class="form-horizontal" id="form" enctype="multipart/form-data" method="POST" action="${rootPath}goods/addGoodsAndProduct.do">
         <div class="panel-body panel-body-nopadding">
 	        <div class="section-block">    
 	            <div class="form-group col-sm-4">
@@ -56,12 +56,12 @@
 	                <input type="text" id="goodsCode" name="goodsCode" placeholder="商品编码" class="form-control" />
 	              </div>
 	            </div> 		
-	            <div class="form-group col-sm-4">
+	            <!-- <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">已售数量 </label>
 	              <div class="col-sm-8">
 	                <input type="text" id="soldAmount" name=""soldAmount"" placeholder="前端展示的销量=实际销量+已出售量" class="form-control" />
 	              </div>
-	            </div> 	
+	            </div> --> 	
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label"> 缩略图 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
@@ -82,7 +82,6 @@
  
 	                  <div id="xmTanDiv"></div><br/>
 	            <div id="errordiv"   style="margin-top:15px;width:100%;text-align:center;">
-	            <input id="bt" type="button" onclick="test(this)" value="提交" /> 
             </div>
 	            <!-- <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">售价 <span class="asterisk">&nbsp;</span></label>

@@ -45,4 +45,6 @@ public class Constants {
 	public static final String NOTIFY_URL = "http://www.caoxianyoushun.com/pay/callback"; //接收微信支付异步通知回调地址
 	
 	public static final String TRADE_TYPE_JSAPI = "JSAPI"; //公众号H5支付的交易类型
+	
+	public final static String WEIXIN_APP_TEMPLATE_ID = "DeljJ7Gmb1gUpYVXgApjMUXEAuvRExeoTHA7mRf7dkA"; //小程序模板消息通知
 }

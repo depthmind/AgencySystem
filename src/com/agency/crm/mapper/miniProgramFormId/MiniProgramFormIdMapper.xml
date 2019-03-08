@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tourmade.wechat.mapper.miniProgramFormId.MiniProgramFormIdMapper">
+	<resultMap type="com.tourmade.wechat.entity.MiniProgramFormId" id="resultMap">
+		<id property="id" column="id" javaType="int" jdbcType="INTEGER"/>
+		<result property="formId" column="form_id" javaType="String" jdbcType="VARCHAR"/>
+		<result property="openId" column="open_id" javaType="String" jdbcType="VARCHAR"/>
+		<result property="createTime" column="create_time" javaType="java.sql.Date" jdbcType="DATE"/>
+		<result property="updateTime" column="update_time" javaType="java.sql.Date" jdbcType="DATE"/>
+		<result property="isdel" column="isdel" javaType="int" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="selectFormIdByCreateTime" parameterType="String" resultMap="resultMap">
+		select id,form_id,open_id,create_time,update_time,isdel
+		from tm_mini_program_form_id 
+		where isdel = 0
+		and open_id = #{openId}
+		order by create_time
+		limit 0,1
+	</select>
+	
+	<insert id="saveMiniProgramFormId" parameterType="MiniProgramFormId" flushCache="true" useGeneratedKeys="true" keyProperty="id" keyColumn="GENERATED_KEY">
+		insert into tm_mini_program_form_id(
+		form_id,
+		open_id,
+		create_time,
+		update_time,
+		isdel
+		) values (
+		#{formId},
+		#{openId},
+		now(),
+		now(),
+		0
+		)
+	</insert>
+	
+	<update id="deleteMiniProgramFormId" parameterType="String" flushCache="true">
+		update tm_mini_program_form_id set
+		isdel = 1,
+		update_time = now()
+		where form_id = #{formId}
+		and isdel = 0
+	</update>
+</mapper>

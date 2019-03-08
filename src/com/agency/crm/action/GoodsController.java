@@ -90,7 +90,7 @@ public class GoodsController {
      * @author LiuHan
      * @TODO 新增产品
      */
-    @RequestMapping(value = "/addGoodsAndProduct.do", produces = "application/json;charset=utf-8")
+    /*@RequestMapping(value = "/addGoodsAndProduct.do", produces = "application/json;charset=utf-8")
     public Json addGoods(Goods goods) {
     	Json json = new Json();
     	json.setSuccess(false);
@@ -100,16 +100,17 @@ public class GoodsController {
     		json.setSuccess(true);
     	}
     	return json;
-    }
+    }*/
     @RequestMapping(value = "/addGoodsAndProduct.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
     //requestParam要写才知道是前台的那个数组
-    public String filesUpload(@RequestParam("goodsPic") MultipartFile[] files,
+    public Json addGoodsAndProduct(@RequestParam("goodsPic") MultipartFile[] files,
             HttpServletRequest request) {
     	Goods goods = new Goods();
+    	Json json = new Json();
         List<String> list = new ArrayList<String>();
         String goodsName = request.getParameter("goodsName");
-        String goodsCode = request.getParameter("goodsCode");
+        //String goodsCode = request.getParameter("goodsCode");
         goods.setGoodsName(goodsName);
         if (files != null && files.length > 0) {
             for (int i = 0; i < files.length; i++) {
@@ -118,11 +119,14 @@ public class GoodsController {
                 list = saveFile(request, file, list);
             }
         }
-        //写着测试，删了就可以
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("集合里面的数据" + list.get(i));
-        }
-        return "ok";//跳转的页面
+        String goodsPic = listToString(list);
+        goods.setGoodsPic(goodsPic);
+        int result = 0;
+    	result = goodsService.saveGoods(goods);
+    	if (result > 0) {
+    		json.setSuccess(true);
+    	}
+        return json;//跳转的页面
     }
     
     /**
@@ -167,10 +171,11 @@ public class GoodsController {
             try {
                 // 保存的文件路径(如果用的是Tomcat服务器，文件会上传到\\%TOMCAT_HOME%\\webapps\\YourWebProject\\upload\\文件夹中
                 // )
-                String filePath = request.getSession().getServletContext()
+                /*String filePath = request.getSession().getServletContext()
                         .getRealPath("/")
-                        + "upload/" + file.getOriginalFilename();
-                list.add(file.getOriginalFilename());
+                        + "upload/" + file.getOriginalFilename();*/
+            	String filePath = request.getRealPath("/WEB-INF/view/attachment/upload") + "/" + file.getOriginalFilename();
+                list.add(filePath);
                 File saveDir = new File(filePath);
                 if (!saveDir.getParentFile().exists())
                     saveDir.getParentFile().mkdirs();
@@ -184,4 +189,23 @@ public class GoodsController {
         }
         return list;
     }
+    
+    private String listToString(List<String> list){
+    	   if(list==null){
+    	      return null;
+    	   }
+    	   StringBuilder result = new StringBuilder();
+    	   boolean first = true;
+    	 
+    	   //第一个前面不拼接","
+    	   for(String string :list) {
+    	      if(first) {
+    	         first=false;
+    	      }else{
+    	         result.append(",");
+    	      }
+    	      result.append(string);
+    	   }
+    	   return result.toString();
+    	}
 }

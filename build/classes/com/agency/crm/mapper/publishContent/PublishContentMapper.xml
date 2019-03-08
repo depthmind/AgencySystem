@@ -55,7 +55,19 @@
 	</select>
 
 	<select id="selectPublishContent" resultType="PublishContent" parameterType="map">
-		select id, category, description, images, contact_name, mobilephone, city, location, update_time from publish_content limit #{offset}, #{rows}
+		select id, category, description, images, contact_name, mobilephone, city, location, update_time
+		from publish_content
+		where 1=1
+		<if test="city != null and city != ''">
+			and city = #{city}
+		</if>
+		<if test="province != null and province != ''">
+			and province = #{province}
+		</if>
+		<if test="area != null and area != ''">
+			and area = #{area}
+		</if>
+		limit #{offset}, #{rows}
 	</select>
 
 	<select id="selectPublishContentById" resultType="PublishContent" parameterType="int">

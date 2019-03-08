@@ -60,16 +60,18 @@
       		agency_id,
       		goods_name,
       		goods_description,
+      		goods_pic,
       		is_top,
       		create_time,
       		update_time,
       		is_del
       	) values (
-      		#{productId,VARCHAR},
-      		#{agencyId,VARCHAR},
-      		#{goodsName,VARCHAR},
-      		#{goodsDescription,VARCHAR},
-      		#{isTop,INTEGER},
+      		#{productId,jdbcType=VARCHAR},
+      		#{agencyId,jdbcType=VARCHAR},
+      		#{goodsName,jdbcType=VARCHAR},
+      		#{goodsDescription,jdbcType=VARCHAR},
+      		#{goodsPic,jdbcType=VARCHAR},
+      		#{isTop,jdbcType=INTEGER},
       		now(),
       		now(),
       		0

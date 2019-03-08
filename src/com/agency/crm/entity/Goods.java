@@ -13,8 +13,17 @@ public class Goods {
     private String goodsName;
     private String goodsDescription;
     private String goodsPic;
+    private Integer isTop;
 
-    public Goods(long id, long productId, long agencyId, String productName, String agencyName, String goodsName, String goodsDescription) {
+    public Integer getIsTop() {
+		return isTop;
+	}
+
+	public void setIsTop(Integer isTop) {
+		this.isTop = isTop;
+	}
+
+	public Goods(long id, long productId, long agencyId, String productName, String agencyName, String goodsName, String goodsDescription) {
         this.id = id;
         this.productId = productId;
         this.agencyId = agencyId;

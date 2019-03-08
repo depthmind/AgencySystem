@@ -10,11 +10,21 @@
         product.product_name as productName,
         agency_id as agencyId,
         goods_name as goodsName,
+        goods_pic as goodsPic,
         goods_description as goodsDescription
         from goods g left join product on product_id = product.id
         where 1=1
         <if test="id != null and id != ''">
             and id = #{id}
+        </if>
+        <if test="city != null and city != ''">
+            and city = #{city}
+        </if>
+        <if test="province != null and province != ''">
+            and province = #{province}
+        </if>
+        <if test="area != null and area != ''">
+            and area = #{area}
         </if>
         <if test="productId != null and productId != ''">
             and product_id = #{productId}
@@ -38,9 +48,7 @@
             and g.category = #{category}
         </if>) as a left join agency_base on a.agencyId = agency_base.id
         order by id desc
-        <!--<if test="offset != null and offset != '' and rows != null and rows != ''">-->
         limit #{offset}, #{rows}
-        <!--</if>-->
     </select>
 
 	<insert id="saveGoods" parameterType="Goods">
@@ -52,16 +60,18 @@
       		agency_id,
       		goods_name,
       		goods_description,
+      		goods_pic,
       		is_top,
       		create_time,
       		update_time,
       		is_del
       	) values (
-      		#{productId,VARCHAR},
-      		#{agencyId,VARCHAR},
-      		#{goodsName,VARCHAR},
-      		#{goodsDescription,VARCHAR},
-      		#{isTop,INTEGER},
+      		#{productId,jdbcType=VARCHAR},
+      		#{agencyId,jdbcType=VARCHAR},
+      		#{goodsName,jdbcType=VARCHAR},
+      		#{goodsDescription,jdbcType=VARCHAR},
+      		#{goodsPic,jdbcType=VARCHAR},
+      		#{isTop,jdbcType=INTEGER},
       		now(),
       		now(),
       		0
