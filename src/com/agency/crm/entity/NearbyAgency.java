@@ -19,6 +19,7 @@ public class NearbyAgency extends BaseBean<NearbyAgency> {
 	private String openId;
 	private Integer isCooperation;
 	private String city;
+	private String province;
 	private String location;
 	private Date createTime;
 	private Date updateTime;
@@ -26,7 +27,76 @@ public class NearbyAgency extends BaseBean<NearbyAgency> {
 	private String latitude;
 	private String longitude;
 	private String address;
+	private String wechatImagePath;
+	private String logoImagePath;
+	private String licence1ImagePath;
+	private String licence2ImagePath;
+	private Date expiryDate;
+	private String validPeriod;
+	private String isAd;
+	private String area;
+	private String distance;
 	
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getWechatImagePath() {
+		return wechatImagePath;
+	}
+	public void setWechatImagePath(String wechatImagePath) {
+		this.wechatImagePath = wechatImagePath;
+	}
+	public String getLogoImagePath() {
+		return logoImagePath;
+	}
+	public void setLogoImagePath(String logoImagePath) {
+		this.logoImagePath = logoImagePath;
+	}
+	public String getLicence1ImagePath() {
+		return licence1ImagePath;
+	}
+	public void setLicence1ImagePath(String licence1ImagePath) {
+		this.licence1ImagePath = licence1ImagePath;
+	}
+	public String getLicence2ImagePath() {
+		return licence2ImagePath;
+	}
+	public void setLicence2ImagePath(String licence2ImagePath) {
+		this.licence2ImagePath = licence2ImagePath;
+	}
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+	public String getValidPeriod() {
+		return validPeriod;
+	}
+	public void setValidPeriod(String validPeriod) {
+		this.validPeriod = validPeriod;
+	}
+	public String getIsAd() {
+		return isAd;
+	}
+	public void setIsAd(String isAd) {
+		this.isAd = isAd;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getDistance() {
+		return distance;
+	}
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
 	public String getAddress() {
 		return address;
 	}

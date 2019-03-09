@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-@EnableScheduling
+//@EnableScheduling
 public class HandleFormId {
 
 	private final Logger logger = LoggerFactory.getLogger(HandleFormId.class);
 	
-	@Scheduled(cron = "0/5 * * * * *")
+	//@Scheduled(cron = "0/5 * * * * *")
     public void scheduled(){
 		logger.info("=====>>>>>使用cron  {}",System.currentTimeMillis());
     }

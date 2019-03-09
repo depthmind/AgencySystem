@@ -4,17 +4,25 @@
 <mapper namespace="com.agency.crm.mapper.nearbyAgency.NearbyAgencyMapper">
 	
 	<insert id="insertNearbyAgency" parameterType="NearbyAgency">
+		<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
 		insert into nearby_agency (
 		agency_name,
 		sys_user_name,
 		sys_user_password,
-		mobilePhone,
+		mobilephone,
 		email,
 		open_id,
 		is_cooperation,
 		city,
 		location,
 		address,
+		latitude,
+		longitude,
+		province,
+		expiry_date,
+		valid_period,
 		create_time,
 		update_time,
 		is_del
@@ -22,13 +30,18 @@
 		#{agencyName,jdbcType=VARCHAR},
 		#{sysUserName,jdbcType=VARCHAR},
 		#{sysUserPassword,jdbcType=VARCHAR},
-		#{mobilePhone,jdbcType=VARCHAR},
+		#{mobilephone,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR},
 		#{openId,jdbcType=VARCHAR},
-		#{isCooperation,jdbcType=Integer},
+		#{isCooperation,jdbcType=INTEGER},
 		#{city,jdbcType=VARCHAR},
 		#{location,jdbcType=VARCHAR},
 		#{address,jdbcType=VARCHAR},
+		#{latitude,jdbcType=VARCHAR},
+		#{longitude,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR},
+		#{expiryDate,jdbcType=VARCHAR},
+		#{validPeriod,jdbcType=VARCHAR},
 		now(),
 		now(),
 		0
