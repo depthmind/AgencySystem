@@ -75,6 +75,8 @@ public class PublishContentController extends BaseSimpleFormController {
 	public String getPublishContent(@RequestParam(required = false) String city,
 									@RequestParam(required = false) String province,
 									@RequestParam(required = false) String area,
+									@RequestParam(required = false) String paraDomain,
+									@RequestParam(required = false) String paraId,
 									String offset, String rows){
 
 		Map<String, Object> params = new HashMap();
@@ -83,6 +85,7 @@ public class PublishContentController extends BaseSimpleFormController {
 		params.put("province", province);
 		params.put("city", city);
 		params.put("area", area);
+		params.put("paraId", paraId);
 		List<PublishContent> publishContents = publishContentService.getPublishContent(params);
 
 		if (publishContents == null){

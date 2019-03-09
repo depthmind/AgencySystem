@@ -55,18 +55,20 @@
 	</select>
 
 	<select id="selectPublishContent" resultType="PublishContent" parameterType="map">
-		select id, category, description, images, contact_name, mobilephone, city, location, update_time
-		from publish_content
+		select p1.id, p1.category, p1.description, p1.images, p1.contact_name, p1.mobilephone, p1.city, p1.location, p1.update_time
+		from publish_content p1 right join parameter p2 on p1.category = p2.para_value
 		where 1=1
 		<if test="city != null and city != ''">
-			and city = #{city}
+			and p1.city = #{city}
 		</if>
 		<if test="province != null and province != ''">
-			and province = #{province}
+			and p1.province = #{province}
 		</if>
 		<if test="area != null and area != ''">
-			and area = #{area}
+			and p1.area = #{area}
 		</if>
+		and p2.para_domain = 'publish.category'
+		and p2.para_value = #{paraId}
 		limit #{offset}, #{rows}
 	</select>
 
