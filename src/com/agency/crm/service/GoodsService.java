@@ -1,5 +1,8 @@
 package com.agency.crm.service;
 
+import com.agency.crm.common.framework.bean.QueryResult;
+import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
+import com.agency.crm.entity.AgencyContact;
 import com.agency.crm.entity.Goods;
 import com.agency.crm.entity.Product;
 import com.agency.crm.mapper.goods.GoodsMapper;
@@ -11,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 @Transactional
@@ -42,4 +47,17 @@ public class GoodsService {
 		}
     	return result;
     }
+    
+    public QueryResult<Goods> queryGoodsByAgencyId(String agencyId, PageHelper pageHelper, HttpServletRequest request) {
+
+		QueryResult<Goods> pageResult = new QueryResult<Goods>();
+		List<Goods> data = goodsMapper.selectGoodsByAgencyId(agencyId);
+		long count = goodsMapper.countGoodsByAgencyId(agencyId);
+		
+		pageResult.setData(data);
+		pageResult.setCountTotal(count);
+		pageResult.setCountFiltered(count);
+		
+		return pageResult;
+	}
 }

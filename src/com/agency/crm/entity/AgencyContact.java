@@ -13,7 +13,7 @@ public class AgencyContact extends BaseBean<AgencyContact> {
 	private Integer id;
 	private String agencyId;
 	private String contactName;
-	private String mobilePhone;
+	private String mobilephone;
 	private String address;
 	private String city;
 	private String location;
@@ -55,11 +55,11 @@ public class AgencyContact extends BaseBean<AgencyContact> {
 	public void setContactName(String contactName) {
 		this.contactName = contactName;
 	}
-	public String getMobilePhone() {
-		return mobilePhone;
+	public String getMobilephone() {
+		return mobilephone;
 	}
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
+	public void setMobilephone(String mobilephone) {
+		this.mobilephone = mobilephone;
 	}
 	public String getAddress() {
 		return address;

@@ -98,4 +98,20 @@
 			)
 		</foreach>
 	</insert>
+	
+	<select id="selectGoodsByAgencyId" parameterType="int" resultType="Goods">
+		select agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
+			province, city, area, goods_pic as goodsPic, create_time as createTime, 
+			update_time as updateTime, is_del as isDel
+		from goods
+		where agencyId = #{agencyId}
+		and is_del = 0
+	</select>
+	
+	<select id="countGoodsByAgencyId" parameterType="int" resultType="int">
+		select count(id)
+		from goods
+		where agencyId = #{agencyId}
+		and is_del = 0
+	</select>
 </mapper>

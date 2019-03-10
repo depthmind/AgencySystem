@@ -14,4 +14,8 @@ public interface GoodsMapper {
     int saveGoods(Goods goods);
     
     int saveProductByBatch(List<Product> list);
+    
+    List<Goods> selectGoodsByAgencyId(String agencyId);
+    
+    int countGoodsByAgencyId(String agencyId);
 }

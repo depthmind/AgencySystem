@@ -21,7 +21,7 @@
 <body>
 	<%@ include file="../assets/pages/preloader.jsp"%>
 	<section>
-		<%@ include file="../assets/pages/leftpanel.jsp"%>
+		<%@ include file="../assets/pages/leftpanel-agency.jsp"%>
 		<div class="mainpanel">
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">

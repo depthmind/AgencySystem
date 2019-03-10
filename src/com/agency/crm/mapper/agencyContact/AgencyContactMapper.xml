@@ -7,7 +7,7 @@
 		insert into agency_contact (
 			agency_id,
 			contact_name,
-			mobilePhone,
+			mobilephone,
 			address,
 			city,
 			location,
@@ -15,11 +15,11 @@
 			longitude,
 			create_time,
 			update_time,
-			id_del
+			is_del
 		) values (
 			#{agencyId,jdbcType=VARCHAR},
 			#{contactName,jdbcType=VARCHAR},
-			#{mobilePhone,jdbcType=VARCHAR},
+			#{mobilephone,jdbcType=VARCHAR},
 			#{address,jdbcType=VARCHAR},
 			#{city,jdbcType=VARCHAR},
 			#{location,jdbcType=VARCHAR},
@@ -30,6 +30,22 @@
 			0
 		)
 	</insert>
+	
+	<select id="selectAgnecyContactByAgencyId" parameterType="int" resultType="AgencyContact">
+		select agency_id as agencyId, contact_name as contactName, mobilephone, address, city, location,
+			sys_user_name as sysUserName, sys_user_password as sysUserPassword, latitude, longitude, 
+			create_time as createTime, update_time as updateTime, is_del as isDel
+		from agency_contact
+		where agency_id = #{agencyId}
+		and is_del = 0
+	</select>
+	
+	<select id="countAgnecyContactByAgencyId" parameterType="int" resultType="int">
+		select count(1)
+		from agency_contact
+		where agency_id = #{agencyId}
+		and is_del = 0
+	</select>
 </mapper>
 
 

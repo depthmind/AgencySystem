@@ -1,6 +1,10 @@
 package com.agency.crm.action;
 
+import com.agency.crm.common.framework.bean.QueryResult;
+import com.agency.crm.common.framework.util.JSONUtilS;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
+import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
+import com.agency.crm.entity.AgencyContact;
 import com.agency.crm.entity.Goods;
 import com.agency.crm.entity.Product;
 import com.agency.crm.service.GoodsService;
@@ -25,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/goods")
@@ -80,8 +85,8 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/addGoodsAndProduct.html", produces = "application/json;charset=utf-8")
-    public String addGoodsPage(Model model) {
-    	
+    public String addGoodsPage(String agencyId, Model model) {
+    	model.addAttribute("agencyId", agencyId);
     	return "/goods/add";
     }
     /**
@@ -155,6 +160,24 @@ public class GoodsController {
     	json.setSuccess(false);
     	System.out.print(equations);
     	return json;
+    }
+    
+    @RequestMapping(value = "/goodsList.html", produces = "application/json;charset=utf-8")
+    public String goodsList(String agencyId, Model model) {
+    	model.addAttribute("agencyId", agencyId);
+    	return "/goods/list";
+    }
+    
+    @RequestMapping(value = "/findGoodsByAgencyId.do", produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String findAllGoods(@RequestParam(required = true) String agencyId, HttpServletRequest request,
+			HttpSession session, Model model, PageHelper page) {
+    	String result = "";
+
+		QueryResult<Goods> pageResult = goodsService.queryGoodsByAgencyId(agencyId, page,
+				request);
+		result = JSONUtilS.object2json(pageResult);
+		return result;
     }
     
     /**
