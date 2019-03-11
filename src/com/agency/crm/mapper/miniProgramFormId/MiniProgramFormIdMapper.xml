@@ -8,12 +8,12 @@
 		<result property="openId" column="open_id" javaType="String" jdbcType="VARCHAR"/>
 		<result property="createTime" column="create_time" javaType="java.sql.Date" jdbcType="DATE"/>
 		<result property="updateTime" column="update_time" javaType="java.sql.Date" jdbcType="DATE"/>
-		<result property="isdel" column="isdel" javaType="int" jdbcType="INTEGER"/>
+		<result property="is_del" column="isdel" javaType="int" jdbcType="INTEGER"/>
 	</resultMap>
 	
 	<select id="selectFormIdByCreateTime" parameterType="String" resultMap="resultMap">
-		select id,form_id,open_id,create_time,update_time,isdel
-		from tm_mini_program_form_id 
+		select id,form_id,open_id,create_time,update_time,is_del
+		from form_id 
 		where isdel = 0
 		and open_id = #{openId}
 		order by create_time
@@ -21,12 +21,12 @@
 	</select>
 	
 	<insert id="saveMiniProgramFormId" parameterType="MiniProgramFormId" flushCache="true" useGeneratedKeys="true" keyProperty="id" keyColumn="GENERATED_KEY">
-		insert into tm_mini_program_form_id(
+		insert into form_id(
 		form_id,
 		open_id,
 		create_time,
 		update_time,
-		isdel
+		is_del
 		) values (
 		#{formId},
 		#{openId},
@@ -37,10 +37,10 @@
 	</insert>
 	
 	<update id="deleteMiniProgramFormId" parameterType="String" flushCache="true">
-		update tm_mini_program_form_id set
-		isdel = 1,
+		update form_id set
+		is_del = 1,
 		update_time = now()
 		where form_id = #{formId}
-		and isdel = 0
+		and is_del = 0
 	</update>
 </mapper>
