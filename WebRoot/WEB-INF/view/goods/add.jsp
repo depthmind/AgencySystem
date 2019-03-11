@@ -43,7 +43,21 @@
         </div>
         <form class="form-horizontal" id="form" enctype="multipart/form-data" method="POST" action="${rootPath}goods/addGoodsAndProduct.do">
         <div class="panel-body panel-body-nopadding">
-	        <div class="section-block">    
+	        <div class="section-block">
+	        	<div class="form-group col-sm-4">
+					<label class="col-sm-4 control-label">一级分类<span class="asterisk">*</span></label>
+					<div class="col-sm-8">
+						<input type="text" name="oneLevelCategory" id="oneLevelCategory"
+							class="level-one-select fullwidth" value=""/>
+					</div>
+				</div>
+				<div class="form-group col-sm-4" id="erji" name="erji" style="display:none">
+					<label class="col-sm-4 control-label">二级分类<span class="asterisk">*</span></label>
+					<div class="col-sm-8">
+					<input type="text" name="secondLevelCategory"
+						class="level-two-select form-control fullwidth" value="" />
+					</div>
+				</div>  
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">商品名称 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
@@ -79,7 +93,7 @@
 	            <div class="img-box" id="imgboxid">
  
     </div>
- 
+
 	                  <div id="xmTanDiv"></div><br/>
 	            <div id="errordiv"   style="margin-top:15px;width:100%;text-align:center;">
             </div>
@@ -157,10 +171,34 @@
 
 	<%@ include file="../assets/pages/foot.jsp"%>
 	<script src="${rootPath}assets/js/jquery.validate.min.js"></script>
+	<script src="${rootPath}assets/js/select2.min.js"></script>
 	<%-- <script type="text/javascript" src="${rootPath}assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="${rootPath}assets/js/jquery.easyui.min.js"></script> --%>
 	
 	<script type="text/javascript">
+	var oneLevelCategory = ${oneLevelCategory};
+	$(".level-one-select").select2({
+        placeholder: '选择一级分类',
+        data: oneLevelCategory
+      });
+	
+	$("#oneLevelCategory").change(function(){
+  		var id = $("#oneLevelCategory").val();
+  		try{
+   		  $.post("${rootPath}category/findSecondLevelCategoryById.do?id=" + id,function(result) {
+   			  $("#erji").css('display','block');
+				var secondLevelCategory = result
+				$(".level-two-select").select2({
+					 placeholder: '选择二级分类',
+					 data: secondLevelCategory
+				});
+			}, "JSON");
+   		  }
+   	  catch(e) {
+   		  alert(e);
+   	  }  		
+  	})
+	
 	var selectedGoodsPic = ''; //定义全局变量，用于存储已选图片
 	if (typeof FileReader == 'undefined') {
         document.getElementById("xmTanDiv").InnerHTML = "<h1>当前浏览器不支持FileReader接口</h1>";

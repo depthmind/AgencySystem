@@ -33,7 +33,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.agency.crm.common.Constants;
 import com.agency.crm.common.action.BaseSimpleFormController;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
+import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.User;
+import com.agency.crm.service.AgencyBaseService;
+import com.agency.crm.service.CustomerService;
 import com.agency.crm.service.UserService;
 import com.agency.crm.utils.RSAUtils;
 
@@ -46,6 +49,8 @@ public class SigninController extends BaseSimpleFormController {
 
 	@Autowired
 	private UserService service;
+	@Autowired
+	private AgencyBaseService agencyBaseservice;
 
 	/**
 	 * 用户注册（进入注册界面）
@@ -236,41 +241,11 @@ public class SigninController extends BaseSimpleFormController {
 				unionId = jsonObj.getString("unionid");
 				logger.info("openId=" + openId);
 				logger.info("accessToken=" + accessToken);
-				//user = userService.getUserByOpenId(openId);
-				user = service.getUserByUnionId(unionId);
-				if (user != null) {
-					String loginName = user.getLoginName();
-					String password = user.getPwd();
-					
-					List<String> menuNameList = new ArrayList<String>();
-					List<String> urlList = new ArrayList<String>();
-					String roleID = service.permissionCheckRole(user.getLoginName());
-					logger.info("roleID=" + roleID);
-					// 通过roleid获取menuid,再通过menuid和roleId获取menuname
-					// String menuId = service.checkButtonId("修改跟单员权限");
-					List<String> menuIdList = service.getMenuId(roleID);
-					for (String menuId : menuIdList) {
-						String menuName = service.getMenuNameByMenuId(menuId);
-						menuNameList.add(menuName);
-						if (!"".equals(menuName) || menuName != null) {
-							String url = service.getUrlByMenuName(menuName);
-							urlList.add(url);
-						}
-					}
-					JSONArray menuNameListJson = JSONArray.fromObject(menuNameList);
-					session.setAttribute("menuNameList", menuNameListJson);
-
-					JSONArray menuIdListJson = JSONArray.fromObject(menuIdList);
-					session.setAttribute("menuIdList", menuIdListJson);
-					session.setAttribute("url", urlList);
-					session.setAttribute("roleID", roleID);
-					// session.setAttribute("url", url);
-					//json.setSuccess(true);
-					//json.setMsg("登录成功");
-					request.getSession().setAttribute(Constants.LOGIN_KEY, user);
-					return "redirect:/main.html";
-				} else {
-					return "redirect:/nouser.html";
+				AgencyBase agencyBase = new AgencyBase();
+				agencyBase = agencyBaseservice.findAgencyBaseByOpenId(openId);
+				if (agencyBase != null && agencyBase.getId() > 0) {
+					request.getSession().setAttribute(Constants.LOGIN_KEY, agencyBase);
+					return "redirect:/agency/employeeList.html";
 				}
 			}
 			

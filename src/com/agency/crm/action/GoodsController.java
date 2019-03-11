@@ -1,12 +1,16 @@
 package com.agency.crm.action;
 
+import com.agency.crm.common.Constants;
 import com.agency.crm.common.framework.bean.QueryResult;
 import com.agency.crm.common.framework.util.JSONUtilS;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
+import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.AgencyContact;
+import com.agency.crm.entity.EntityList;
 import com.agency.crm.entity.Goods;
 import com.agency.crm.entity.Product;
+import com.agency.crm.service.CategoryService;
 import com.agency.crm.service.GoodsService;
 import com.alibaba.fastjson.JSON;
 
@@ -37,6 +41,8 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+    @Autowired
+    private CategoryService categoryService;
 
     @RequestMapping(value = "/getGoods.do", produces = "application/json;charset=utf-8")
     @ResponseBody
@@ -85,8 +91,11 @@ public class GoodsController {
     }
 
     @RequestMapping(value = "/addGoodsAndProduct.html", produces = "application/json;charset=utf-8")
-    public String addGoodsPage(String agencyId, Model model) {
-    	model.addAttribute("agencyId", agencyId);
+    public String addGoodsPage(HttpServletRequest request, Model model) {
+    	AgencyBase agencyBase = (AgencyBase) request.getSession().getAttribute(Constants.LOGIN_KEY);
+    	List<EntityList> oneLevelCategory = categoryService.findOneLevelCategoryAsParameter();
+    	//model.addAttribute("agencyId", agencyBase.getId());
+    	model.addAttribute("oneLevelCategory", JSONArray.fromObject(oneLevelCategory));
     	return "/goods/add";
     }
     /**
