@@ -48,14 +48,14 @@
 					<label class="col-sm-4 control-label">一级分类<span class="asterisk">*</span></label>
 					<div class="col-sm-8">
 						<input type="text" name="oneLevelCategory" id="oneLevelCategory"
-							class="level-one-select fullwidth" value=""/>
+							class="level-one-select fullwidth" value="${enterpriseName}"/>
 					</div>
 				</div>
-				<div class="form-group col-sm-4" id="erji" name="erji" style="display:none">
+				<div class="form-group col-sm-4" id="erji" hidden="hidden">
 					<label class="col-sm-4 control-label">二级分类<span class="asterisk">*</span></label>
 					<div class="col-sm-8">
 					<input type="text" name="secondLevelCategory"
-						class="level-two-select form-control fullwidth" value="" />
+						class="level-two-select form-control fullwidth" value="${enterpriseCustomer}" />
 					</div>
 				</div>  
 	            <div class="form-group col-sm-4">
@@ -186,11 +186,11 @@
   		var id = $("#oneLevelCategory").val();
   		try{
    		  $.post("${rootPath}category/findSecondLevelCategoryById.do?id=" + id,function(result) {
-   			  $("#erji").css('display','block');
-				var secondLevelCategory = result
-				$(".level-two-select").select2({
-					 placeholder: '选择二级分类',
-					 data: secondLevelCategory
+   			  $("#erji").attr("hidden", "false")
+				var oneLevelCategory = result
+				$(".enterprise-select").select2({
+					 placeholder: '选择一个企业客户',
+					 data: enterpriseCustomer
 				});
 			}, "JSON");
    		  }
@@ -318,7 +318,7 @@
             }
             reader.onload = function (e) {
                 console.log("成功读取....");
-                var thumbnail = '<img src=\"' + e.target.result + '\"</img>'
+                var thumbnail = '<img src=\"' + e.target.result + '\"</img>';
                 document.getElementById('pic').innerHTML = thumbnail;
             }
             reader.readAsDataURL(file)
