@@ -60,4 +60,14 @@ public class GoodsService {
 		
 		return pageResult;
 	}
+    
+    public Goods findGoodsByGoodsId(int id) {
+    	Goods goods = new Goods();
+    	try {
+    		goods = goodsMapper.selectGoodsByGoodsId(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return goods;
+    }
 }

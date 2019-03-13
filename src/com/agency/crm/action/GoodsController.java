@@ -116,31 +116,38 @@ public class GoodsController {
     	return json;
     }*/
     @RequestMapping(value = "/addGoodsAndProduct.do", produces = "application/json;charset=utf-8")
-	@ResponseBody
-    //requestParam要写才知道是前台的那个数组
-    public Json addGoodsAndProduct(@RequestParam("goodsPic") MultipartFile[] files,
+    public String addGoodsAndProduct(@RequestParam("goodsPic") MultipartFile[] goodsPic, 
+    		@RequestParam("thumbnail") MultipartFile[] thumbnail,
             HttpServletRequest request) {
     	Goods goods = new Goods();
     	Json json = new Json();
-        List<String> list = new ArrayList<String>();
+        List<String> GoodsPics = new ArrayList<String>();
+        List<String> thumbnails = new ArrayList<String>();
         String goodsName = request.getParameter("goodsName");
         //String goodsCode = request.getParameter("goodsCode");
         goods.setGoodsName(goodsName);
-        if (files != null && files.length > 0) {
-            for (int i = 0; i < files.length; i++) {
-                MultipartFile file = files[i];
+        if (goodsPic != null && goodsPic.length > 0) {
+            for (int i = 0; i < goodsPic.length; i++) {
+                MultipartFile file = goodsPic[i];
                 // 保存文件
-                list = saveFile(request, file, list);
+                GoodsPics = saveFile(request, file, GoodsPics);
             }
         }
-        String goodsPic = listToString(list);
-        goods.setGoodsPic(goodsPic);
+        if (thumbnail != null && thumbnail.length > 0) {
+        	for (int i = 0; i < thumbnail.length; i++) {
+        		MultipartFile file = thumbnail[i];
+        		// 保存文件
+        		thumbnails = saveFile(request, file, thumbnails);
+        	}
+        }
+        goods.setGoodsPic(listToString(GoodsPics));
+        goods.setThumbnail(listToString(thumbnails));
         int result = 0;
     	result = goodsService.saveGoods(goods);
     	if (result > 0) {
     		json.setSuccess(true);
     	}
-        return json;//跳转的页面
+        return "/goods/list";//跳转的页面
     }
     
     /**
@@ -187,6 +194,20 @@ public class GoodsController {
 				request);
 		result = JSONUtilS.object2json(pageResult);
 		return result;
+    }
+    
+    /**
+     * 
+     * @date 2019年3月13日 下午2:44:14
+     * @author LiuHan
+     * @TODO 根据id查询商品详情
+     */
+    @RequestMapping(value="/findGoodsById.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String findGoodsById(@RequestParam(required = true) Integer goodsId) {
+    	Goods goods = new Goods();
+    	goods = goodsService.findGoodsByGoodsId(goodsId);
+    	return JSON.toJSONString(goods);
     }
     
     /**

@@ -13,9 +13,18 @@ public class Goods {
     private String goodsName;
     private String goodsDescription;
     private String goodsPic;
+    private String thumbnail;
     private Integer isTop;
 
-    public Integer getIsTop() {
+    public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+
+	public Integer getIsTop() {
 		return isTop;
 	}
 

@@ -186,11 +186,11 @@
   		var id = $("#oneLevelCategory").val();
   		try{
    		  $.post("${rootPath}category/findSecondLevelCategoryById.do?id=" + id,function(result) {
-   			  $("#erji").attr("hidden", "false")
-				var oneLevelCategory = result
-				$(".enterprise-select").select2({
+   			  $("#erji").show()
+				var secondLevelCategory = result
+				$(".level-two-select").select2({
 					 placeholder: '选择一个企业客户',
-					 data: enterpriseCustomer
+					 data: secondLevelCategory
 				});
 			}, "JSON");
    		  }
@@ -328,7 +328,7 @@
 		var fd = new FormData();
 		function uploadGoodsPic(obj) {
 			fileObj = obj
-            /* var file = obj.files[0];
+            var file = obj.files[0];
             arr.push(obj.files[0]);
             console.log(arr);
             //console.log(obj);console.log(file);
@@ -351,10 +351,10 @@
             }
             reader.onload = function (e) {
                 console.log("成功读取....");
-                selectedGoodsPic = selectedGoodsPic + '<img style="width:40px;height:40px" src=\"' + e.target.result + '\"</img>'
+                selectedGoodsPic = selectedGoodsPic + '<img style="width:40px;height:40px" src=\"' + e.target.result + '\"</img>';
                 document.getElementById('pics').innerHTML = selectedGoodsPic;
             }
-            reader.readAsDataURL(file) */
+            reader.readAsDataURL(file)
 			var fl=obj.files.length;
 	        for(var i=0;i<fl;i++){
 	            var file=obj.files[i];
