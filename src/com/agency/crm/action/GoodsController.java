@@ -125,7 +125,11 @@ public class GoodsController {
         List<String> thumbnails = new ArrayList<String>();
         String goodsName = request.getParameter("goodsName");
         //String goodsCode = request.getParameter("goodsCode");
+        String levelOneCategory = request.getParameter("oneLevelCategory");
+        String levelSecondCategory = request.getParameter("secondLevelCategory");
         goods.setGoodsName(goodsName);
+        goods.setOneLevelCategory(levelOneCategory);
+        goods.setSecondLevelCategory(levelSecondCategory);
         if (goodsPic != null && goodsPic.length > 0) {
             for (int i = 0; i < goodsPic.length; i++) {
                 MultipartFile file = goodsPic[i];

@@ -15,8 +15,26 @@ public class Goods {
     private String goodsPic;
     private String thumbnail;
     private Integer isTop;
+    private String oneLevelCategory;
+    private String secondLevelCategory;
 
-    public String getThumbnail() {
+    public String getOneLevelCategory() {
+		return oneLevelCategory;
+	}
+
+	public void setOneLevelCategory(String oneLevelCategory) {
+		this.oneLevelCategory = oneLevelCategory;
+	}
+
+	public String getSecondLevelCategory() {
+		return secondLevelCategory;
+	}
+
+	public void setSecondLevelCategory(String secondLevelCategory) {
+		this.secondLevelCategory = secondLevelCategory;
+	}
+
+	public String getThumbnail() {
 		return thumbnail;
 	}
 

@@ -78,6 +78,28 @@
 		where id = #{id}
 		and is_del = 0
 	</select>
+	
+	<select id="selectPublishContentByStatus" parameterType="String" resultType="PublishContent">
+		select id, category, description, images, contact_name as contactName, mobilephone, city, location, status
+			update_time as updateTime, create_time as createTime 
+		from publish_content
+		where status = #{status}
+		and is_del = 0
+	</select>
+	
+	<select id="selectPublishContentByParam" parameterType="map" resultType="PublishContent">
+		select id, category, description, images, contact_name as contactName, mobilephone, city, location, status
+			update_time as updateTime, create_time as createTime 
+		from publish_content
+		where is_del = 0
+		limit #{start},#{length}
+	</select>
+	
+	<select id="countPublishContentByParam" resultType="long">
+		select count(id)
+		from publish_content
+		where is_del = 0
+	</select>
 </mapper>
 
 
