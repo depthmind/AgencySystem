@@ -29,7 +29,7 @@ public class ManagerController extends BaseSimpleFormController {
 
 	@RequestMapping(value = "/publishContentList.html", produces = "application/json;chatset=utf-8")
 	public String publishContentListPage() {
-		return "";
+		return "/manager/list";
 	}
 
 	@RequestMapping(value = "/publishContentList.do", produces = "application/json;chatset=utf-8")

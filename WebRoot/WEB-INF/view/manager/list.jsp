@@ -40,6 +40,7 @@
 										<th>联系方式</th>
 										<th>状态</th>
 										<th>类别</th>
+										<th>操作</th>
 									</tr>
 								</thead>
 								
@@ -91,7 +92,6 @@
 			
 			$(".nav-parent").eq(9).addClass("nav-active");
       		$(".nav-parent").eq(9).find(".children").show();
-			var agencyId = "${agencyId}";
 			var t = jQuery('#dataTable').DataTable({
 				searching:false,
 				pageLength: 10,
@@ -99,10 +99,7 @@
 				language: datatable_local_language, // my.js
 				serverSide: true,
 				ajax: {
-					url: '${rootPath}goods/findGoodsByAgencyId.do',
-					data: {
-						agencyId: agencyId
-					},
+					url: '${rootPath}manager/publishContentList.do',
 					dataFilter: function(data){
 			            var json = jQuery.parseJSON( data );
 			            json.recordsTotal = json.countTotal;
@@ -113,7 +110,7 @@
 				},
 				columnDefs: [
 				  {
-	                  data: "goodsName",
+	                  data: "description",
 	                  orderable: false,
 	                  render: function ( data ) {
 	                      return '<div>' + data +'</div>';
@@ -121,12 +118,46 @@
 	                  targets: 0
 				  },
 				  {
+	                  data: "contactName",
+	                  orderable: false,
+	                  render: function ( data ) {
+	                      return '<div>' + data +'</div>';
+	                  },
+	                  targets: 1
+				  },
+				  {
+	                  data: "mobilephone",
+	                  orderable: false,
+	                  render: function ( data ) {
+	                      return '<div>' + data +'</div>';
+	                  },
+	                  targets: 2
+				  },
+				  {
+	                  data: "status",
+	                  orderable: false,
+	                  render: function ( data ) {
+	                	  if(data == '1') {
+	                		  return '<div>' + '待审核' +'</div>';
+	                	  }
+	                  },
+	                  targets: 3
+				  },
+				  {
+	                  data: "category",
+	                  orderable: false,
+	                  render: function ( data ) {
+	                      return '<div>' + data +'</div>';
+	                  },
+	                  targets: 4
+				  },
+				  {
 	                  data: "id",
 	                  orderable: false,
 	                  render: function ( data ) {
 	                      return '<a class="btn btn-success btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 编辑</a>&nbsp;<a class="btn btn-danger btn-xs" id="'+data+'"><span class="fa fa-minus-circle"></span> 删除</a>';
 	                  },
-	                  targets: 3
+	                  targets: 5
 				  },
 				  {
 					  orderable: false,
@@ -134,7 +165,12 @@
 				  },
 				],
 				columns: [
-		            { data: "goodsName" }
+		            { data: "description" },
+		            { data: "contactName" },
+		            { data: "mobilephone" },
+		            { data: "status" },
+		            { data: "category" },
+		            { data: "id" }
 		        ]
 			});
 			

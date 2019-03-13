@@ -88,10 +88,13 @@
 	</select>
 	
 	<select id="selectPublishContentByParam" parameterType="map" resultType="PublishContent">
-		select id, category, description, images, contact_name as contactName, mobilephone, city, location, status
-			update_time as updateTime, create_time as createTime 
-		from publish_content
-		where is_del = 0
+		select c.id, c.category, c.description, c.images, c.contact_name as contactName, c.mobilephone, c.city, c.location, 
+			c.status, c.update_time as updateTime, c.create_time as createTime 
+		from publish_content c
+		left join parameter p
+		on c.category = p.para_value
+		where c.is_del = 0
+		and p.para_domain = 'publish.category'
 		limit #{start},#{length}
 	</select>
 	

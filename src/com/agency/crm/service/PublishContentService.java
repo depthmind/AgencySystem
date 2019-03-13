@@ -94,7 +94,7 @@ public class PublishContentService extends BaseService {
 		
 		map.put("length", pageHelper.getLength());
 		
-		List<PublishContent> data = publishContentMapper.selectPublishContent(map);
+		List<PublishContent> data = publishContentMapper.selectPublishContentByParam(map);
 		long count = publishContentMapper.countPublishContentByParam();
 		
 		pageResult.setData(data);
