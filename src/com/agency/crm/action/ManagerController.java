@@ -16,8 +16,10 @@ import com.agency.crm.common.action.BaseSimpleFormController;
 import com.agency.crm.common.framework.bean.QueryResult;
 import com.agency.crm.common.framework.util.JSONUtilS;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
+import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.Parameter;
 import com.agency.crm.entity.PublishContent;
+import com.agency.crm.service.AgencyBaseService;
 import com.agency.crm.service.PublishContentService;
 
 @Controller
@@ -26,13 +28,15 @@ public class ManagerController extends BaseSimpleFormController {
 
 	@Autowired
 	private PublishContentService publishContentService;
+	@Autowired
+	private AgencyBaseService agencyBaseService;
 
-	@RequestMapping(value = "/publishContentList.html", produces = "application/json;chatset=utf-8")
+	@RequestMapping(value = "/publishContentList.html", produces = "application/json;charset=utf-8")
 	public String publishContentListPage() {
-		return "/manager/list";
+		return "/manager/publishList";
 	}
 
-	@RequestMapping(value = "/publishContentList.do", produces = "application/json;chatset=utf-8")
+	@RequestMapping(value = "/publishContentList.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public String publishContentList(HttpServletRequest request, HttpSession session, Model model, PublishContent publishContent,
 			PageHelper page) {
@@ -41,4 +45,17 @@ public class ManagerController extends BaseSimpleFormController {
 		return result;
 	}
 
+	@RequestMapping(value = "/agencyList.html", produces = "application/json;charset=utf-8")
+	public String agencyListPage() {
+		return "/manager/agencyList";
+	}
+
+	@RequestMapping(value = "/agencyList.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String agencyList(HttpServletRequest request, HttpSession session, Model model, AgencyBase agencyBase,
+			PageHelper page) {
+		QueryResult<AgencyBase> pageResult = agencyBaseService.queryAgencyBase(agencyBase, page, request);
+		String result = JSONUtilS.object2json(pageResult);
+		return result;
+	}
 }

@@ -70,6 +70,7 @@
 		update_time as updateTime,
 		latitude as latitude,
 		longitude as longitude,
+		status as status,
 		is_del as isDel
 		from agency_base
 		where is_del = 0
@@ -140,5 +141,11 @@
 		from agency_base
 		where is_del = 0
 		and id = #{id}
+	</select>
+	
+	<select id="countAgencyBase" resultType="long">
+		select count(id) 
+		from agency_base
+		where is_del = 0
 	</select>
 </mapper>

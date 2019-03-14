@@ -67,18 +67,22 @@
 
         <h5 class="sidebartitle"></h5>
         <ul class="nav nav-pills nav-stacked nav-bracket">  
-            <li class="nav-parent" id="agency"><a href=""><i class="glyphicon glyphicon-briefcase"></i> <span>员工管理</span></a>
+            <li class="nav-parent" id="agency"><a href=""><i class="glyphicon glyphicon-briefcase"></i> <span>发布管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }agency/employeeList.html?agencyId=1"><i class="fa fa-caret-right"></i> 员工列表</a></li>
-                    <li><a href="${rootPath }agency/addEmployee.html?agencyId=1"><i class="fa fa-caret-right"></i> 新增员工</a></li>
+                    <li><a href="${rootPath }manager/publishContentList.html?agencyId=1"><i class="fa fa-caret-right"></i> 发布信息列表</a></li>
                 </ul>     
             </li> 
-            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-circle"></i> <span>商品管理</span></a>
+            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-circle"></i> <span>代理商管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }goods/goodsList.html?agencyId=1"><i class="fa fa-caret-right"></i> 商品列表</a></li>
-                    <li><a href="${rootPath }goods/addGoodsAndProduct.html?agencyId=1"><i class="fa fa-caret-right"></i> 新增商品</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 代理商列表</a></li>
                 </ul>     
             </li> 
+            <li class="nav-parent" id="parameter"><a href="javascript:void(0);"><i class="glyphicon glyphicon-cog"></i> <span>系统管理</span></a>
+                <ul class="children">
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 系统参数列表</a></li>
+                    <li><a href="${rootPath }parameter/add.html"><i class="fa fa-caret-right"></i> 新增系统参数</a></li> 
+                </ul>
+            </li>
             <li><a href="${rootPath }signout.html" id="signout"><i class="glyphicon glyphicon-log-out"></i> 退出登录</a></li>                     
         </ul>
         
@@ -89,7 +93,7 @@
 			var menuIdList= <%=session.getAttribute("menuIdList")%>
 				document.getElementById("agency").style.display = "block"
 				document.getElementById("goods").style.display = "block"
-				document.getElementById("parameter").style.display = "none"
+				document.getElementById("parameter").style.display = "block"
 				document.getElementById("menu").style.display = "none"
 				document.getElementById("signout").style.display = "block"
 				document.getElementById("individual").style.display = "block"

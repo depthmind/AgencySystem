@@ -19,4 +19,6 @@ public interface AgencyBaseMapper extends BaseMapper {
 	List<AgencyBase> selectAgencyByName(Map map);
 	
 	AgencyBase selectAgencyBaseById(int id);
+	
+	long countAgencyBase();
 }

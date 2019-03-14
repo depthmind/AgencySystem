@@ -1,8 +1,11 @@
 package com.agency.crm.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agency.crm.common.framework.BaseService;
+import com.agency.crm.common.framework.bean.QueryResult;
+import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
 import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.Product;
 import com.agency.crm.mapper.agencyBase.AgencyBaseMapper;
@@ -103,5 +108,24 @@ public class AgencyBaseService extends BaseService {
 			e.printStackTrace();
 		}
 		return agencyBase;
+	}
+	
+	public QueryResult<AgencyBase> queryAgencyBase(AgencyBase agencyBase, PageHelper pageHelper, HttpServletRequest request) {
+
+		QueryResult<AgencyBase> pageResult = new QueryResult<AgencyBase>();
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("start", pageHelper.getStart());
+		
+		map.put("length", pageHelper.getLength());
+		
+		List<AgencyBase> data = agencyBaseMapper.selectAgencyBase(map);
+		long count = agencyBaseMapper.countAgencyBase();
+		
+		pageResult.setData(data);
+		pageResult.setCountTotal(count);
+		pageResult.setCountFiltered(count);
+		
+		return pageResult;
 	}
 }
