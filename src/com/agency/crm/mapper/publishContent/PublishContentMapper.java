@@ -22,4 +22,6 @@ public interface PublishContentMapper extends BaseMapper {
 	List<PublishContent> selectPublishContentByParam(Map<String, Object> map);
 	
 	long countPublishContentByParam();
+	
+	int updatePublishContent(PublishContent publishContent);
 }

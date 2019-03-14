@@ -104,4 +104,13 @@ public class PublishContentService extends BaseService {
 		return pageResult;
 	}
 	
+	public int updatePublishContent(PublishContent publishContent) {
+		int result = 0;
+		try {
+			result = publishContentMapper.updatePublishContent(publishContent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

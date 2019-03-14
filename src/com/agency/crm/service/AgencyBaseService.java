@@ -128,4 +128,14 @@ public class AgencyBaseService extends BaseService {
 		
 		return pageResult;
 	}
+	
+	public int updateAgencyBase(AgencyBase agencyBase) {
+		int result = 0;
+		try {
+			result = agencyBaseMapper.updateAgencyBase(agencyBase);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

@@ -21,4 +21,6 @@ public interface AgencyBaseMapper extends BaseMapper {
 	AgencyBase selectAgencyBaseById(int id);
 	
 	long countAgencyBase();
+	
+	int updateAgencyBase(AgencyBase agencyBase);
 }

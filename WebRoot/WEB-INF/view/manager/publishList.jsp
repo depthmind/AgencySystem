@@ -66,7 +66,7 @@
 	<script src="${rootPath}assets/js/select2.min.js"></script>
 
 <!-- Modal -->
-<div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="agreeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -74,12 +74,32 @@
         <h4 class="modal-title" id="myModalLabel"><span class="fa fa-warning"></span> 提示</h4>
       </div>
       <div class="modal-body">
-        确定删除么？
+        确定审核通过么？
       </div>
       <div class="modal-footer">
       	<input type="hidden" class="hiddenId" value="" />
         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="btn btn-danger">删除</button>
+        <button type="button" class="btn btn-danger">确认</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="disagreeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><span class="fa fa-warning"></span> 提示</h4>
+      </div>
+      <div class="modal-body">
+        确定审核不通过么？
+      </div>
+      <div class="modal-footer">
+      	<input type="hidden" class="hiddenId" value="" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger">确认</button>
       </div>
     </div><!-- modal-content -->
   </div><!-- modal-dialog -->
@@ -112,7 +132,7 @@
 				  {
 	                  data: "description",
 	                  orderable: false,
-	                  render: function ( data ) {
+	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
 	                  },
 	                  targets: 0
@@ -120,7 +140,7 @@
 				  {
 	                  data: "contactName",
 	                  orderable: false,
-	                  render: function ( data ) {
+	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
 	                  },
 	                  targets: 1
@@ -128,7 +148,7 @@
 				  {
 	                  data: "mobilephone",
 	                  orderable: false,
-	                  render: function ( data ) {
+	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
 	                  },
 	                  targets: 2
@@ -136,9 +156,13 @@
 				  {
 	                  data: "status",
 	                  orderable: false,
-	                  render: function ( data ) {
-	                	  if(data == '1') {
+	                  render: function ( data, type, full, meta ) {
+	                	  if (data == '1') {
 	                		  return '<div>' + '待审核' +'</div>';
+	                	  } else if(data == '2') {
+	                		  return '<div>' + '审核通过' +'</div>';
+	                	  } else {
+	                		  return '<div>' + '审核不通过' +'</div>';
 	                	  }
 	                  },
 	                  targets: 3
@@ -146,7 +170,7 @@
 				  {
 	                  data: "category",
 	                  orderable: false,
-	                  render: function ( data ) {
+	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
 	                  },
 	                  targets: 4
@@ -154,8 +178,13 @@
 				  {
 	                  data: "id",
 	                  orderable: false,
-	                  render: function ( data ) {
-	                      return '<a class="btn btn-success btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 编辑</a>&nbsp;<a class="btn btn-danger btn-xs" id="'+data+'"><span class="fa fa-minus-circle"></span> 删除</a>';
+	                  render: function ( data, type, full, meta ) {
+	                	  var myButton = '';
+	                	  if (full.status == '1') {
+	                      	return '<a class="btn btn-success btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 审核通过</a>&nbsp;<a class="btn btn-danger btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 审核不通过</a>&nbsp;';
+	                	  } else {
+	                		  return '';
+	                	  }
 	                  },
 	                  targets: 5
 				  },
@@ -179,8 +208,13 @@
 		    } ); 
 			
 			$('#dataTable tbody').on( 'click', 'a.btn-success', function () {
-		        var data = t.row($(this).parents('tr')).data();
-		        edit($(this).attr('id'));
+				var data = t.row($(this).parents('tr')).data();
+				agree($(this).attr('id'));
+		    } );
+			
+			$('#dataTable tbody').on( 'click', 'a.btn-danger', function () {
+				var data = t.row($(this).parents('tr')).data();
+				disagree($(this).attr('id'));
 		    } );
 
 			$('#dataTable tbody').on( 'click', 'a.btn-danger', function () {
@@ -191,6 +225,16 @@
 			$('#confirmDelModal').on( 'click', 'button.btn-danger', function () {
 		        var id = $("#confirmDelModal .hiddenId").val();
 		        doDel(id);
+		    } ); 
+			
+			$('#agreeModal').on( 'click', 'button.btn-danger', function () {
+		        var id = $("#agreeModal .hiddenId").val();
+		        doAgree(id);
+		    } ); 
+			
+			$('#disagreeModal').on( 'click', 'button.btn-danger', function () {
+		        var id = $("#disagreeModal .hiddenId").val();
+		        doDisagree(id);
 		    } ); 
 		    
 			// Select2
@@ -211,6 +255,44 @@
 			$("#confirmDelModal .hiddenId").val("");
 			$("#confirmDelModal .hiddenId").val(id);
 			$("#confirmDelModal").modal('show');
+		}
+		
+		function agree(id) {
+			$("#agreeModal .hiddenId").val("");
+			$("#agreeModal .hiddenId").val(id);
+			$("#agreeModal").modal('show');
+		}
+		
+		function disagree(id) {
+			$("#disagreeModal .hiddenId").val("");
+			$("#disagreeModal .hiddenId").val(id);
+			$("#disagreeModal").modal('show');
+		}
+		
+		function doAgree(id){
+			$.ajax({
+				url: "${rootPath}manager/updatePublishContentStatusById.do?id=" + id + "&status=2", 
+				async: true,
+				success: function(o) {
+					window.location.reload();
+				},
+				error: function(o) {
+					alert(2);
+				}
+			});
+		}
+		
+		function doDisagree(id){
+			$.ajax({
+				url: "${rootPath}manager/updatePublishContentStatusById.do?id=" + id + "&status=3", 
+				async: true,
+				success: function(o) {
+					window.location.reload();
+				},
+				error: function(o) {
+					alert(2);
+				}
+			});
 		}
 		
 		function doDel(id){

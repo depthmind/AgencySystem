@@ -103,6 +103,38 @@
 		from publish_content
 		where is_del = 0
 	</select>
+	
+	<update id="updatePublishContent" parameterType="PublishContent">
+		update publish_content
+		<set>
+			<if test="category != null and category != ''">
+				category = #{category},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
+			</if>
+			<if test="images != null and images != ''">
+				images = #{images},
+			</if>
+			<if test="contactName != null and contactName != ''">
+				contact_name = #{contactName},
+			</if>
+			<if test="mobilephone != null and mobilephone != ''">
+				mobilephone = #{mobilephone},
+			</if>
+			<if test="city != null and city != ''">
+				city = #{city},
+			</if>
+			<if test="location != null and location != ''">
+				location = #{location},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+			update_time = now()
+		</set>
+		where id = #{id}
+	</update>
 </mapper>
 
 

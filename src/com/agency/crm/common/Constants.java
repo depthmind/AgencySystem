@@ -49,4 +49,16 @@ public class Constants {
 	public static final String TRADE_TYPE_JSAPI = "JSAPI"; //公众号H5支付的交易类型
 	
 	public final static String WEIXIN_APP_TEMPLATE_ID = "DeljJ7Gmb1gUpYVXgApjMUXEAuvRExeoTHA7mRf7dkA"; //小程序模板消息通知
+	
+	public final static String STATUS_OF_PUBLISH_CONTENT_ONE = "1"; //发布信息状态为待审核
+	
+	public final static String STATUS_OF_PUBLISH_CONTENT_TWO = "2"; //发布信息状态为审核通过
+	
+	public final static String STATUS_OF_PUBLISH_CONTENT_THREE = "3"; //发布信息状态为审核不通过
+	
+	public final static String STATUS_OF_AGENCY_BASE_ONE = "1"; //代理商状态为待审核
+	
+	public final static String STATUS_OF_AGENCY_BASE_TWO = "2"; //代理商状态为审核通过
+	
+	public final static String STATUS_OF_AGENCY_BASE_THREE = "3"; //代理商状态为审核不通过
 }
