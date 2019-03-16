@@ -21,7 +21,7 @@ public class MapUtils {
         double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
                 Math.cos(long1)*Math.cos(long2)*Math.pow(Math.sin(b/2),2)));
         s = s * EARTH_RADIUS;
-        s = Math.round(s * 1000);
+        s = Math.round(s);
         return s;
     }
 

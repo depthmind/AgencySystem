@@ -93,7 +93,7 @@ public class AgencyController extends BaseSimpleFormController {
 						&& StringUtils.isNotBlank(agencyBase.getLongitude())) {
 					agencyBase.setDistance(String.valueOf(MapUtils.GetDistance(Double.parseDouble(currentLon),
 							Double.parseDouble(currentLat), Double.parseDouble(agencyBase.getLongitude()),
-							Double.parseDouble(agencyBase.getLatitude()))) + "米");
+							Double.parseDouble(agencyBase.getLatitude()))) + "千米");
 				}
 			}
 		}
