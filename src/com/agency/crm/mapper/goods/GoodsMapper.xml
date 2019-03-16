@@ -3,7 +3,7 @@
 <mapper namespace="com.agency.crm.mapper.goods.GoodsMapper">
 
     <select id="selectGoods" parameterType="Map" resultType="Goods">
-        select a.*, agency_base.agency_name as agencyName from
+        select a.*, agency_base.agency_name as agencyName, agency_base.logo_image_path as agencyLogo from
         (select
         g.id as id,
         product_id as productId,

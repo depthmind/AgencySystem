@@ -10,6 +10,7 @@ public class Goods {
     private String area;
     private String productName;
     private String agencyName;
+    private String agencyLogo;
     private String goodsName;
     private String goodsDescription;
     private String goodsPic;
@@ -50,7 +51,15 @@ public class Goods {
 		this.isTop = isTop;
 	}
 
-	public Goods(long id, long productId, long agencyId, String productName, String agencyName, String goodsName, String goodsDescription) {
+    public String getAgencyLogo() {
+        return agencyLogo;
+    }
+
+    public void setAgencyLogo(String agencyLogo) {
+        this.agencyLogo = agencyLogo;
+    }
+
+    public Goods(long id, long productId, long agencyId, String productName, String agencyName, String goodsName, String goodsDescription) {
         this.id = id;
         this.productId = productId;
         this.agencyId = agencyId;
