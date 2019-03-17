@@ -6,7 +6,7 @@
 <meta name="author" content="">
 <link rel="shortcut icon" href="${rootPath}assets/images/favicon.png" type="image/png">
 
-<title></title>
+<title>代理商供货系统</title>
 <link href="${rootPath}assets/css/style.default.css" rel="stylesheet">
 <link href="${rootPath}assets/css/ccchome.css" rel="stylesheet">
 <link href="${rootPath}assets/css/jquery-ui-timepicker-addon.css" rel="stylesheet">

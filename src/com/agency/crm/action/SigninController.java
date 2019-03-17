@@ -242,7 +242,7 @@ public class SigninController extends BaseSimpleFormController {
 				logger.info("openId=" + openId);
 				logger.info("accessToken=" + accessToken);
 				AgencyBase agencyBase = new AgencyBase();
-				agencyBase = agencyBaseservice.findAgencyBaseByOpenId(openId);
+				//agencyBase = agencyBaseservice.findAgencyBaseByOpenId(openId);
 				if (agencyBase != null && agencyBase.getId() > 0) {
 					request.getSession().setAttribute(Constants.LOGIN_KEY, agencyBase);
 					return "redirect:/agency/employeeList.html";
