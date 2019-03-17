@@ -122,7 +122,9 @@ public class AgencyController extends BaseSimpleFormController {
 		String result = "";
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("openId", openId);
-		map.put("type", type);
+		if (StringUtils.isNotBlank(type)) {
+			map.put("type", type);
+		}
 		AgencyBase agencyBase = new AgencyBase();
 		agencyBase = agencyBaseService.findAgencyBaseByOpenId(map);
 		result = JSONObject.toJSONString(agencyBase);

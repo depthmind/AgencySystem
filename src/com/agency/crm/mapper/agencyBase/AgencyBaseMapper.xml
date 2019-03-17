@@ -111,7 +111,9 @@
 		from agency_base
 		where is_del = 0
 		and open_id = #{openId}
-		and type = #{type}
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
 	</select>
 
 
