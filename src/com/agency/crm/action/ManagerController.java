@@ -23,7 +23,12 @@ import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.Parameter;
 import com.agency.crm.entity.PublishContent;
 import com.agency.crm.service.AgencyBaseService;
+import com.agency.crm.service.MiniProgramFormIdService;
 import com.agency.crm.service.PublishContentService;
+import com.agency.crm.utils.HttpsGetUtil;
+import com.agency.crm.utils.SendTemplateUtil;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/manager")
@@ -33,6 +38,8 @@ public class ManagerController extends BaseSimpleFormController {
 	private PublishContentService publishContentService;
 	@Autowired
 	private AgencyBaseService agencyBaseService;
+	@Autowired
+	private MiniProgramFormIdService miniProgramFormIdService;
 
 	@RequestMapping(value = "/publishContentList.html", produces = "application/json;charset=utf-8")
 	public String publishContentListPage() {
@@ -69,16 +76,25 @@ public class ManagerController extends BaseSimpleFormController {
 		PublishContent publishContent = new PublishContent();
 		json.setSuccess(false);
 		int result = 0;
+		String message = "";
+		String reason = "";
 		
 		publishContent.setId(id);
 		if ("2".equals(status)) {
+			message = "审核通过";
+			reason = "审核通过";
 			publishContent.setStatus(Constants.STATUS_OF_PUBLISH_CONTENT_TWO);
 		}
 		if ("3".equals(status)) {
+			message = "审核不通过";
+			reason = "请检查提交内容";
 			publishContent.setStatus(Constants.STATUS_OF_PUBLISH_CONTENT_THREE);
 		}
 		result = publishContentService.updatePublishContent(publishContent);
 		if (result > 0) {
+			publishContent = publishContentService.findPublishContentById(id);
+			String openId = publishContent.getOpenId();
+			sendTemplageMessage(openId, message, reason);
 			json.setSuccess(true);
 		}
 		
@@ -92,19 +108,48 @@ public class ManagerController extends BaseSimpleFormController {
 		AgencyBase agencyBase = new AgencyBase();
 		json.setSuccess(false);
 		int result = 0;
+		String message = "";
+		String reason = "";
 		
 		agencyBase.setId(id);
 		if ("2".equals(status)) {
 			agencyBase.setStatus(Constants.STATUS_OF_AGENCY_BASE_TWO);
+			message = "审核通过";
+			reason = "审核通过";
 		}
 		if ("3".equals(status)) {
 			agencyBase.setStatus(Constants.STATUS_OF_AGENCY_BASE_THREE);
+			message = "审核不通过";
+			reason = "请检查提交内容";
 		}
 		result = agencyBaseService.updateAgencyBase(agencyBase);
 		if (result > 0) {
+			agencyBase = agencyBaseService.findAgencyBaseById(id);
+			String openId = agencyBase.getOpenId();
+			sendTemplageMessage(openId, message, reason);
 			json.setSuccess(true);
 		}
 		
 		return json;
+	}
+	
+	private void sendTemplageMessage(String openId, String message, String reason) {
+		try {
+			String formId = miniProgramFormIdService.getFormIdByCreateTime(openId).getFormId();
+			SendTemplateUtil.sendMsg(getWeiXinAppAccessToken(), formId, openId, message, reason);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String getWeiXinAppAccessToken() {
+		String path = null;
+		
+		path = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + Constants.APP_ID
+				+ "&secret=" + Constants.APP_SECRET;
+		String responseMsg = HttpsGetUtil.doHttpsGetJson(path);
+		JSONObject responseMsgObj = JSONObject.fromObject(responseMsg);
+		String accessToken = responseMsgObj.getString("access_token");
+		return accessToken;
 	}
 }

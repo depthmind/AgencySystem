@@ -37,6 +37,15 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String area;
 	private String distance;
 	private String status;
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getStatus() {
 		return status;

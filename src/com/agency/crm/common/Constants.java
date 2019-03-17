@@ -48,7 +48,9 @@ public class Constants {
 	
 	public static final String TRADE_TYPE_JSAPI = "JSAPI"; //公众号H5支付的交易类型
 	
-	public final static String WEIXIN_APP_TEMPLATE_ID = "DeljJ7Gmb1gUpYVXgApjMUXEAuvRExeoTHA7mRf7dkA"; //小程序模板消息通知
+	public final static String WEIXIN_APP_TEMPLATE_ID_EXAMINE = "Y6S1wehmG1lSXGMd0jpLl8OWMcF4nBV673Hidf140FI"; //小程序模板消息通知--审核结果通知
+	
+	public final static String WEIXIN_APP_TEMPLATE_ID_SIGNIN = "Y6S1wehmG1lSXGMd0jpLl8OWMcF4nBV673Hidf140FI"; //小程序模板消息通知--审核结果通知
 	
 	public final static String STATUS_OF_PUBLISH_CONTENT_ONE = "1"; //发布信息状态为待审核
 	

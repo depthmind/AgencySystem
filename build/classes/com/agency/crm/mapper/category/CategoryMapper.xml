@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.category.CategoryMapper">
+	<select id="selectAllOneLevelCategory" resultType="OneLevelCategory">
+		select id, category_name as categoryName, create_time as createTime, update_time as updateTime, is_del as isDel
+		from one_level_category
+		where is_del = 0
+	</select>
+	
+	<select id="selectSecondLevelCategoryByOneLevelCategoryId" parameterType="String" resultType="SecondLevelCategory">
+		select id, one_level_category_id as oneLevelCategoryId, category_name as categoryName, create_time as createTime, update_time as updateTime, is_del as isDel
+		from second_level_category
+		where is_del = 0
+		and one_level_category_id = #{oneLevelCategoryId}
+	</select>
+	
+	<select id="selectOneLevelCategoryAsParameter" resultType="EntityList">
+		select id as id, category_name as text
+		from one_level_category
+		where is_del = 0
+	</select>
+	
+	<select id="selectSecondLevelCategoryAsParameter" parameterType="String" resultType="EntityList">
+		select id as id, category_name as text
+		from second_level_category
+		where is_del = 0
+		and one_level_category_id = #{oneLevelCategoryId}
+	</select>
+</mapper>
+
+
+
+

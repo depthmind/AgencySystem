@@ -25,6 +25,7 @@
 		address,
 		expiry_date,
 		valid_period,
+		type,
 		create_time,
 		update_time,
 		is_del
@@ -46,6 +47,7 @@
 		#{address,jdbcType=VARCHAR},
 		#{expiryDate,jdbcType=VARCHAR},
 		#{validPeriod,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR},
 		now(),
 		now(),
 		0
@@ -71,6 +73,7 @@
 		latitude as latitude,
 		longitude as longitude,
 		status as status,
+		type as type,
 		is_del as isDel
 		from agency_base
 		where is_del = 0
@@ -103,6 +106,7 @@
 		logo_image_path as logoImagePath,
 		create_time as createTime,
 		update_time as updateTime,
+		type as type,
 		is_del as isDel
 		from agency_base
 		where is_del = 0
@@ -137,6 +141,7 @@
 		licence2_image_path as licence2ImagePath,
 		create_time as createTime,
 		update_time as updateTime,
+		type as type,
 		is_del as isDel
 		from agency_base
 		where is_del = 0
@@ -196,6 +201,9 @@
 			</if>
 			<if test="status != null and status != ''">
 				status = #{status},
+			</if>
+			<if test="type != null and type != ''">
+				type = #{type},
 			</if>
 			update_time = now()
 			where id = #{id}

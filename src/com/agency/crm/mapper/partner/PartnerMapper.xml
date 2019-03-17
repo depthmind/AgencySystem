@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.partner.PartnerMapper">
+	
+	<insert id="insertPartner" parameterType="Partner">
+		<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
+		insert into partner (
+		partner_name,
+		mobilephone,
+		introducer,
+		open_id,
+		province,
+		city,
+		area,
+		create_time,
+		update_time,
+		is_del
+		) values (
+		#{partnerName,jdbcType=VARCHAR},
+		#{mobilephone,jdbcType=VARCHAR},
+		#{introducer,jdbcType=VARCHAR},
+		#{openId,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR},
+		#{area,jdbcType=VARCHAR},
+		now(),
+		now(),
+		0
+		)
+	</insert>
+</mapper>

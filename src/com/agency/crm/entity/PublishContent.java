@@ -49,6 +49,16 @@ public class PublishContent extends BaseBean<PublishContent> {
 	private String address;
 	
 	private String status;
+	
+	private String openId;
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
 
 	public String getStatus() {
 		return status;

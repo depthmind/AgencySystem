@@ -14,6 +14,7 @@
 		location,
 		address,
 		is_top,
+		open_id,
 		create_time,
 		update_time,
 		is_del
@@ -27,6 +28,7 @@
 		#{location,jdbcType=VARCHAR},
 		#{address,jdbcType=VARCHAR},
 		#{isTop,jdbcType=VARCHAR},
+		#{openId,jdbcType=VARCHAR},
 		now(),
 		now(),
 		0
@@ -73,14 +75,14 @@
 	</select>
 
 	<select id="selectPublishContentById" resultType="PublishContent" parameterType="int">
-		select id, category, description, images, contact_name as contactName, mobilephone, city, location,
+		select id, category, description, images, contact_name as contactName, mobilephone, city, location, open_id as openId,
 		update_time as updateTime, create_time as createTime from publish_content
 		where id = #{id}
 		and is_del = 0
 	</select>
 	
 	<select id="selectPublishContentByStatus" parameterType="String" resultType="PublishContent">
-		select id, category, description, images, contact_name as contactName, mobilephone, city, location, status
+		select id, category, description, images, contact_name as contactName, mobilephone, city, location, status, open_id as openId,
 			update_time as updateTime, create_time as createTime 
 		from publish_content
 		where status = #{status}
@@ -88,7 +90,7 @@
 	</select>
 	
 	<select id="selectPublishContentByParam" parameterType="map" resultType="PublishContent">
-		select c.id, c.category, c.description, c.images, c.contact_name as contactName, c.mobilephone, c.city, c.location, 
+		select c.id, c.category, c.description, c.images, c.contact_name as contactName, c.mobilephone, c.city, c.location, open_id as openId, 
 			c.status, c.update_time as updateTime, c.create_time as createTime 
 		from publish_content c
 		left join parameter p

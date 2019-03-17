@@ -35,7 +35,7 @@ public class TemplateMessageController extends BaseSimpleFormController {
 	private MiniProgramFormIdService formIdService;
 
 	@RequestMapping(value = "/sendMsg", produces = "application/json;charset=utf-8")
-	private void sendMsg(String accessToken, String openId, String groupId, String text) {
+	private void sendMsg(String accessToken, String openId, String result, String reason) {
 		String path = null;
 		URL url = null;
 		String formId = null;
@@ -43,16 +43,15 @@ public class TemplateMessageController extends BaseSimpleFormController {
 		MiniProgramFormId miniProgramFormId = null;
 		
 		formId = "8e227b77be123faaaea24542d1d8a64b";
-		//miniProgramFormId = miniProgramFormIdService.getFormIdByCreateTime(openId);
+		miniProgramFormId = formIdService.getFormIdByCreateTime(openId);
 		if (null != miniProgramFormId) {
 			formId = miniProgramFormId.getFormId();
 		}
 		
-		String para = "{\"touser\":\"" + openId + "\",\"template_id\": \"" + Constants.WEIXIN_APP_TEMPLATE_ID
-				+ "\",\"page\": \"pages/his_roomlist/his_roomlist\",\"form_id\": \"" + formId
-				+ "\",\"data\": {\"keyword1\": {\"value\": \"" + groupId
-				+ "\",\"color\": \"#173177\"},\"keyword2\": {\"value\": \"" + text
-				+ "\",\"color\": \"#173177\"},\"keyword3\": {\"value\": \"" + ""
+		String para = "{\"touser\":\"" + openId + "\",\"template_id\": \"" + Constants.WEIXIN_APP_TEMPLATE_ID_EXAMINE
+				+ "\",\"page\": \"pages/index/index\",\"form_id\": \"" + formId
+				+ "\",\"data\": {\"keyword1\": {\"value\": \"" + result
+				+ "\",\"color\": \"#173177\"},\"keyword2\": {\"value\": \"" + reason
 				+ "\",\"color\": \"#173177\"}},\"emphasis_keyword\": \" \"}";
 		path = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=" + getWeiXinAppAccessToken();
 		System.out.println("para===" + para);

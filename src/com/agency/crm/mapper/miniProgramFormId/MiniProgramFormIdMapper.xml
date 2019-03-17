@@ -14,7 +14,7 @@
 	<select id="selectFormIdByCreateTime" parameterType="String" resultMap="resultMap">
 		select id,form_id,open_id,create_time,update_time,is_del
 		from form_id 
-		where isdel = 0
+		where is_del = 0
 		and open_id = #{openId}
 		order by create_time
 		limit 0,1
