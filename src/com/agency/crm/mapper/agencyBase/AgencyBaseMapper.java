@@ -12,7 +12,7 @@ public interface AgencyBaseMapper extends BaseMapper {
 	
 	List<AgencyBase> selectAgencyBase(Map<String, Object> map);
 	
-	AgencyBase selectAgencyBaseByOpenId(String openId);
+	AgencyBase selectAgencyBaseByOpenId(Map<String, Object> map);
 
 	List<AgencyBase> selectAdAgency(Map params);
 

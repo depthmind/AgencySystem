@@ -66,10 +66,10 @@ public class AgencyBaseService extends BaseService {
 	 * @author LiuHan
 	 * @TODO 根据小程序openId查询代理商信息
 	 */
-	public AgencyBase findAgencyBaseByOpenId(String openId) {
+	public AgencyBase findAgencyBaseByOpenId(Map<String, Object> map) {
 		AgencyBase result = new AgencyBase();
 		try {
-			result = agencyBaseMapper.selectAgencyBaseByOpenId(openId);
+			result = agencyBaseMapper.selectAgencyBaseByOpenId(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

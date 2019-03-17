@@ -118,10 +118,13 @@ public class AgencyController extends BaseSimpleFormController {
 
 	@RequestMapping(value = "/findAgencyByOpenId.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String findAgencyByOpenId(String openId) {
+	public String findAgencyByOpenId(String openId, String type) {
 		String result = "";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("openId", openId);
+		map.put("type", type);
 		AgencyBase agencyBase = new AgencyBase();
-		agencyBase = agencyBaseService.findAgencyBaseByOpenId(openId);
+		agencyBase = agencyBaseService.findAgencyBaseByOpenId(map);
 		result = JSONObject.toJSONString(agencyBase);
 		return result;
 	}

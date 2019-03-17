@@ -89,7 +89,7 @@
 		limit #{start},#{length}
 	</select>
 	
-	<select id="selectAgencyBaseByOpenId" resultType="AgencyBase" parameterType="String">
+	<select id="selectAgencyBaseByOpenId" resultType="AgencyBase" parameterType="map">
 		select 
 		id,
 		agency_name as agencyName,
@@ -111,6 +111,7 @@
 		from agency_base
 		where is_del = 0
 		and open_id = #{openId}
+		and type = #{type}
 	</select>
 
 
