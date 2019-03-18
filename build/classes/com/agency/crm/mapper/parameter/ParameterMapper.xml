@@ -142,10 +142,10 @@
 	</select>
 	
 	<select id="selectParameterByParaDomain" parameterType="String" resultType="Parameter">
-		select t.chinese, t.para_value as value 
+		select t.chinese, t.para_value as value, t.para_desc as depict
 		from parameter t 
 		where t.para_domain = #{domain} 
-		ORDER BY t.chinese desc
+		ORDER BY t.para_id desc
 	</select>
 	
 	<select id="selectParaValue" resultType="String">

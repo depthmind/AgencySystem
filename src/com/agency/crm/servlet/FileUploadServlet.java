@@ -118,9 +118,9 @@ public class FileUploadServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("utf-8");
         HashMap<String, Object> res = new HashMap<String, Object>();
-        String result = destPath.replace("/usr/local/tomcat8/webapps/Agency/WEB-INF/view", "http://47.105.169.49/Agency");
+        String result = destPath.replace("/usr/local/tomcat8/webapps/Agency/WEB-INF/view", "https://www.caoxianyoushun.com:8443/Agency");
         res.put("success", true);
-        res.put("destPath", destPath.replace("/usr/local/tomcat8/webapps/Agency/WEB-INF/view", "http://47.105.169.49/Agency"));
+        res.put("destPath", result);
         printWriter.write(result);
         printWriter.flush();  
     }
