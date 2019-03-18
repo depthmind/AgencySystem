@@ -122,7 +122,7 @@
 	</select>
 
 	<select id="selectAgencyByName" resultType="AgencyBase" parameterType="Map">
-		select id, agency_name as agencyName from agency_base where agency_name like #{name} limit #{offset}, #{rows}
+		select id, agency_name as agencyName, logo_image_path as logoImagePath from agency_base where agency_name like #{name} limit #{offset}, #{rows}
 	</select>
 
 	<select id="selectAgencyBaseById" resultType="AgencyBase" parameterType="int">
