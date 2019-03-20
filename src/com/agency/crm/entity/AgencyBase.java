@@ -38,6 +38,24 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String distance;
 	private String status;
 	private String type;
+	private String searchStartTime;
+	private String searchEndTime;
+
+	public String getSearchStartTime() {
+		return searchStartTime;
+	}
+
+	public void setSearchStartTime(String searchStartTime) {
+		this.searchStartTime = searchStartTime;
+	}
+
+	public String getSearchEndTime() {
+		return searchEndTime;
+	}
+
+	public void setSearchEndTime(String searchEndTime) {
+		this.searchEndTime = searchEndTime;
+	}
 
 	public String getType() {
 		return type;

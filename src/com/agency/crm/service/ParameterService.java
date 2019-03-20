@@ -168,4 +168,15 @@ public class ParameterService extends BaseService {
 		}
 		return null;
 	}
+	
+	public List<EntityList> getParameterInfo(String domain) {
+		List<EntityList> result = null;
+		try {
+			result = parameterMapper.getParameterInfo(domain);
+		} catch (Exception e) {
+			logger.error("AgencyService.getParameterInfo() --> " + domain + "-->" + e.getMessage());
+			result = null;
+		}
+		return result;
+	}
 }

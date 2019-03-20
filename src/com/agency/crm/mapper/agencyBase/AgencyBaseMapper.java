@@ -20,7 +20,7 @@ public interface AgencyBaseMapper extends BaseMapper {
 	
 	AgencyBase selectAgencyBaseById(int id);
 	
-	long countAgencyBase();
+	long countAgencyBase(Map<String, Object> map);
 	
 	int updateAgencyBase(AgencyBase agencyBase);
 }

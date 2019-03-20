@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -116,11 +117,22 @@ public class AgencyBaseService extends BaseService {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		map.put("start", pageHelper.getStart());
-		
 		map.put("length", pageHelper.getLength());
+		if (StringUtils.isNotBlank(agencyBase.getMobilephone())) {
+			map.put("mobilephone", agencyBase.getMobilephone());
+		}
+		if (StringUtils.isNotBlank(agencyBase.getAddress())) {
+			map.put("address", agencyBase.getAddress());
+		}
+		if (StringUtils.isNotBlank(agencyBase.getSearchStartTime())) {
+			map.put("searchStartTime", agencyBase.getSearchStartTime() + " 00:00:00");
+		}
+		if (StringUtils.isNotBlank(agencyBase.getSearchEndTime())) {
+			map.put("searchEndTime", agencyBase.getSearchEndTime() + " 00:00:00");
+		}
 		
 		List<AgencyBase> data = agencyBaseMapper.selectAgencyBase(map);
-		long count = agencyBaseMapper.countAgencyBase();
+		long count = agencyBaseMapper.countAgencyBase(map);
 		
 		pageResult.setData(data);
 		pageResult.setCountTotal(count);

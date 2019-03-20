@@ -155,4 +155,14 @@
 		and t.para_domain = #{domain}
 	</select>
 	
+	<select id="getParameterInfo" parameterType="String" resultType="EntityList">
+		select
+		u.para_domain,
+		u.para_value as id,
+		u.chinese as text,
+		u.isdisplay,
+		u.isdel 
+		from parameter u where  u.isdel = 0 and u.para_domain = #{domain}
+		ORDER BY u.para_sort desc, u.para_value
+	</select>
 </mapper>

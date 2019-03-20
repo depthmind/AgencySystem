@@ -14,7 +14,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="glyphicon glyphicon-cog"></i> 员工管理 <span>员工列表</span>
+					<i class="glyphicon glyphicon-cog"></i> 信息管理 <span>信息列表</span>
 				</h2>
 			</div>
 
@@ -26,7 +26,7 @@
 							<a href="" class="minimize">&minus;</a>
 						</div>
 						<!-- panel-btns -->
-					<h3 class="panel-title">员工列表</h3>
+					<h3 class="panel-title">信息列表</h3>
 					</div>
 					<div class="panel-body">
 						<br />
@@ -107,7 +107,7 @@
 
 
 	<script type="text/javascript">
-	
+		var category = ${publishCategory};
 		jQuery(document).ready(function() {
 			
 			$(".nav-parent").eq(9).addClass("nav-active");
@@ -171,7 +171,14 @@
 	                  data: "category",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                      return '<div>' + data +'</div>';
+                	  	if(data){
+		                	for(var i=0; i < category.length; i++){
+		                		if(data == category[i].id){
+		                			return "<div class='hidden-xs'>" + category[i].text + "</div>";               			
+		                		}
+		                	}
+		                	return "<div class='hidden-xs'></div>";
+		              	}else{return "<div class='hidden-xs'></div>"}
 	                  },
 	                  targets: 4
 				  },

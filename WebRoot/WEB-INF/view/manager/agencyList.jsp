@@ -14,7 +14,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="glyphicon glyphicon-cog"></i> 员工管理 <span>员工列表</span>
+					<i class="glyphicon glyphicon-cog"></i> 代理商管理 <span>代理商列表</span>
 				</h2>
 			</div>
 
@@ -26,7 +26,32 @@
 							<a href="" class="minimize">&minus;</a>
 						</div>
 						<!-- panel-btns -->
-					<h3 class="panel-title">员工列表</h3>
+					<h3 class="panel-title">代理商列表</h3>
+						<div class="row" style="margin-top: 20px">
+							<div class="form-group col-sm-10">
+								<div class="col-sm-2">
+									<input type="text" id="mobilephone" class="form-control" placeholder="手机号"  value="" />
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="address" class="form-control" placeholder="地址"  value="" />
+								</div>
+								<div class="col-sm-2">
+				                    <div class="input-group input-datepicker" style="padding:0;">
+				                        <input readonly="readonly" id="searchStartDateTime" type="text" name="searchStartDateTime" class="form-control datepicker" placeholder="请点击输入查询开始日期" value="" autocomplete="on">
+				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				                    </div>
+				                </div>
+			                    <div class="col-sm-2">
+				                    <div class="input-group input-datepicker" style="padding: 0;">
+				                        <input readonly="readonly" id="searchEndDateTime" type="text" name="searchEndDateTime" class="form-control datepicker" placeholder="请点击输入查询截止日期" value="" autocomplete="on">
+				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				                    </div>
+			                    </div>
+								<div class="col-sm-2">
+									<input class="btn btn-primary" type="button" id="searchBtn" value="搜索"/>
+								</div> 	
+							</div>	
+						</div>
 					</div>
 					<div class="panel-body">
 						<br />
@@ -37,6 +62,7 @@
 									<tr>
 										<th>名称</th>
 										<th>联系方式</th>
+										<th>地址</th>
 										<th>省</th>
 										<th>市</th>
 										<th>县/区</th>
@@ -65,6 +91,7 @@
 	<%@ include file="../assets/pages/foot.jsp"%>
 	<script src="${rootPath}assets/js/jquery.datatables.min.js"></script>
 	<script src="${rootPath}assets/js/select2.min.js"></script>
+	<script src="${rootPath}assets/js/jquery-ui-1.10.3.min.js"></script>
 
 <!-- Modal -->
 <div class="modal fade" id="agreeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
@@ -109,7 +136,19 @@
 
 	<script type="text/javascript">
 	
-		jQuery(document).ready(function() {
+	jQuery("#searchStartDateTime").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true,
+        changeMonth: true,
+     });
+    
+    jQuery("#searchEndDateTime").datepicker({
+        dateFormat: "yy-mm-dd",
+        changeYear: true,
+        changeMonth: true,
+     });
+    
+    jQuery(document).ready(function() {
 			
 			$(".nav-parent").eq(9).addClass("nav-active");
       		$(".nav-parent").eq(9).find(".children").show();
@@ -121,6 +160,25 @@
 				serverSide: true,
 				ajax: {
 					url: '${rootPath}manager/agencyList.do',
+					data:function ( data ) {
+						var mobilephone = $('#mobilephone').val();
+						var searchStartTime = $('#searchStartDateTime').val();
+						var searchEndTime = $('#searchEndDateTime').val();
+						var address = $('#address').val();
+			 			
+			 			if(mobilephone != null && mobilephone !="" ){
+							data.mobilephone = mobilephone;
+			 			}
+			 			if(searchStartTime != null && searchStartTime !="" ){
+							data.searchStartTime = searchStartTime;
+			 			}
+			 			if(searchEndTime != null && searchEndTime !="" ){
+							data.searchEndTime = searchEndTime;
+			 			}
+			 			if(address != null && address !="" ){
+							data.address = address;
+			 			}
+					},
 					dataFilter: function(data){
 			            var json = jQuery.parseJSON( data );
 			            json.recordsTotal = json.countTotal;
@@ -147,7 +205,7 @@
 	                  targets: 1
 				  },
 				  {
-	                  data: "province",
+	                  data: "address",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -155,7 +213,7 @@
 	                  targets: 2
 				  },
 				  {
-	                  data: "city",
+	                  data: "province",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -163,12 +221,20 @@
 	                  targets: 3
 				  },
 				  {
-	                  data: "area",
+	                  data: "city",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
 	                  },
 	                  targets: 4
+				  },
+				  {
+	                  data: "area",
+	                  orderable: false,
+	                  render: function ( data, type, full, meta ) {
+	                      return '<div>' + data +'</div>';
+	                  },
+	                  targets: 5
 				  },
 				  {
 	                  data: "status",
@@ -182,7 +248,7 @@
 	                		  return '<div>' + '审核不通过' +'</div>';
 	                	  }
 	                  },
-	                  targets: 5
+	                  targets: 6
 				  },
 				  {
 	                  data: "id",
@@ -194,7 +260,7 @@
                 		  	return '';
 	                	  }
 	                  },
-	                  targets: 6
+	                  targets: 7
 				  },
 				  {
 					  orderable: false,
@@ -204,6 +270,7 @@
 				columns: [
 		            { data: "agencyName" },
 		            { data: "mobilephone" },
+		            { data: "address" },
 		            { data: "province" },
 		            { data: "city" },
 		            { data: "area" },

@@ -20,14 +20,17 @@ import com.agency.crm.common.framework.util.JSONUtilS;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
 import com.agency.crm.entity.AgencyBase;
+import com.agency.crm.entity.EntityList;
 import com.agency.crm.entity.Parameter;
 import com.agency.crm.entity.PublishContent;
 import com.agency.crm.service.AgencyBaseService;
 import com.agency.crm.service.MiniProgramFormIdService;
+import com.agency.crm.service.ParameterService;
 import com.agency.crm.service.PublishContentService;
 import com.agency.crm.utils.HttpsGetUtil;
 import com.agency.crm.utils.SendTemplateUtil;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -40,9 +43,13 @@ public class ManagerController extends BaseSimpleFormController {
 	private AgencyBaseService agencyBaseService;
 	@Autowired
 	private MiniProgramFormIdService miniProgramFormIdService;
+	@Autowired
+	private ParameterService parameterService;
 
 	@RequestMapping(value = "/publishContentList.html", produces = "application/json;charset=utf-8")
-	public String publishContentListPage() {
+	public String publishContentListPage(Model model) {
+		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
+		model.addAttribute("publishCategory", JSONArray.fromObject(categoryList));
 		return "/manager/publishList";
 	}
 
