@@ -14,7 +14,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="glyphicon glyphicon-cog"></i> 信息管理 <span>信息列表</span>
+					<i class="glyphicon glyphicon-cog"></i> 帖子管理 <span>帖子列表</span>
 				</h2>
 			</div>
 
@@ -26,7 +26,35 @@
 							<a href="" class="minimize">&minus;</a>
 						</div>
 						<!-- panel-btns -->
-					<h3 class="panel-title">信息列表</h3>
+					<h3 class="panel-title">帖子列表</h3>
+					<div class="row" style="margin-top: 20px">
+							<div class="form-group col-sm-10">
+								<div class="col-sm-2">
+									<input type="text" id="mobilephone" class="form-control" placeholder="手机号"  value="" />
+								</div>
+								<div class="col-sm-2">
+									<input type="text" id="searchStatus" name=""searchStatus"" class="publish-select-status fullwidth" value="" />
+			                    </div>
+			                    <div class="col-sm-2">
+									<input type="text" id="searchCategory" name="searchCategory" class="publish-select-category fullwidth" value="" />
+			                    </div>
+								<div class="col-sm-2">
+				                    <div class="input-group input-datepicker" style="padding:0;">
+				                        <input readonly="readonly" id="searchStartDateTime" type="text" name="searchStartDateTime" class="form-control datepicker" placeholder="请点击输入查询开始日期" value="" autocomplete="on">
+				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				                    </div>
+				                </div>
+			                    <div class="col-sm-2">
+				                    <div class="input-group input-datepicker" style="padding: 0;">
+				                        <input readonly="readonly" id="searchEndDateTime" type="text" name="searchEndDateTime" class="form-control datepicker" placeholder="请点击输入查询截止日期" value="" autocomplete="on">
+				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+				                    </div>
+			                    </div>
+								<div class="col-sm-2">
+									<input class="btn btn-primary" type="button" id="searchBtn" value="搜索"/>
+								</div> 	
+							</div>	
+						</div>
 					</div>
 					<div class="panel-body">
 						<br />
@@ -64,6 +92,7 @@
 	<%@ include file="../assets/pages/foot.jsp"%>
 	<script src="${rootPath}assets/js/jquery.datatables.min.js"></script>
 	<script src="${rootPath}assets/js/select2.min.js"></script>
+	<script src="${rootPath}assets/js/jquery-ui-1.10.3.min.js"></script>
 
 <!-- Modal -->
 <div class="modal fade" id="agreeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
@@ -108,6 +137,31 @@
 
 	<script type="text/javascript">
 		var category = ${publishCategory};
+		var publishStatus = ${publishStatus};
+		
+		$(".publish-select-status").select2({
+	 	     placeholder: '状态',
+	 	     minimumResultsForSearch: Infinity,
+	 	     data: publishStatus
+	 	 });
+		$(".publish-select-category").select2({
+	 	     placeholder: '类别',
+	 	     minimumResultsForSearch: Infinity,
+	 	     data: category
+	 	 });
+		
+		jQuery("#searchStartDateTime").datepicker({
+	        dateFormat: "yy-mm-dd",
+	        changeYear: true,
+	        changeMonth: true,
+	     });
+	    
+	    jQuery("#searchEndDateTime").datepicker({
+	        dateFormat: "yy-mm-dd",
+	        changeYear: true,
+	        changeMonth: true,
+	     });
+		
 		jQuery(document).ready(function() {
 			
 			$(".nav-parent").eq(9).addClass("nav-active");
@@ -120,6 +174,29 @@
 				serverSide: true,
 				ajax: {
 					url: '${rootPath}manager/publishContentList.do',
+					data: function(data){
+						var mobilephone = $('#mobilephone').val();
+						var searchStatus=$('#searchStatus').val();
+						var searchCategory=$('#searchCategory').val();
+						var searchStartTime = $('#searchStartDateTime').val();
+						var searchEndTime = $('#searchEndDateTime').val();
+						
+						if(mobilephone != null && mobilephone !="" ){
+							data.mobilephone = mobilephone;
+			 			}
+						if(searchStatus != null && searchStatus !="" ){
+							data.status = searchStatus;
+			 			}
+						if(searchCategory != null && searchCategory !="" ){
+							data.category = searchCategory;
+			 			}
+						if(searchStartTime != null && searchStartTime !="" ){
+							data.searchStartTime = searchStartTime;
+			 			}
+			 			if(searchEndTime != null && searchEndTime !="" ){
+							data.searchEndTime = searchEndTime;
+			 			}
+					},
 					dataFilter: function(data){
 			            var json = jQuery.parseJSON( data );
 			            json.recordsTotal = json.countTotal;
@@ -157,13 +234,22 @@
 	                  data: "status",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                	  if (data == '1') {
+	                	  /* if (data == '1') {
 	                		  return '<div>' + '待审核' +'</div>';
 	                	  } else if(data == '2') {
 	                		  return '<div>' + '审核通过' +'</div>';
 	                	  } else {
 	                		  return '<div>' + '审核不通过' +'</div>';
-	                	  }
+	                	  } */
+	                	  if(full.status){
+		                		for(var i=0;i <publishStatus.length;i++){
+			                		if(full.status==publishStatus[i].id){
+			                			return '<div>' + publishStatus[i].text +'</div>';
+			                		}				                	
+			                	}
+			                } else {
+			                	return '<div></div>';
+			                }
 	                  },
 	                  targets: 3
 				  },

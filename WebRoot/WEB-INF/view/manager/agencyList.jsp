@@ -247,6 +247,14 @@
 	                	  } else {
 	                		  return '<div>' + '审核不通过' +'</div>';
 	                	  }
+	                	  
+	                	  if(full.status){
+			                		for(var i=0;i <destination.length;i++){
+				                		if(des[j]==destination[i].id){
+				                			destinations+=destination[i].text+",";
+				                		}				                	
+				                	}
+				                }
 	                  },
 	                  targets: 6
 				  },

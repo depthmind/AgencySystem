@@ -67,20 +67,51 @@
 
         <h5 class="sidebartitle"></h5>
         <ul class="nav nav-pills nav-stacked nav-bracket">  
-            <li class="nav-parent" id="agency"><a href=""><i class="glyphicon glyphicon-briefcase"></i> <span>发布管理</span></a>
+            <li class="nav-parent" id="agency"><a href=""><i class="glyphicon glyphicon-briefcase"></i> <span>帖子管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }manager/publishContentList.html?agencyId=1"><i class="fa fa-caret-right"></i> 发布信息列表</a></li>
+                    <li><a href="${rootPath }manager/publishContentList.html?agencyId=1"><i class="fa fa-caret-right"></i> 帖子列表</a></li>
+                    <li><a href="${rootPath }manager/addPublish.html?agencyId=1"><i class="fa fa-caret-right"></i> 发布帖子</a></li>
                 </ul>     
             </li> 
-            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-circle"></i> <span>代理商管理</span></a>
+            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-user-circle"></i> <span>商家管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 代理商列表</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 商家列表</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 商家添加</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 入驻期限</a></li>
                 </ul>     
             </li> 
-            <li class="nav-parent" id="parameter"><a href="javascript:void(0);"><i class="glyphicon glyphicon-cog"></i> <span>系统管理</span></a>
+            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-list"></i> <span>订单管理</span></a>
+                <ul class="children">
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 订单列表</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 售后订单</a></li>
+                </ul>     
+            </li> 
+            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-users"></i> <span>会员管理</span></a>
+                <ul class="children">
+                </ul>     
+            </li>
+            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-handshake-o"></i> <span>营销管理</span></a>
+                <ul class="children">
+                </ul>     
+            </li> 
+            <li class="nav-parent" id="goods"><a href=""><i class="fa fa-bookmark-o"></i> <span>广告管理</span></a>
+                <ul class="children">
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 广告列表</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 广告添加</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 显示时长</a></li>
+                </ul>     
+            </li> 
+            <li class="nav-parent" id="parameter"><a href="javascript:void(0);"><i class="glyphicon glyphicon-cog"></i> <span>系统设置</span></a>
                 <ul class="children">
                     <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 系统参数列表</a></li>
                     <li><a href="${rootPath }parameter/add.html"><i class="fa fa-caret-right"></i> 新增系统参数</a></li> 
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 基本信息</a></li>
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 小程序配置</a></li>
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 支付配置</a></li>
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 短信配置</a></li>
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 模板消息</a></li>
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 账号管理</a></li>
+                    <li><a href="${rootPath }parameter/list.html"><i class="fa fa-caret-right"></i> 帮助中心</a></li>
                 </ul>
             </li>
             <li><a href="${rootPath }signout.html" id="signout"><i class="glyphicon glyphicon-log-out"></i> 退出登录</a></li>                     

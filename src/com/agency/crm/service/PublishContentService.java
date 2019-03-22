@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -94,8 +95,26 @@ public class PublishContentService extends BaseService {
 		
 		map.put("length", pageHelper.getLength());
 		
+		String status = publishContent.getStatus();
+		String category = publishContent.getCategory();
+		if (StringUtils.isNotBlank(publishContent.getMobilephone())) {
+			map.put("mobilephone", publishContent.getMobilephone());
+		}
+		if (StringUtils.isNotBlank(status)) {
+			map.put("status", status);
+		}
+		if (StringUtils.isNotBlank(category)) {
+			map.put("category", category);
+		}
+		if (StringUtils.isNotBlank(publishContent.getSearchStartTime())) {
+			map.put("searchStartTime", publishContent.getSearchStartTime() + " 00:00:00");
+		}
+		if (StringUtils.isNotBlank(publishContent.getSearchEndTime())) {
+			map.put("searchEndTime", publishContent.getSearchEndTime() + " 00:00:00");
+		}
+		
 		List<PublishContent> data = publishContentMapper.selectPublishContentByParam(map);
-		long count = publishContentMapper.countPublishContentByParam();
+		long count = publishContentMapper.countPublishContentByParam(map);
 		
 		pageResult.setData(data);
 		pageResult.setCountTotal(count);

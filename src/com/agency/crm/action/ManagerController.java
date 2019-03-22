@@ -49,7 +49,9 @@ public class ManagerController extends BaseSimpleFormController {
 	@RequestMapping(value = "/publishContentList.html", produces = "application/json;charset=utf-8")
 	public String publishContentListPage(Model model) {
 		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
+		List<EntityList> statusList = parameterService.getParameterInfo("publish.status");
 		model.addAttribute("publishCategory", JSONArray.fromObject(categoryList));
+		model.addAttribute("publishStatus", JSONArray.fromObject(statusList));
 		return "/manager/publishList";
 	}
 
@@ -60,6 +62,20 @@ public class ManagerController extends BaseSimpleFormController {
 		QueryResult<PublishContent> pageResult = publishContentService.queryPublishContent(publishContent, page, request);
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
+	}
+	
+	@RequestMapping(value = "/addPublish.html", produces = "application/json;charset=utf-8")
+	public String addPublishPage(Model model) {
+		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
+		model.addAttribute("publishCategory", JSONArray.fromObject(categoryList));
+		return "/manager/addPublish";
+	}
+	
+	@RequestMapping(value = "/addPublish.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String addPublish(PublishContent publishContent) {
+		int result = publishContentService.savePublishContent(publishContent);
+		return "/manager/addPublish";
 	}
 
 	@RequestMapping(value = "/agencyList.html", produces = "application/json;charset=utf-8")

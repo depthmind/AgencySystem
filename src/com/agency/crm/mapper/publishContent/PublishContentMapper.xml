@@ -102,14 +102,44 @@
 		left join parameter p
 		on c.category = p.para_value
 		where c.is_del = 0
+		<if test="mobilephone != null and mobilephone != ''">
+			and c.mobilephone = #{mobilephone}
+		</if>
+		<if test="status != null and status != ''">
+			and c.status = #{status}
+		</if>
+		<if test="category != null and category != ''">
+			and c.category = #{category}
+		</if>
+		<if test="searchStartTime != null and searchStartTime != ''">
+			and create_time &gt; #{searchStartTime}
+		</if>
+		<if test="searchEndTime != null and searchEndTime != ''">
+			and create_time &lt; #{searchEndTime}
+		</if>
 		and p.para_domain = 'publish.category'
 		limit #{start},#{length}
 	</select>
 	
-	<select id="countPublishContentByParam" resultType="long">
+	<select id="countPublishContentByParam" resultType="long" parameterType="map">
 		select count(id)
 		from publish_content
 		where is_del = 0
+		<if test="mobilephone != null and mobilephone != ''">
+			and mobilephone = #{mobilephone}
+		</if>
+		<if test="status != null and status != ''">
+			and status = #{status}
+		</if>
+		<if test="category != null and category != ''">
+			and category = #{category}
+		</if>
+		<if test="searchStartTime != null and searchStartTime != ''">
+			and create_time &gt; #{searchStartTime}
+		</if>
+		<if test="searchEndTime != null and searchEndTime != ''">
+			and create_time &lt; #{searchEndTime}
+		</if>
 	</select>
 	
 	<update id="updatePublishContent" parameterType="PublishContent">
