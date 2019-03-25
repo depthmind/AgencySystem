@@ -81,13 +81,27 @@
 	<update id="updateParameter" parameterType="Parameter" flushCache="true">
 		update parameter
 		set
-		para_domain=#{domain},
-		para_value=#{value},
-		chinese=#{chinese},
-		english=#{english},
-		para_desc=#{depict},
-		para_sort=#{sort},
-		isdisplay=#{isdisplay},
+		<if test="domain != null and domain != ''">
+			para_domain=#{domain},
+		</if>
+		<if test="value != null and value != ''">
+			para_value=#{value},
+		</if>
+		<if test="chinese != null and chinese != ''">
+			chinese=#{chinese},
+		</if>
+		<if test="english != null and english != ''">
+			english=#{english},
+		</if>
+		<if test="depict != null and depict != ''">
+			para_desc=#{depict},
+		</if>
+		<if test="sort != null and sort != ''">
+			para_sort=#{sort},
+		</if>
+		<if test="isdisplay != null and isdisplay != ''">
+			isdisplay=#{isdisplay},
+		</if>
 		update_time=NOW()
 		where
 		para_id=#{parameterId}

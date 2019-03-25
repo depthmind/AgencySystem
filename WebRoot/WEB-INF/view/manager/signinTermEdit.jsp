@@ -39,7 +39,7 @@
           <h4 class="panel-title">商品基本信息</h4>
           <p>填写下表，完成商品创建。</p>
         </div>
-        <form class="form-horizontal" id="form" enctype="multipart/form-data" method="POST" action="${rootPath}manager/addGoodsAndProduct.do">
+        <form class="form-horizontal" id="form">
         <div class="panel-body panel-body-nopadding">
 	        <div class="section-block">
 	            <div class="form-group col-sm-4">
@@ -60,8 +60,8 @@
         
         <div class="panel-footer align-center">
 			<input class="btn btn-primary" type="submit" value="保存"/>&nbsp;
-			<input class="btn btn-default" type="button" id="btn-back" value="取消"/>
-			<input type="hidden" name="chinese" value="${parameter.chinese}">
+			<input class="btn btn-default" type="button" id="btn-back" value="返回"/>
+			<input type="hidden" name="parameterId" value="${parameter.parameterId}">
 		</div><!-- panel-footer -->
      </form>   
       </div><!-- panel -->
@@ -83,9 +83,12 @@
 				depict: {
 					required:true,
 				},
+				value: {
+					required:true,
+				},
 				chinese: {
 					required:true,
-					isChinese:true,
+					//isChinese:true,
 				},
 			},
 			messages: {
@@ -98,7 +101,6 @@
 				chinese: {
 					required:"请输入中文",
 				},
-				sort: "排序标记必须是整数"
 			},
 		    highlight: function(element) {
 		      jQuery(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -132,9 +134,7 @@
 		}, "请少于30字");
 		jQuery.validator.addMethod("isChinese", function(value, element) {  
 			var reg = '^[0-9]*$';
-			if (!reg.test($("#chinese").val())) {
-				return false;
-			}
+			return reg.test($("#chinese").val());
 		}, "请输入数字");
 		jQuery.validator.addMethod("isEnglish", function(value, element) {  
 			var length = value.length;  
@@ -147,7 +147,7 @@
 			$.post('${rootPath}manager/editSigninTerm.do', f, function(result) {
 				var rmsg = result.msg;
 				if (result.success) {
-					window.parent.location = "${rootPath}parameter/add.html";
+					window.parent.location = "${rootPath}manager/editSigninTerm.html?id=${parameter.parameterId}";
 				} else {
 					$("#msgModal").modal('show');
 				}

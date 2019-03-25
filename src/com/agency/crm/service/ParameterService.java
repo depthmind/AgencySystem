@@ -108,12 +108,14 @@ public class ParameterService extends BaseService {
 	 * @param parameter
 	 * @return
 	 */
-	public void updateParameter(Parameter parameter) {
+	public int updateParameter(Parameter parameter) {
+		int result = 0;
 		try {
-			parameterMapper.updateParameter(parameter);
+			result = parameterMapper.updateParameter(parameter);
 		} catch (Exception e) {
 			logger.error("ParameterService.updateParameter() --> " + parameter + "-->" + e.getMessage());
 		}
+		return result;
 	}
 
 	/**

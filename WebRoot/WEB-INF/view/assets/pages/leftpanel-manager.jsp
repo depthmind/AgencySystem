@@ -98,7 +98,7 @@
                 <ul class="children">
                     <li><a href="${rootPath }manager/advertisementList.html"><i class="fa fa-caret-right"></i> 广告列表</a></li>
                     <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 广告添加</a></li>
-                    <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 显示时长</a></li>
+                    <li><a href="${rootPath }manager/signinTermList.html"><i class="fa fa-caret-right"></i> 显示时长</a></li>
                 </ul>     
             </li> 
             <li class="nav-parent" id="parameter"><a href="javascript:void(0);"><i class="glyphicon glyphicon-cog"></i> <span>系统设置</span></a>

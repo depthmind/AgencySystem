@@ -17,7 +17,7 @@ public interface ParameterMapper extends BaseMapper {
 	
 	void saveParameter(Parameter Parameter);
 
-	void updateParameter(Parameter Parameter);
+	int updateParameter(Parameter Parameter);
 
 	void deleteParameterById(int ParameterId);
 	

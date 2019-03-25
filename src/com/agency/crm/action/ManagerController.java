@@ -223,9 +223,13 @@ public class ManagerController extends BaseSimpleFormController {
 	
 	@RequestMapping(value = "/editSigninTerm.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public Json updateSigninTerm(HttpServletRequest request, HttpSession session, Model model, Parameter parameter) {
+	public Json editSigninTerm(HttpServletRequest request, HttpSession session, Parameter parameter) {
 		Json json = new Json();
-		
+		json.setSuccess(false);
+		int result = parameterService.updateParameter(parameter);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
 		return json;
 	}
 	
