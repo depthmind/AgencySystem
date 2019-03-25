@@ -26,7 +26,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="glyphicon glyphicon-cog"></i> 商品管理 <span>新增商品</span>
+					<i class="glyphicon glyphicon-cog"></i> 帖子管理 <span>新增帖子</span>
 				</h2>
 			</div>
 
@@ -38,8 +38,8 @@
           <div class="panel-btns">
             <a href="" class="minimize">&minus;</a>
           </div>
-          <h4 class="panel-title">商品基本信息</h4>
-          <p>填写下表，完成商品创建。</p>
+          <h4 class="panel-title">帖子基本信息</h4>
+          <p>填写下表，完成帖子创建。</p>
         </div>
         <form class="form-horizontal" id="form" enctype="multipart/form-data" method="POST" action="${rootPath}manager/addGoodsAndProduct.do">
         <div class="panel-body panel-body-nopadding">
@@ -53,43 +53,43 @@
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">内容描述 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="内容描述" class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">联系人姓名 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="联系人姓名" class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">联系人电话 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="联系人电话" class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">省 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="省 " class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">市 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="市" class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">县 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="县" class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">地址详情 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="goodsName" name="goodsName" placeholder="地址详情" class="form-control" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
@@ -119,50 +119,6 @@
 	              </div>
 	            </div> --> 
 	        </div>
-	        <%-- <div class="section-block"> 
-	        	<table id="dg" class="easyui-datagrid" title="规格管理" style="width:700px;height:auto"
-			data-options="
-				iconCls: 'icon-edit',
-				singleSelect: true,
-				rownumbers:true,
-				toolbar: '#tb',
-				method: 'get',
-				url:'${rootPath }miniApp/findAllProduct.do',
-				onClickRow: onClickRow
-			">
-		<thead>
-			<tr>
-				<th data-options="field:'id',width:80" hidden="true">ID</th>
-				<th data-options="field:'productName',width:80,editor:'textbox'">规格名称</th>
-				<th data-options="field:'productName',width:100,
-						formatter:function(value,row){
-							return row.productName;
-						},
-						editor:{
-							type:'combobox',
-							options:{
-								valueField:'id',
-								textField:'productName',
-								method:'get',
-								url:'${rootPath }goods/findProductByGoodsId',
-								required:true
-							}
-						}">规格名称</th>
-				<th data-options="field:'price',width:80,align:'right',editor:{type:'numberbox',options:{precision:1}}">价格</th>
-				<th data-options="field:'stock',width:80,align:'right',editor:'numberbox'">库存</th>
-				<th data-options="field:'description',width:250,editor:'textbox'">描述</th>
-				<th data-options="field:'status',width:60,align:'center',editor:{type:'checkbox',options:{on:'在售',off:'下架'}}">状态</th>
-			</tr>
-		</thead>
-	</table>
-	<div id="tb" style="height:auto">
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append()">新增</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()">删除</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept()">保存</a>
-		<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="reject()">取消</a>
-		<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()">GetChanges</a> -->
-	</div>
-	        </div> --%>                                          
         </div><!-- panel-body -->
         
         <div class="panel-footer align-center">

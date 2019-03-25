@@ -68,6 +68,8 @@
 										<th>联系方式</th>
 										<th>状态</th>
 										<th>类别</th>
+										<th>创建时间</th>
+										<th>更新时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -269,6 +271,34 @@
 	                  targets: 4
 				  },
 				  {
+	                  data: "createTime",
+	                  orderable: false,
+	                  render: function ( data, type, full, meta ) {
+	                	  var n = full.createTime.time;
+		                	if(full.createTime){
+		                		n=new Date(n).format("yyyy-MM-dd hh:mm:ss");
+		                	}else{
+		                		n="";
+		                	}
+		                return n;
+	                  },
+	                  targets: 5
+				  },
+				  {
+	                  data: "updateTime",
+	                  orderable: false,
+	                  render: function ( data, type, full, meta ) {
+	                	  var n = full.updateTime.time;
+		                	if(full.updateTime){
+		                		n=new Date(n).format("yyyy-MM-dd hh:mm:ss");
+		                	}else{
+		                		n="";
+		                	}
+		                	return n;
+	                  },
+	                  targets: 6
+				  },
+				  {
 	                  data: "id",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
@@ -279,7 +309,7 @@
 	                		  return '';
 	                	  }
 	                  },
-	                  targets: 5
+	                  targets: 7
 				  },
 				  {
 					  orderable: false,
@@ -292,6 +322,8 @@
 		            { data: "mobilephone" },
 		            { data: "status" },
 		            { data: "category" },
+		            { data: "createTime" },
+		            { data: "updateTime" },
 		            { data: "id" }
 		        ]
 			});

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GBK" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.advertisement.AdvertisementMapper">
+	
+	<select id="selectAdvertisementRotationByParam" parameterType="map" resultType="AdvertisementRotation">
+		select a.id, a.advertisement_type as advertisementType, a.promote_id as promoteId, a.promote_type as promoteType,
+			a.is_sold as isSold, a.release_date as releaseDate, a.create_time as createTime, a.update_time as updateTime,
+			a.is_del as isDel
+		from advertisement_rotation a
+		left join parameter p
+		on a.promote_type = p.para_value
+		where a.is_del = 0
+		and p.para_domain = 'publish.category'
+		order by a.create_time desc
+	</select>
+</mapper>

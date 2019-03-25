@@ -112,12 +112,13 @@
 			and c.category = #{category}
 		</if>
 		<if test="searchStartTime != null and searchStartTime != ''">
-			and create_time &gt; #{searchStartTime}
+			and c.create_time &gt; #{searchStartTime}
 		</if>
 		<if test="searchEndTime != null and searchEndTime != ''">
-			and create_time &lt; #{searchEndTime}
+			and c.create_time &lt; #{searchEndTime}
 		</if>
 		and p.para_domain = 'publish.category'
+		order by c.create_time desc
 		limit #{start},#{length}
 	</select>
 	

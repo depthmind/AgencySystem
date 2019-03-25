@@ -27,31 +27,6 @@
 						</div>
 						<!-- panel-btns -->
 					<h3 class="panel-title">代理商列表</h3>
-						<div class="row" style="margin-top: 20px">
-							<div class="form-group col-sm-10">
-								<div class="col-sm-2">
-									<input type="text" id="mobilephone" class="form-control" placeholder="手机号"  value="" />
-								</div>
-								<div class="col-sm-2">
-									<input type="text" id="address" class="form-control" placeholder="地址"  value="" />
-								</div>
-								<div class="col-sm-2">
-				                    <div class="input-group input-datepicker" style="padding:0;">
-				                        <input readonly="readonly" id="searchStartDateTime" type="text" name="searchStartDateTime" class="form-control datepicker" placeholder="请点击输入查询开始日期" value="" autocomplete="on">
-				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-				                    </div>
-				                </div>
-			                    <div class="col-sm-2">
-				                    <div class="input-group input-datepicker" style="padding: 0;">
-				                        <input readonly="readonly" id="searchEndDateTime" type="text" name="searchEndDateTime" class="form-control datepicker" placeholder="请点击输入查询截止日期" value="" autocomplete="on">
-				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-				                    </div>
-			                    </div>
-								<div class="col-sm-2">
-									<input class="btn btn-primary" type="button" id="searchBtn" value="搜索"/>
-								</div> 	
-							</div>	
-						</div>
 					</div>
 					<div class="panel-body">
 						<br />
@@ -60,13 +35,10 @@
 							<table id="dataTable" class="table">
 								<thead>
 									<tr>
-										<th>名称</th>
-										<th>联系方式</th>
-										<th>地址</th>
-										<th>省</th>
-										<th>市</th>
-										<th>县/区</th>
-										<th>状态</th>
+										<th>广告类型</th>
+										<th>id</th>
+										<th>已售</th>
+										<th>到期时间</th>
 										<th>创建时间</th>
 										<th>更新时间</th>
 										<th>操作</th>
@@ -138,18 +110,6 @@
 
 	<script type="text/javascript">
 	
-	jQuery("#searchStartDateTime").datepicker({
-        dateFormat: "yy-mm-dd",
-        changeYear: true,
-        changeMonth: true,
-     });
-    
-    jQuery("#searchEndDateTime").datepicker({
-        dateFormat: "yy-mm-dd",
-        changeYear: true,
-        changeMonth: true,
-     });
-    
     jQuery(document).ready(function() {
 			
 			$(".nav-parent").eq(9).addClass("nav-active");
@@ -161,26 +121,7 @@
 				language: datatable_local_language, // my.js
 				serverSide: true,
 				ajax: {
-					url: '${rootPath}manager/agencyList.do',
-					data:function ( data ) {
-						var mobilephone = $('#mobilephone').val();
-						var searchStartTime = $('#searchStartDateTime').val();
-						var searchEndTime = $('#searchEndDateTime').val();
-						var address = $('#address').val();
-			 			
-			 			if(mobilephone != null && mobilephone !="" ){
-							data.mobilephone = mobilephone;
-			 			}
-			 			if(searchStartTime != null && searchStartTime !="" ){
-							data.searchStartTime = searchStartTime;
-			 			}
-			 			if(searchEndTime != null && searchEndTime !="" ){
-							data.searchEndTime = searchEndTime;
-			 			}
-			 			if(address != null && address !="" ){
-							data.address = address;
-			 			}
-					},
+					url: '${rootPath}manager/advertisementListOfRotation.do',
 					dataFilter: function(data){
 			            var json = jQuery.parseJSON( data );
 			            json.recordsTotal = json.countTotal;
@@ -191,7 +132,7 @@
 				},
 				columnDefs: [
 				  {
-	                  data: "agencyName",
+	                  data: "promoteType",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -199,7 +140,7 @@
 	                  targets: 0
 				  },
 				  {
-	                  data: "mobilephone",
+	                  data: "promoteId",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -207,7 +148,7 @@
 	                  targets: 1
 				  },
 				  {
-	                  data: "address",
+	                  data: "isSold",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -215,50 +156,18 @@
 	                  targets: 2
 				  },
 				  {
-	                  data: "province",
+	                  data: "releaseDate",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                      return '<div>' + data +'</div>';
+	                	  var n = full.releaseDate.time;
+		                	if(full.releaseDate){
+		                		n=new Date(n).format("yyyy-MM-dd");
+		                	}else{
+		                		n="";
+		                	}
+		                return n;
 	                  },
 	                  targets: 3
-				  },
-				  {
-	                  data: "city",
-	                  orderable: false,
-	                  render: function ( data, type, full, meta ) {
-	                      return '<div>' + data +'</div>';
-	                  },
-	                  targets: 4
-				  },
-				  {
-	                  data: "area",
-	                  orderable: false,
-	                  render: function ( data, type, full, meta ) {
-	                      return '<div>' + data +'</div>';
-	                  },
-	                  targets: 5
-				  },
-				  {
-	                  data: "status",
-	                  orderable: false,
-	                  render: function ( data, type, full, meta ) {
-	                	  if(data == '1') {
-	                		  return '<div>' + '待审核' +'</div>';
-	                	  } else if(data == '2') {
-	                		  return '<div>' + '审核通过' +'</div>';
-	                	  } else {
-	                		  return '<div>' + '审核不通过' +'</div>';
-	                	  }
-	                	  
-	                	  if(full.status){
-			                		for(var i=0;i <destination.length;i++){
-				                		if(des[j]==destination[i].id){
-				                			destinations+=destination[i].text+",";
-				                		}				                	
-				                	}
-				                }
-	                  },
-	                  targets: 6
 				  },
 				  {
 	                  data: "createTime",
@@ -272,7 +181,7 @@
 		                	}
 		                return n;
 	                  },
-	                  targets: 7
+	                  targets: 4
 				  },
 				  {
 	                  data: "updateTime",
@@ -286,7 +195,7 @@
 		                	}
 		                	return n;
 	                  },
-	                  targets: 8
+	                  targets: 5
 				  },
 				  {
 	                  data: "id",
@@ -298,7 +207,7 @@
                 		  	return '';
 	                	  }
 	                  },
-	                  targets: 9
+	                  targets: 6
 				  },
 				  {
 					  orderable: false,
@@ -306,13 +215,10 @@
 				  },
 				],
 				columns: [
-		            { data: "agencyName" },
-		            { data: "mobilephone" },
-		            { data: "address" },
-		            { data: "province" },
-		            { data: "city" },
-		            { data: "area" },
-		            { data: "status" },
+		            { data: "promoteType" },
+		            { data: "promoteId" },
+		            { data: "isSold" },
+		            { data: "releaseDate" },
 		            { data: "createTime" },
 		            { data: "updateTime" },
 		            { data: "id" }

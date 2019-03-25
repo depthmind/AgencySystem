@@ -19,10 +19,12 @@ import com.agency.crm.common.framework.bean.QueryResult;
 import com.agency.crm.common.framework.util.JSONUtilS;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
+import com.agency.crm.entity.AdvertisementRotation;
 import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.EntityList;
 import com.agency.crm.entity.Parameter;
 import com.agency.crm.entity.PublishContent;
+import com.agency.crm.service.AdvertisementService;
 import com.agency.crm.service.AgencyBaseService;
 import com.agency.crm.service.MiniProgramFormIdService;
 import com.agency.crm.service.ParameterService;
@@ -45,7 +47,15 @@ public class ManagerController extends BaseSimpleFormController {
 	private MiniProgramFormIdService miniProgramFormIdService;
 	@Autowired
 	private ParameterService parameterService;
+	@Autowired
+	private AdvertisementService advertisementService;
 
+	/**
+	 * 
+	 * @date 2019年3月25日 下午3:59:49
+	 * @author LiuHan
+	 * @TODO 帖子列表
+	 */
 	@RequestMapping(value = "/publishContentList.html", produces = "application/json;charset=utf-8")
 	public String publishContentListPage(Model model) {
 		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
@@ -64,6 +74,12 @@ public class ManagerController extends BaseSimpleFormController {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @date 2019年3月25日 下午4:00:04
+	 * @author LiuHan
+	 * @TODO 后台新增帖子
+	 */
 	@RequestMapping(value = "/addPublish.html", produces = "application/json;charset=utf-8")
 	public String addPublishPage(Model model) {
 		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
@@ -75,9 +91,15 @@ public class ManagerController extends BaseSimpleFormController {
 	@ResponseBody
 	public String addPublish(PublishContent publishContent) {
 		int result = publishContentService.savePublishContent(publishContent);
-		return "/manager/addPublish";
+		return "/manager/publishList";
 	}
 
+	/**
+	 * 
+	 * @date 2019年3月25日 下午4:00:15
+	 * @author LiuHan
+	 * @TODO 商家列表
+	 */
 	@RequestMapping(value = "/agencyList.html", produces = "application/json;charset=utf-8")
 	public String agencyListPage() {
 		return "/manager/agencyList";
@@ -152,6 +174,57 @@ public class ManagerController extends BaseSimpleFormController {
 			sendTemplageMessage(openId, message, reason);
 			json.setSuccess(true);
 		}
+		
+		return json;
+	}
+	
+	/**
+	 * 
+	 * @date 2019年3月25日 下午4:01:56
+	 * @author LiuHan
+	 * @TODO 广告位列表
+	 */
+	@RequestMapping(value = "/advertisementListOfRotation.html", produces = "application/json;charset=utf-8")
+	public String advertisementListPageOfRotation() {
+		return "/manager/advertisementList";
+	}
+	
+	@RequestMapping(value = "/advertisementListOfRotation.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String advertisementListOfRotation(HttpServletRequest request, HttpSession session, Model model, AdvertisementRotation advertisementRotation,
+			PageHelper page) {
+		QueryResult<AdvertisementRotation> pageResult = advertisementService.queryAdvertisementRotation(advertisementRotation, page, request);
+		String result = JSONUtilS.object2json(pageResult);
+		return result;
+	}
+	
+	@RequestMapping(value = "/signinTermList.html", produces = "application/json;charset=utf-8")
+	public String signinTermListPage() {
+		return "/manager/signinTermList";
+	}
+	
+	@RequestMapping(value = "/signinTermList.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String advertisementListOfRotation(HttpServletRequest request, HttpSession session, Model model, Parameter parameter,
+			PageHelper page) {
+		parameter.setDomain("agency.validPeriod");
+		QueryResult<Parameter> pageResult = parameterService.queryParameter(parameter, page, request);
+		String result = JSONUtilS.object2json(pageResult);
+		return result;
+	}
+	
+	@RequestMapping(value = "/editSigninTerm.html", produces = "application/json;charset=utf-8")
+	public String editSigninTermPage(@RequestParam(required = true) Integer id, Model model) {
+		Parameter parameter = new Parameter();
+		parameter = parameterService.getParameterById(id);
+		model.addAttribute("parameter", parameter);
+		return "/manager/signinTermEdit";
+	}
+	
+	@RequestMapping(value = "/editSigninTerm.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json updateSigninTerm(HttpServletRequest request, HttpSession session, Model model, Parameter parameter) {
+		Json json = new Json();
 		
 		return json;
 	}

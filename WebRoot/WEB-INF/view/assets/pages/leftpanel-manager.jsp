@@ -69,21 +69,21 @@
         <ul class="nav nav-pills nav-stacked nav-bracket">  
             <li class="nav-parent" id="agency"><a href=""><i class="glyphicon glyphicon-briefcase"></i> <span>帖子管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }manager/publishContentList.html?agencyId=1"><i class="fa fa-caret-right"></i> 帖子列表</a></li>
-                    <li><a href="${rootPath }manager/addPublish.html?agencyId=1"><i class="fa fa-caret-right"></i> 发布帖子</a></li>
+                    <li><a href="${rootPath }manager/publishContentList.html"><i class="fa fa-caret-right"></i> 帖子列表</a></li>
+                    <li><a href="${rootPath }manager/addPublish.html"><i class="fa fa-caret-right"></i> 发布帖子</a></li>
                 </ul>     
             </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-user-circle"></i> <span>商家管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 商家列表</a></li>
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 商家添加</a></li>
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 入驻期限</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 商家列表</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 商家添加</a></li>
+                    <li><a href="${rootPath }manager/signinTermList.html"><i class="fa fa-caret-right"></i> 入驻期限</a></li>
                 </ul>     
             </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-list"></i> <span>订单管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 订单列表</a></li>
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 售后订单</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 订单列表</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 售后订单</a></li>
                 </ul>     
             </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-users"></i> <span>会员管理</span></a>
@@ -96,9 +96,9 @@
             </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-bookmark-o"></i> <span>广告管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 广告列表</a></li>
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 广告添加</a></li>
-                    <li><a href="${rootPath }manager/agencyList.html?agencyId=1"><i class="fa fa-caret-right"></i> 显示时长</a></li>
+                    <li><a href="${rootPath }manager/advertisementList.html"><i class="fa fa-caret-right"></i> 广告列表</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 广告添加</a></li>
+                    <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 显示时长</a></li>
                 </ul>     
             </li> 
             <li class="nav-parent" id="parameter"><a href="javascript:void(0);"><i class="glyphicon glyphicon-cog"></i> <span>系统设置</span></a>
