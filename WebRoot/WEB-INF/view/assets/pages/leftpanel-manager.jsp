@@ -96,7 +96,8 @@
             </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-bookmark-o"></i> <span>广告管理</span></a>
                 <ul class="children">
-                    <li><a href="${rootPath }manager/advertisementList.html"><i class="fa fa-caret-right"></i> 广告列表</a></li>
+                    <li><a href="${rootPath }manager/advertisementListOfRotation.html"><i class="fa fa-caret-right"></i> 轮播图列表</a></li>
+                    <li><a href="${rootPath }manager/advertisementListOfRecommend.html"><i class="fa fa-caret-right"></i> 推荐位列表</a></li>
                     <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 广告添加</a></li>
                     <li><a href="${rootPath }manager/signinTermList.html"><i class="fa fa-caret-right"></i> 显示时长</a></li>
                 </ul>     

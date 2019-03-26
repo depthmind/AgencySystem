@@ -12,6 +12,14 @@
 		on a.promote_type = p.para_value
 		where a.is_del = 0
 		and p.para_domain = 'publish.category'
-		order by a.create_time desc
+		order by a.id
+	</select>
+	
+	<select id="selectAdvertisementRecommendByParam" parameterType="map" resultType="com.agency.crm.entity.AdvertisementRecommend">
+		select a.id, a.goods_id as goodsId, a.is_sold as isSold, a.release_date as releaseDate, a.create_time as createTime, 
+		a.update_time as updateTime, a.is_del as isDel
+		from advertisement_recommend a
+		where a.is_del = 0
+		order by a.id
 	</select>
 </mapper>

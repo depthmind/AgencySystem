@@ -81,7 +81,7 @@
 	</select>
 
 	<select id="selectPublishContentById" resultType="PublishContent" parameterType="int">
-		select id, category, description, images, contact_name as contactName, mobilephone, city, location, open_id as openId,
+		select id, category, description, images, contact_name as contactName, mobilephone, province, city, area, location, open_id as openId,
 		update_time as updateTime, create_time as createTime from publish_content
 		where id = #{id}
 		and is_del = 0
@@ -161,14 +161,29 @@
 			<if test="mobilephone != null and mobilephone != ''">
 				mobilephone = #{mobilephone},
 			</if>
+			<if test="province != null and province != ''">
+				province = #{province},
+			</if>
 			<if test="city != null and city != ''">
 				city = #{city},
+			</if>
+			<if test="area != null and area != ''">
+				area = #{area},
 			</if>
 			<if test="location != null and location != ''">
 				location = #{location},
 			</if>
+			<if test="address != null and address != ''">
+				address = #{address},
+			</if>
+			<if test="isTop != null and isTop != ''">
+				is_top = #{isTop},
+			</if>
 			<if test="status != null and status != ''">
 				status = #{status},
+			</if>
+			<if test="isDel != null and isDel != ''">
+				is_del = #{isDel},
 			</if>
 			update_time = now()
 		</set>

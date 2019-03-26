@@ -19,6 +19,7 @@ import com.agency.crm.common.framework.bean.QueryResult;
 import com.agency.crm.common.framework.util.JSONUtilS;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
+import com.agency.crm.entity.AdvertisementRecommend;
 import com.agency.crm.entity.AdvertisementRotation;
 import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.EntityList;
@@ -89,9 +90,50 @@ public class ManagerController extends BaseSimpleFormController {
 	
 	@RequestMapping(value = "/addPublish.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String addPublish(PublishContent publishContent) {
+	public Json addPublish(PublishContent publishContent) {
+		Json json = new Json();
+		json.setSuccess(false);
 		int result = publishContentService.savePublishContent(publishContent);
-		return "/manager/publishList";
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		return json;
+	}
+	
+	@RequestMapping(value = "/editPublish.html", produces = "application/json;charset=utf-8")
+	public String editPublishPage(Model model, @RequestParam(required = true) Integer id) {
+		PublishContent publish = new PublishContent();
+		publish = publishContentService.findPublishContentById(id);
+		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
+		model.addAttribute("publishCategory", JSONArray.fromObject(categoryList));
+		model.addAttribute("publish", publish);
+		return "/manager/editPublish";
+	}
+	
+	@RequestMapping(value = "/editPublish.do", produces = "application/json;charset=utf-8")
+	public String editPublish(PublishContent publishContent) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = publishContentService.updatePublishContent(publishContent);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		return "redirect:/manager/editPublish.html?id=" + publishContent.getId();
+	}
+	
+	@RequestMapping(value = "/delPublish.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json delPublish(@RequestParam(required = true) Integer id) {
+		Json json = new Json();
+		json.setSuccess(false);
+		PublishContent publishContent = new PublishContent();
+		publishContent.setId(id);
+		publishContent.setIsDel(1);
+		int result = publishContentService.updatePublishContent(publishContent);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		return json;
 	}
 
 	/**
@@ -112,6 +154,42 @@ public class ManagerController extends BaseSimpleFormController {
 		QueryResult<AgencyBase> pageResult = agencyBaseService.queryAgencyBase(agencyBase, page, request);
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
+	}
+	
+	@RequestMapping(value = "/editAgency.html", produces = "application/json;charset=utf-8")
+	public String editAgencyPage(Model model, @RequestParam(required = true) Integer id) {
+		PublishContent publish = new PublishContent();
+		publish = publishContentService.findPublishContentById(id);
+		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
+		model.addAttribute("publishCategory", JSONArray.fromObject(categoryList));
+		model.addAttribute("publish", publish);
+		return "/manager/editPublish";
+	}
+	
+	@RequestMapping(value = "/editAgency.do", produces = "application/json;charset=utf-8")
+	public String editAgency(PublishContent publishContent) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = publishContentService.updatePublishContent(publishContent);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		return "redirect:/manager/editPublish.html?id=" + publishContent.getId();
+	}
+	
+	@RequestMapping(value = "/delAgency.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json delAgency(@RequestParam(required = true) Integer id) {
+		Json json = new Json();
+		json.setSuccess(false);
+		PublishContent publishContent = new PublishContent();
+		publishContent.setId(id);
+		publishContent.setIsDel(1);
+		int result = publishContentService.updatePublishContent(publishContent);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		return json;
 	}
 	
 	@RequestMapping(value = "/updatePublishContentStatusById.do", produces = "application/json;charset=utf-8")
@@ -186,7 +264,7 @@ public class ManagerController extends BaseSimpleFormController {
 	 */
 	@RequestMapping(value = "/advertisementListOfRotation.html", produces = "application/json;charset=utf-8")
 	public String advertisementListPageOfRotation() {
-		return "/manager/advertisementList";
+		return "/manager/advertisementListOfRotation";
 	}
 	
 	@RequestMapping(value = "/advertisementListOfRotation.do", produces = "application/json;charset=utf-8")
@@ -194,6 +272,20 @@ public class ManagerController extends BaseSimpleFormController {
 	public String advertisementListOfRotation(HttpServletRequest request, HttpSession session, Model model, AdvertisementRotation advertisementRotation,
 			PageHelper page) {
 		QueryResult<AdvertisementRotation> pageResult = advertisementService.queryAdvertisementRotation(advertisementRotation, page, request);
+		String result = JSONUtilS.object2json(pageResult);
+		return result;
+	}
+	
+	@RequestMapping(value = "/advertisementListOfRecommend.html", produces = "application/json;charset=utf-8")
+	public String advertisementListPageOfRecommend() {
+		return "/manager/advertisementListOfRecommend";
+	}
+	
+	@RequestMapping(value = "/advertisementListOfRecommend.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String advertisementListOfRecommend(HttpServletRequest request, HttpSession session, Model model, AdvertisementRecommend advertisementRecommend,
+			PageHelper page) {
+		QueryResult<AdvertisementRecommend> pageResult = advertisementService.queryAdvertisementRecommend(advertisementRecommend, page, request);
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}

@@ -117,7 +117,7 @@
 </div><!-- modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="disagreeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+<div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
@@ -125,7 +125,7 @@
         <h4 class="modal-title" id="myModalLabel"><span class="fa fa-warning"></span> 提示</h4>
       </div>
       <div class="modal-body">
-        确定审核不通过么？
+        确定删除么？
       </div>
       <div class="modal-footer">
       	<input type="hidden" class="hiddenId" value="" />
@@ -302,12 +302,7 @@
 	                  data: "id",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                	  var myButton = '';
-	                	  if (full.status == '1') {
-	                      	return '<a class="btn btn-success btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 审核通过</a>&nbsp;<a class="btn btn-danger btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 审核不通过</a>&nbsp;';
-	                	  } else {
-	                		  return '';
-	                	  }
+	                	  return '<a class="btn btn-success btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 编辑</a>&nbsp;<a class="btn btn-danger btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 删除</a>&nbsp;';
 	                  },
 	                  targets: 7
 				  },
@@ -334,14 +329,9 @@
 			
 			$('#dataTable tbody').on( 'click', 'a.btn-success', function () {
 				var data = t.row($(this).parents('tr')).data();
-				agree($(this).attr('id'));
+				edit($(this).attr('id'));
 		    } );
 			
-			$('#dataTable tbody').on( 'click', 'a.btn-danger', function () {
-				var data = t.row($(this).parents('tr')).data();
-				disagree($(this).attr('id'));
-		    } );
-
 			$('#dataTable tbody').on( 'click', 'a.btn-danger', function () {
 		        var data = t.row($(this).parents('tr')).data();
 		        del($(this).attr('id'));
@@ -352,16 +342,6 @@
 		        doDel(id);
 		    } ); 
 			
-			$('#agreeModal').on( 'click', 'button.btn-danger', function () {
-		        var id = $("#agreeModal .hiddenId").val();
-		        doAgree(id);
-		    } ); 
-			
-			$('#disagreeModal').on( 'click', 'button.btn-danger', function () {
-		        var id = $("#disagreeModal .hiddenId").val();
-		        doDisagree(id);
-		    } ); 
-		    
 			// Select2
 		    jQuery('select').select2({
 		        minimumResultsForSearch: -1
@@ -373,7 +353,7 @@
 		});
 		
 		function edit(id) {
-			window.parent.location = "${rootPath}parameter/edit.html?id="+id;
+			window.parent.location = "${rootPath}manager/editPublish.html?id="+id;
 		}
 		
 		function del(id) {
@@ -382,47 +362,9 @@
 			$("#confirmDelModal").modal('show');
 		}
 		
-		function agree(id) {
-			$("#agreeModal .hiddenId").val("");
-			$("#agreeModal .hiddenId").val(id);
-			$("#agreeModal").modal('show');
-		}
-		
-		function disagree(id) {
-			$("#disagreeModal .hiddenId").val("");
-			$("#disagreeModal .hiddenId").val(id);
-			$("#disagreeModal").modal('show');
-		}
-		
-		function doAgree(id){
-			$.ajax({
-				url: "${rootPath}manager/updatePublishContentStatusById.do?id=" + id + "&status=2", 
-				async: true,
-				success: function(o) {
-					window.location.reload();
-				},
-				error: function(o) {
-					alert(2);
-				}
-			});
-		}
-		
-		function doDisagree(id){
-			$.ajax({
-				url: "${rootPath}manager/updatePublishContentStatusById.do?id=" + id + "&status=3", 
-				async: true,
-				success: function(o) {
-					window.location.reload();
-				},
-				error: function(o) {
-					alert(2);
-				}
-			});
-		}
-		
 		function doDel(id){
 			$.ajax({
-				url: "${rootPath}parameter/del.do?id=" + id, 
+				url: "${rootPath}manager/delPublish.do?id=" + id, 
 				async: true,
 				success: function(o) {
 					window.location.reload();

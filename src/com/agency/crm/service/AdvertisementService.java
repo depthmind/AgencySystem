@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.agency.crm.common.framework.BaseService;
 import com.agency.crm.common.framework.bean.QueryResult;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
+import com.agency.crm.entity.AdvertisementRecommend;
 import com.agency.crm.entity.AdvertisementRotation;
 import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.mapper.advertisement.AdvertisementMapper;
@@ -38,6 +39,22 @@ public class AdvertisementService extends BaseService {
 		map.put("start", pageHelper.getStart());
 		map.put("length", pageHelper.getLength());
 		List<AdvertisementRotation> data = mapper.selectAdvertisementRotationByParam(map);
+		long count = 6L;
+		
+		pageResult.setData(data);
+		pageResult.setCountTotal(count);
+		pageResult.setCountFiltered(count);
+		
+		return pageResult;
+	}
+	
+	public QueryResult<AdvertisementRecommend> queryAdvertisementRecommend(AdvertisementRecommend advertisementRecommend, PageHelper pageHelper, HttpServletRequest request) {
+		QueryResult<AdvertisementRecommend> pageResult = new QueryResult<AdvertisementRecommend>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("start", pageHelper.getStart());
+		map.put("length", pageHelper.getLength());
+		List<AdvertisementRecommend> data = mapper.selectAdvertisementRecommendByParam(map);
 		long count = 6L;
 		
 		pageResult.setData(data);

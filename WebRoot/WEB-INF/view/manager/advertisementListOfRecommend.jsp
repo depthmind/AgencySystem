@@ -14,7 +14,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="glyphicon glyphicon-cog"></i> 代理商管理 <span>代理商列表</span>
+					<i class="glyphicon glyphicon-cog"></i> 广告管理 <span>推荐位列表</span>
 				</h2>
 			</div>
 
@@ -26,7 +26,7 @@
 							<a href="" class="minimize">&minus;</a>
 						</div>
 						<!-- panel-btns -->
-					<h3 class="panel-title">代理商列表</h3>
+					<h3 class="panel-title">推荐位列表</h3>
 					</div>
 					<div class="panel-body">
 						<br />
@@ -35,9 +35,8 @@
 							<table id="dataTable" class="table">
 								<thead>
 									<tr>
-										<th>广告类型</th>
-										<th>id</th>
-										<th>已售</th>
+										<th>ID</th>
+										<th>是否已售</th>
 										<th>到期时间</th>
 										<th>创建时间</th>
 										<th>更新时间</th>
@@ -121,7 +120,7 @@
 				language: datatable_local_language, // my.js
 				serverSide: true,
 				ajax: {
-					url: '${rootPath}manager/advertisementListOfRotation.do',
+					url: '${rootPath}manager/advertisementListOfRecommend.do',
 					dataFilter: function(data){
 			            var json = jQuery.parseJSON( data );
 			            json.recordsTotal = json.countTotal;
@@ -132,7 +131,7 @@
 				},
 				columnDefs: [
 				  {
-	                  data: "promoteType",
+	                  data: "id",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -140,7 +139,7 @@
 	                  targets: 0
 				  },
 				  {
-	                  data: "promoteId",
+	                  data: "isSold",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -148,26 +147,17 @@
 	                  targets: 1
 				  },
 				  {
-	                  data: "isSold",
-	                  orderable: false,
-	                  render: function ( data, type, full, meta ) {
-	                      return '<div>' + data +'</div>';
-	                  },
-	                  targets: 2
-				  },
-				  {
 	                  data: "releaseDate",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                	  var n = full.releaseDate.time;
+	                	  var n = "";
 		                	if(full.releaseDate){
-		                		n=new Date(n).format("yyyy-MM-dd");
-		                	}else{
-		                		n="";
+		                		n = full.releaseDate.time;
+		                		n = new Date(n).format("yyyy-MM-dd");
 		                	}
 		                return n;
 	                  },
-	                  targets: 3
+	                  targets: 2
 				  },
 				  {
 	                  data: "createTime",
@@ -181,7 +171,7 @@
 		                	}
 		                return n;
 	                  },
-	                  targets: 4
+	                  targets: 3
 				  },
 				  {
 	                  data: "updateTime",
@@ -195,7 +185,7 @@
 		                	}
 		                	return n;
 	                  },
-	                  targets: 5
+	                  targets: 4
 				  },
 				  {
 	                  data: "id",
@@ -207,7 +197,7 @@
                 		  	return '';
 	                	  }
 	                  },
-	                  targets: 6
+	                  targets: 5
 				  },
 				  {
 					  orderable: false,
@@ -215,8 +205,7 @@
 				  },
 				],
 				columns: [
-		            { data: "promoteType" },
-		            { data: "promoteId" },
+		            { data: "id" },
 		            { data: "isSold" },
 		            { data: "releaseDate" },
 		            { data: "createTime" },
