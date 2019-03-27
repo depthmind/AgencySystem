@@ -53,4 +53,18 @@
 		)
 	</insert>
 	
+	<select id="queryCustomer" parameterType="Map" resultType="Customer">
+		select id, nick_name as nickName, open_id as openId, union_id as unionId, gender, language, country, province,
+			city, create_time as createTime, update_time as updateTime, is_del as isDel
+		from customer
+		where is_del = 0
+		order by create_time desc
+		limit #{start},#{length}
+	</select>
+	
+	<select id="countCustomer" resultType="long">
+		select count(id) 
+		from customer
+		where is_del = 0
+	</select>
 </mapper>

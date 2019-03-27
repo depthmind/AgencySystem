@@ -81,11 +81,12 @@ public class JSAPIPayController {
 		String nonce_str = "AJHJFHJKU";
 		
 		String tradeNo = request.getParameter("tradeNo");
+		String openId = request.getParameter("openId");
 		System.out.println("tradeNo=" + tradeNo);
 		tradeNo = (tradeNo + "-" + WXPayUtil.generateUUID()).substring(0, 32);
 		
 		//String openId = request.getParameter("openId");
-		System.out.println("openId=" + "o-MzH5QEtFKbIWltxWk1xK4gceBE");
+		System.out.println("openId=" + openId);
 		
 		String destinationTmp = request.getParameter("destination");
 		System.out.println("destinationTmp=" + destinationTmp);
@@ -110,9 +111,9 @@ public class JSAPIPayController {
 			//reqData.put("sign", nonce_str);
 			reqData.put("attach", "tourmade");
 			reqData.put("body", "body");
-			reqData.put("openid", "o-MzH5QEtFKbIWltxWk1xK4gceBE");
+			reqData.put("openid", openId);
 			reqData.put("out_trade_no", tradeNo);
-			reqData.put("spbill_create_ip", "127.0.0.1");
+			reqData.put("spbill_create_ip", ip);
 			reqData.put("total_fee", sendFee);
 			reqData.put("trade_type", Constants.TRADE_TYPE_JSAPI);
 			reqData.put("notify_url", Constants.NOTIFY_URL);

@@ -137,7 +137,7 @@
 
 
 	<script type="text/javascript">
-	
+	var publishStatus = ${publishStatus};
 	jQuery("#searchStartDateTime").datepicker({
         dateFormat: "yy-mm-dd",
         changeYear: true,
@@ -239,24 +239,18 @@
 	                  targets: 5
 				  },
 				  {
-	                  data: "status",
+					  data: "status",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                	  if(data == '1') {
-	                		  return '<div>' + '待审核' +'</div>';
-	                	  } else if(data == '2') {
-	                		  return '<div>' + '审核通过' +'</div>';
-	                	  } else {
-	                		  return '<div>' + '审核不通过' +'</div>';
-	                	  }
-	                	  
 	                	  if(full.status){
-			                		for(var i=0;i <destination.length;i++){
-				                		if(des[j]==destination[i].id){
-				                			destinations+=destination[i].text+",";
-				                		}				                	
-				                	}
-				                }
+		                		for(var i=0;i <publishStatus.length;i++){
+			                		if(full.status==publishStatus[i].id){
+			                			return '<div>' + publishStatus[i].text +'</div>';
+			                		}				                	
+			                	}
+			                } else {
+			                	return '<div></div>';
+			                }
 	                  },
 	                  targets: 6
 				  },

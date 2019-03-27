@@ -88,6 +88,7 @@
             </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-users"></i> <span>会员管理</span></a>
                 <ul class="children">
+                <li><a href="${rootPath }customer/customerList.html"><i class="fa fa-caret-right"></i> 会员列表</a></li>
                 </ul>     
             </li>
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-handshake-o"></i> <span>营销管理</span></a>

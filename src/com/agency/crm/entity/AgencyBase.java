@@ -12,6 +12,7 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private static final long serialVersionUID = 6100806375368000043L;
 	private Integer id;
 	private String agencyName;
+	private String contactName;
 	private String sysUserName;
 	private String sysUserPassword;
 	private String mobilephone;
@@ -40,6 +41,14 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String type;
 	private String searchStartTime;
 	private String searchEndTime;
+
+	public String getContactName() {
+		return contactName;
+	}
+
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
+	}
 
 	public String getSearchStartTime() {
 		return searchStartTime;

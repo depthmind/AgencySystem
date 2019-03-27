@@ -1,10 +1,18 @@
 package com.agency.crm.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agency.crm.common.framework.BaseService;
+import com.agency.crm.common.framework.bean.QueryResult;
+import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
 import com.agency.crm.entity.Customer;
 import com.agency.crm.mapper.customer.CustomerMapper;
 
@@ -43,5 +51,23 @@ public class CustomerService extends BaseService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public QueryResult<Customer> queryCustomer(Customer customer, PageHelper pageHelper, HttpServletRequest request) {
+
+		QueryResult<Customer> pageResult = new QueryResult<Customer>();
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("start", pageHelper.getStart());
+		map.put("length", pageHelper.getLength());
+
+		List<Customer> data = customerMapper.queryCustomer(map);
+		long count = customerMapper.countCustomer();
+
+		pageResult.setData(data);
+		pageResult.setCountTotal(count);
+		pageResult.setCountFiltered(count);
+
+		return pageResult;
 	}
 }

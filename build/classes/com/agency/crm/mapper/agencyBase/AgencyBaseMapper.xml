@@ -9,6 +9,7 @@
       	</selectKey>
 		insert into agency_base (
 		agency_name,
+		contact_name,
 		sys_user_name,
 		sys_user_password,
 		mobilephone,
@@ -27,11 +28,15 @@
 		expiry_date,
 		valid_period,
 		type,
+		latitude,
+		longitude,
+		status,
 		create_time,
 		update_time,
 		is_del
 		) values (
 		#{agencyName,jdbcType=VARCHAR},
+		#{contactName,jdbcType=VARCHAR},
 		#{sysUserName,jdbcType=VARCHAR},
 		#{sysUserPassword,jdbcType=VARCHAR},
 		#{mobilephone,jdbcType=VARCHAR},
@@ -50,6 +55,9 @@
 		#{expiryDate,jdbcType=VARCHAR},
 		#{validPeriod,jdbcType=VARCHAR},
 		#{type,jdbcType=VARCHAR},
+		#{latitude,jdbcType=VARCHAR},
+		#{longitude,jdbcType=VARCHAR},
+		0,
 		now(),
 		now(),
 		0
@@ -102,6 +110,7 @@
 		<if test="searchEndTime != null and searchEndTime != ''">
 			and create_time &lt; #{searchEndTime}
 		</if>
+		order by create_time desc
 		limit #{start},#{length}
 	</select>
 	

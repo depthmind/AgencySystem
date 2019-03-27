@@ -143,7 +143,9 @@ public class ManagerController extends BaseSimpleFormController {
 	 * @TODO 商家列表
 	 */
 	@RequestMapping(value = "/agencyList.html", produces = "application/json;charset=utf-8")
-	public String agencyListPage() {
+	public String agencyListPage(Model model) {
+		List<EntityList> statusList = parameterService.getParameterInfo("publish.status");
+		model.addAttribute("publishStatus", JSONArray.fromObject(statusList));
 		return "/manager/agencyList";
 	}
 
