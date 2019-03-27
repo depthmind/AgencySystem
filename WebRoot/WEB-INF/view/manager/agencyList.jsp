@@ -68,7 +68,6 @@
 										<th>县/区</th>
 										<th>状态</th>
 										<th>创建时间</th>
-										<th>更新时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -269,20 +268,6 @@
 	                  targets: 7
 				  },
 				  {
-	                  data: "updateTime",
-	                  orderable: false,
-	                  render: function ( data, type, full, meta ) {
-	                	  var n = full.updateTime.time;
-		                	if(full.updateTime){
-		                		n=new Date(n).format("yyyy-MM-dd hh:mm:ss");
-		                	}else{
-		                		n="";
-		                	}
-		                	return n;
-	                  },
-	                  targets: 8
-				  },
-				  {
 	                  data: "id",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
@@ -293,7 +278,7 @@
                 		  	return n;
 	                	  }
 	                  },
-	                  targets: 9
+	                  targets: 8
 				  },
 				  {
 					  orderable: false,
@@ -309,7 +294,6 @@
 		            { data: "area" },
 		            { data: "status" },
 		            { data: "createTime" },
-		            { data: "updateTime" },
 		            { data: "id" }
 		        ]
 			});

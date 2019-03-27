@@ -181,4 +181,15 @@ public class ParameterService extends BaseService {
 		}
 		return result;
 	}
+	
+	public Parameter findSingleParameterByDomain(String domain) {
+		Parameter parameter = new Parameter();
+		try {
+			parameter = parameterMapper.selectSingleParameterByDomain(domain);
+		} catch (Exception e) {
+			logger.error("ParameterService.findSingleParameterByDomain() --> " + domain + "-->" + e.getMessage());
+		}
+		
+		return parameter;
+	}
 }

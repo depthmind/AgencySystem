@@ -1,6 +1,5 @@
 package com.agency.crm.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -318,6 +317,26 @@ public class ManagerController extends BaseSimpleFormController {
 	@RequestMapping(value = "/editSigninTerm.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json editSigninTerm(HttpServletRequest request, HttpSession session, Parameter parameter) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = parameterService.updateParameter(parameter);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		return json;
+	}
+	
+	@RequestMapping(value = "/editNoticeOfPublish.html", produces = "application/json;charset=utf-8")
+	public String editNoticeOfPublishPage(Model model) {
+		Parameter parameter = new Parameter();
+		parameter = parameterService.findSingleParameterByDomain("publish.notice");
+		model.addAttribute("parameter", parameter);
+		return "/manager/noticeOfPublishEdit";
+	}
+	
+	@RequestMapping(value = "/editNoticeOfPublish.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json editNoticeOfPublish(HttpServletRequest request, HttpSession session, Parameter parameter) {
 		Json json = new Json();
 		json.setSuccess(false);
 		int result = parameterService.updateParameter(parameter);

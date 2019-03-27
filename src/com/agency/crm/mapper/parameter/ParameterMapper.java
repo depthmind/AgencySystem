@@ -30,4 +30,6 @@ public interface ParameterMapper extends BaseMapper {
 	List<EntityList> getParameterInfo(String paraDomain);
 	
 	String selectParaValue(@Param("chinese")String chinese,@Param("domain")String domain);
+	
+	Parameter selectSingleParameterByDomain(String domain);
 }

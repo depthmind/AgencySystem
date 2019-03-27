@@ -179,4 +179,12 @@
 		from parameter u where  u.isdel = 0 and u.para_domain = #{domain}
 		ORDER BY u.para_sort desc, u.para_value
 	</select>
+	
+	<select id="selectSingleParameterByDomain" parameterType="String" resultType="Parameter">
+		select para_id as parameterId, para_domain as domain, para_value as value, chinese as chinese, english as english,
+			para_desc as depict, para_sort as sort, isdisplay as isdisplay, creat_time as creatTime, update_time as updateTime
+		from parameter
+		where isdel = 0
+		and para_domain = #{domain}
+	</select>
 </mapper>
