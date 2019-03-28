@@ -143,10 +143,14 @@ public class AgencyController extends BaseSimpleFormController {
 
 	@RequestMapping(value = "/findAgencyByName.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String findAgencys(String name, String offset, String rows) {
+	public String findAgencys(String name, String offset, String rows, @RequestParam(required = false) String city,
+			@RequestParam(required = false) String province, @RequestParam(required = false) String area) {
 		name = "%" + name + "%";
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", name);
+		map.put("province", province);
+		map.put("city", city);
+		map.put("area", area);
 		map.put("offset", Integer.parseInt(offset));
 		map.put("rows", Integer.parseInt(rows));
 		List<AgencyBase> agencyBaseList = agencyBaseService.findAgencyBaseByName(map);

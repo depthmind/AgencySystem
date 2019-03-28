@@ -147,7 +147,19 @@
 	</select>
 
 	<select id="selectAgencyByName" resultType="AgencyBase" parameterType="Map">
-		select id, agency_name as agencyName, logo_image_path as logoImagePath from agency_base where agency_name like #{name} limit #{offset}, #{rows}
+		select id, agency_name as agencyName, logo_image_path as logoImagePath 
+		from agency_base 
+		where agency_name like #{name} 
+		<if test="city != null and city != ''">
+			and city = #{city}
+		</if>
+		<if test="province != null and province != ''">
+			and province = #{province}
+		</if>
+		<if test="area != null and area != ''">
+			and area = #{area}
+		</if>
+		limit #{offset}, #{rows}
 	</select>
 
 	<select id="selectAgencyBaseById" resultType="AgencyBase" parameterType="int">
