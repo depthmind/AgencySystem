@@ -3,7 +3,9 @@
  */
 package com.agency.crm.action;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +97,16 @@ public class FavoriteController extends BaseSimpleFormController {
 		}
 		
 		return json;
+	}
+	
+	@RequestMapping(value="/findAllFavorite.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<Favorite> findAllFavoriteByTypeAndUnionId(String openId, String unionId, String type, String favoriteId) {
+		List<Favorite> list = new ArrayList<Favorite>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("openId", openId);
+		map.put("type", type);
+		list = favoriteService.findAllFavoriteByTypeAndUnionId(map);
+		return list;
 	}
 }

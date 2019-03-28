@@ -102,4 +102,12 @@
 			and type = #{type}
 		</if>
 	</update>
+	
+	<select id="findAllFavoriteByTypeAndUnionId" parameterType="map" resultType="Favorite">
+		select id, open_id as openId, union_id as unionId, favorite_id as favoriteId, type, status, 
+			create_time as createTime, update_time as updateTime,is_del as isDel
+		from favorite 
+		where type = #{type}
+		and open_id = #{openId}
+	</select>
 </mapper>

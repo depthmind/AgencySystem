@@ -3,6 +3,8 @@
  */
 package com.agency.crm.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +64,15 @@ public class FavoriteService extends BaseService {
 			logger.error("取消收藏信息出错");
 		}
 		return result;
+	}
+	
+	public List<Favorite> findAllFavoriteByTypeAndUnionId(Map<String, Object> map) {
+		List<Favorite> list = new ArrayList<Favorite>();
+		try {
+			list = mapper.findAllFavoriteByTypeAndUnionId(map);
+		} catch (Exception e) {
+			logger.error("取消收藏信息出错");
+		}
+		return list;
 	}
 }

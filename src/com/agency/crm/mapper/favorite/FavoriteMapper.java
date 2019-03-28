@@ -3,6 +3,7 @@
  */
 package com.agency.crm.mapper.favorite;
 
+import java.util.List;
 import java.util.Map;
 
 import com.agency.crm.entity.Favorite;
@@ -19,4 +20,6 @@ public interface FavoriteMapper {
 	int updateFavoriteByParam(Favorite favorite);
 	
 	int deleteFavorite(Favorite favorite);
+	
+	List<Favorite> findAllFavoriteByTypeAndUnionId(Map<String, Object> map);
 }
