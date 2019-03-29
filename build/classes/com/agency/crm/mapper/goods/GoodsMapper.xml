@@ -61,6 +61,7 @@
       		agency_id,
       		goods_name,
       		goods_description,
+      		price,
       		one_level_category,
       		second_level_category,
       		thumbnail,
@@ -74,6 +75,7 @@
       		#{agencyId,jdbcType=VARCHAR},
       		#{goodsName,jdbcType=VARCHAR},
       		#{goodsDescription,jdbcType=VARCHAR},
+      		#{price,jdbcType=DECIMAL},
       		#{oneLevelCategory,jdbcType=VARCHAR},
       		#{secondLevelCategory,jdbcType=VARCHAR},
       		#{thumbnail,jdbcType=VARCHAR},
@@ -123,7 +125,7 @@
 	</select>
 	
 	<select id="selectGoodsByGoodsId" parameterType="int" resultType="Goods">
-		select agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
+		select agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, price, is_top as isTop, 
 			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, 
 			update_time as updateTime, is_del as isDel
 		from goods

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.agency.crm.common.framework.BaseService;
+import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.Favorite;
+import com.agency.crm.entity.Goods;
 import com.agency.crm.mapper.favorite.FavoriteMapper;
 
 /**
@@ -72,6 +74,26 @@ public class FavoriteService extends BaseService {
 			list = mapper.findAllFavoriteByTypeAndUnionId(map);
 		} catch (Exception e) {
 			logger.error("取消收藏信息出错");
+		}
+		return list;
+	}
+	
+	public List<Goods> findFavoriteGoodsByTypeAndUnionId(Map<String, Object> map) {
+		List<Goods> list = new ArrayList<Goods>();
+		try {
+			list = mapper.selectFavoriteGoodsByTypeAndUnionId(map);
+		} catch (Exception e) {
+			logger.error("查询收藏的商品出错");
+		}
+		return list;
+	}
+	
+	public List<AgencyBase> findFavoriteAgencyByTypeAndUnionId(Map<String, Object> map) {
+		List<AgencyBase> list = new ArrayList<AgencyBase>();
+		try {
+			list = mapper.selectFavoriteAgencyByTypeAndUnionId(map);
+		} catch (Exception e) {
+			logger.error("查询收藏的商品出错");
 		}
 		return list;
 	}

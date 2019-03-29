@@ -1,5 +1,7 @@
 package com.agency.crm.entity;
 
+import java.math.BigDecimal;
+
 public class Goods {
 
     private long id;
@@ -13,13 +15,22 @@ public class Goods {
     private String agencyLogo;
     private String goodsName;
     private String goodsDescription;
+    private BigDecimal price;
     private String goodsPic;
     private String thumbnail;
     private Integer isTop;
     private String oneLevelCategory;
     private String secondLevelCategory;
 
-    public String getOneLevelCategory() {
+    public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public String getOneLevelCategory() {
 		return oneLevelCategory;
 	}
 

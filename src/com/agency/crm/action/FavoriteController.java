@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.agency.crm.common.action.BaseSimpleFormController;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
+import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.Favorite;
+import com.agency.crm.entity.Goods;
 import com.agency.crm.service.FavoriteService;
 
 /**
@@ -107,6 +109,28 @@ public class FavoriteController extends BaseSimpleFormController {
 		map.put("openId", openId);
 		map.put("type", type);
 		list = favoriteService.findAllFavoriteByTypeAndUnionId(map);
+		return list;
+	}
+	
+	@RequestMapping(value="/findFavoriteGoods.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<Goods> findFavoriteGoodsByTypeAndUnionId(String openId, String unionId, String type, String favoriteId) {
+		List<Goods> list = new ArrayList<Goods>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("openId", openId);
+		map.put("type", type);
+		list = favoriteService.findFavoriteGoodsByTypeAndUnionId(map);
+		return list;
+	}
+	
+	@RequestMapping(value="/findFavoriteAgency.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<AgencyBase> findFavoriteAgencyByTypeAndUnionId(String openId, String unionId, String type, String favoriteId) {
+		List<AgencyBase> list = new ArrayList<AgencyBase>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("openId", openId);
+		map.put("type", type);
+		list = favoriteService.findFavoriteAgencyByTypeAndUnionId(map);
 		return list;
 	}
 }

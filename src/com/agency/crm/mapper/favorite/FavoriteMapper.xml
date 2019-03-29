@@ -110,4 +110,49 @@
 		where type = #{type}
 		and open_id = #{openId}
 	</select>
+	
+	<select id="selectFavoriteGoodsByTypeAndUnionId" parameterType="map" resultType="Goods">
+		select 
+		g.id as id,
+        g.product_id as productId,
+        g.agency_id as agencyId,
+        g.goods_name as goodsName,
+        g.thumbnail as thumbnail,
+        g.goods_pic as goodsPic,
+        g.price as price,
+        g.goods_description as goodsDescription
+		from goods g
+		left join favorite f
+		on g.id = f.favorite_id
+		where f.type = '1' and f.open_id = #{openId}
+	</select>
+	
+	<select id="selectFavoriteAgencyByTypeAndUnionId" parameterType="map" resultType="AgencyBase">
+		select
+			a.id,
+			a.agency_name as agencyName,
+			a.sys_user_name as sysUserName,
+			a.sys_user_password as sysUserPassword,
+			a.mobilephone as mobilephone,
+			a.email as email,
+			a.open_id as openId,
+			a.is_cooperation as isCooperation,
+			a.province,
+			a.city,
+			a.area,
+			a.address,
+			a.wechat_image_path as wechatImagePath,
+			a.logo_image_path as logoImagePath,
+			a.create_time as createTime,
+			a.update_time as updateTime,
+			a.latitude as latitude,
+			a.longitude as longitude,
+			a.status as status,
+			a.type as type,
+			a.is_del as isDel
+		from agency_base a
+		left join favorite f
+		on a.id = f.favorite_id
+		where f.type = '2' and f.open_id = #{openId}
+	</select>
 </mapper>
