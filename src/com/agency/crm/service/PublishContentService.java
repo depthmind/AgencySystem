@@ -86,6 +86,16 @@ public class PublishContentService extends BaseService {
 		return result;
 	}
 	
+	public List<PublishContent> findPublishContentByParamNoLimit(Map<String, Object> map) {
+		List<PublishContent> result = new ArrayList<PublishContent>();
+		try {
+			result = publishContentMapper.selectPublishContentByParamNoLimit(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public QueryResult<PublishContent> queryPublishContent(PublishContent publishContent, PageHelper pageHelper, HttpServletRequest request) {
 
 		QueryResult<PublishContent> pageResult = new QueryResult<PublishContent>();

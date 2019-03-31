@@ -1,5 +1,8 @@
 package com.agency.crm.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +33,21 @@ public class PartnerController extends BaseSimpleFormController {
 		}
 		
 		return json;
+	}
+	
+	@RequestMapping(value="/findPartnerByOpenId.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public Partner findPartnerByOpenId(String openId) {
+		Partner partner = new Partner();
+		partner = partnerService.findPartnerByOpenId(openId);
+		return partner;
+	}
+	
+	@RequestMapping(value="/findPartnerByIntroducer.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<Partner> findPartnerByIntroducer(String openId) {
+		List<Partner> partners = new ArrayList<Partner>();
+		partners = partnerService.findPartnerByIntroducer(openId);
+		return partners;
 	}
 }

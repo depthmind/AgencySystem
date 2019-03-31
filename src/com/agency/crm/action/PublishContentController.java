@@ -4,6 +4,7 @@
 package com.agency.crm.action;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,5 +109,16 @@ public class PublishContentController extends BaseSimpleFormController {
 		publishContent = publishContentService.findPublishContentById(id);
 		result = JSONObject.toJSONString(publishContent);
 		return result;
+	}
+	
+	@RequestMapping(value = "/findPublishContentByParam.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public List<PublishContent> findPublishContentByParamNoLimit(String openId) {
+		List<PublishContent> list = new ArrayList<PublishContent>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("openId", openId);
+		list = publishContentService.findPublishContentByParamNoLimit(map);
+		return list;
 	}
 }

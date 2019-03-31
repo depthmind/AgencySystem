@@ -31,4 +31,18 @@
 		0
 		)
 	</insert>
+	
+	<select id="selectPartnerByOpenId" parameterType="String" resultType="Partner">
+		select id, partner_name as partnerName, mobilephone, introducer, open_id, province, city, area, commission, 
+		create_time as createTime, update_time as updateTime
+		from partner
+		where open_id = #{openId}
+	</select>
+	
+	<select id="selectPartnerByIntroducer" parameterType="String" resultType="Partner">
+		select id, partner_name as partnerName, mobilephone, introducer, open_id, province, city, area, commission,
+		create_time as createTime, update_time as updateTime
+		from partner
+		where introducer = #{introducer}
+	</select>
 </mapper>

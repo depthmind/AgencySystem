@@ -33,7 +33,7 @@
 									<input type="text" id="mobilephone" class="form-control" placeholder="手机号"  value="" />
 								</div>
 								<div class="col-sm-2">
-									<input type="text" id="searchStatus" name=""searchStatus"" class="publish-select-status fullwidth" value="" />
+									<input type="text" id="searchStatus" name="searchStatus" class="publish-select-status fullwidth" value="" />
 			                    </div>
 			                    <div class="col-sm-2">
 									<input type="text" id="searchCategory" name="searchCategory" class="publish-select-category fullwidth" value="" />

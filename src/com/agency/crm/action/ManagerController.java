@@ -24,11 +24,13 @@ import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.EntityList;
 import com.agency.crm.entity.Parameter;
 import com.agency.crm.entity.PublishContent;
+import com.agency.crm.entity.WithdrawalRecord;
 import com.agency.crm.service.AdvertisementService;
 import com.agency.crm.service.AgencyBaseService;
 import com.agency.crm.service.MiniProgramFormIdService;
 import com.agency.crm.service.ParameterService;
 import com.agency.crm.service.PublishContentService;
+import com.agency.crm.service.WithdrawalRecordService;
 import com.agency.crm.utils.HttpsGetUtil;
 import com.agency.crm.utils.SendTemplateUtil;
 
@@ -49,6 +51,8 @@ public class ManagerController extends BaseSimpleFormController {
 	private ParameterService parameterService;
 	@Autowired
 	private AdvertisementService advertisementService;
+	@Autowired
+	private WithdrawalRecordService withdrawalRecordService;
 
 	/**
 	 * 
@@ -67,13 +71,14 @@ public class ManagerController extends BaseSimpleFormController {
 
 	@RequestMapping(value = "/publishContentList.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String publishContentList(HttpServletRequest request, HttpSession session, Model model, PublishContent publishContent,
-			PageHelper page) {
-		QueryResult<PublishContent> pageResult = publishContentService.queryPublishContent(publishContent, page, request);
+	public String publishContentList(HttpServletRequest request, HttpSession session, Model model,
+			PublishContent publishContent, PageHelper page) {
+		QueryResult<PublishContent> pageResult = publishContentService.queryPublishContent(publishContent, page,
+				request);
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}
-	
+
 	/**
 	 * 
 	 * @date 2019年3月25日 下午4:00:04
@@ -86,7 +91,7 @@ public class ManagerController extends BaseSimpleFormController {
 		model.addAttribute("publishCategory", JSONArray.fromObject(categoryList));
 		return "/manager/addPublish";
 	}
-	
+
 	@RequestMapping(value = "/addPublish.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json addPublish(PublishContent publishContent) {
@@ -98,7 +103,7 @@ public class ManagerController extends BaseSimpleFormController {
 		}
 		return json;
 	}
-	
+
 	@RequestMapping(value = "/editPublish.html", produces = "application/json;charset=utf-8")
 	public String editPublishPage(Model model, @RequestParam(required = true) Integer id) {
 		PublishContent publish = new PublishContent();
@@ -108,7 +113,7 @@ public class ManagerController extends BaseSimpleFormController {
 		model.addAttribute("publish", publish);
 		return "/manager/editPublish";
 	}
-	
+
 	@RequestMapping(value = "/editPublish.do", produces = "application/json;charset=utf-8")
 	public String editPublish(PublishContent publishContent) {
 		Json json = new Json();
@@ -119,7 +124,7 @@ public class ManagerController extends BaseSimpleFormController {
 		}
 		return "redirect:/manager/editPublish.html?id=" + publishContent.getId();
 	}
-	
+
 	@RequestMapping(value = "/delPublish.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json delPublish(@RequestParam(required = true) Integer id) {
@@ -156,7 +161,7 @@ public class ManagerController extends BaseSimpleFormController {
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/editAgency.html", produces = "application/json;charset=utf-8")
 	public String editAgencyPage(Model model, @RequestParam(required = true) Integer id) {
 		PublishContent publish = new PublishContent();
@@ -166,7 +171,7 @@ public class ManagerController extends BaseSimpleFormController {
 		model.addAttribute("publish", publish);
 		return "/manager/editPublish";
 	}
-	
+
 	@RequestMapping(value = "/editAgency.do", produces = "application/json;charset=utf-8")
 	public String editAgency(PublishContent publishContent) {
 		Json json = new Json();
@@ -177,7 +182,7 @@ public class ManagerController extends BaseSimpleFormController {
 		}
 		return "redirect:/manager/editPublish.html?id=" + publishContent.getId();
 	}
-	
+
 	@RequestMapping(value = "/delAgency.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json delAgency(@RequestParam(required = true) Integer id) {
@@ -192,7 +197,7 @@ public class ManagerController extends BaseSimpleFormController {
 		}
 		return json;
 	}
-	
+
 	@RequestMapping(value = "/updatePublishContentStatusById.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json updatePublishContentStatusById(@RequestParam(required = true) Integer id, String status) {
@@ -202,7 +207,7 @@ public class ManagerController extends BaseSimpleFormController {
 		int result = 0;
 		String message = "";
 		String reason = "";
-		
+
 		publishContent.setId(id);
 		if ("2".equals(status)) {
 			message = "审核通过";
@@ -221,10 +226,10 @@ public class ManagerController extends BaseSimpleFormController {
 			sendTemplageMessage(openId, message, reason);
 			json.setSuccess(true);
 		}
-		
+
 		return json;
 	}
-	
+
 	@RequestMapping(value = "/updateAgencyBaseStatusById.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json updateAgencyBaseStatusById(@RequestParam(required = true) Integer id, String status) {
@@ -234,7 +239,7 @@ public class ManagerController extends BaseSimpleFormController {
 		int result = 0;
 		String message = "";
 		String reason = "";
-		
+
 		agencyBase.setId(id);
 		if ("2".equals(status)) {
 			agencyBase.setStatus(Constants.STATUS_OF_AGENCY_BASE_TWO);
@@ -253,10 +258,10 @@ public class ManagerController extends BaseSimpleFormController {
 			sendTemplageMessage(openId, message, reason);
 			json.setSuccess(true);
 		}
-		
+
 		return json;
 	}
-	
+
 	/**
 	 * 
 	 * @date 2019年3月25日 下午4:01:56
@@ -267,45 +272,47 @@ public class ManagerController extends BaseSimpleFormController {
 	public String advertisementListPageOfRotation() {
 		return "/manager/advertisementListOfRotation";
 	}
-	
+
 	@RequestMapping(value = "/advertisementListOfRotation.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String advertisementListOfRotation(HttpServletRequest request, HttpSession session, Model model, AdvertisementRotation advertisementRotation,
-			PageHelper page) {
-		QueryResult<AdvertisementRotation> pageResult = advertisementService.queryAdvertisementRotation(advertisementRotation, page, request);
+	public String advertisementListOfRotation(HttpServletRequest request, HttpSession session, Model model,
+			AdvertisementRotation advertisementRotation, PageHelper page) {
+		QueryResult<AdvertisementRotation> pageResult = advertisementService
+				.queryAdvertisementRotation(advertisementRotation, page, request);
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/advertisementListOfRecommend.html", produces = "application/json;charset=utf-8")
 	public String advertisementListPageOfRecommend() {
 		return "/manager/advertisementListOfRecommend";
 	}
-	
+
 	@RequestMapping(value = "/advertisementListOfRecommend.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String advertisementListOfRecommend(HttpServletRequest request, HttpSession session, Model model, AdvertisementRecommend advertisementRecommend,
-			PageHelper page) {
-		QueryResult<AdvertisementRecommend> pageResult = advertisementService.queryAdvertisementRecommend(advertisementRecommend, page, request);
+	public String advertisementListOfRecommend(HttpServletRequest request, HttpSession session, Model model,
+			AdvertisementRecommend advertisementRecommend, PageHelper page) {
+		QueryResult<AdvertisementRecommend> pageResult = advertisementService
+				.queryAdvertisementRecommend(advertisementRecommend, page, request);
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/signinTermList.html", produces = "application/json;charset=utf-8")
 	public String signinTermListPage() {
 		return "/manager/signinTermList";
 	}
-	
+
 	@RequestMapping(value = "/signinTermList.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String advertisementListOfRotation(HttpServletRequest request, HttpSession session, Model model, Parameter parameter,
-			PageHelper page) {
+	public String advertisementListOfRotation(HttpServletRequest request, HttpSession session, Model model,
+			Parameter parameter, PageHelper page) {
 		parameter.setDomain("agency.validPeriod");
 		QueryResult<Parameter> pageResult = parameterService.queryParameter(parameter, page, request);
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/editSigninTerm.html", produces = "application/json;charset=utf-8")
 	public String editSigninTermPage(@RequestParam(required = true) Integer id, Model model) {
 		Parameter parameter = new Parameter();
@@ -313,7 +320,7 @@ public class ManagerController extends BaseSimpleFormController {
 		model.addAttribute("parameter", parameter);
 		return "/manager/signinTermEdit";
 	}
-	
+
 	@RequestMapping(value = "/editSigninTerm.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json editSigninTerm(HttpServletRequest request, HttpSession session, Parameter parameter) {
@@ -325,7 +332,7 @@ public class ManagerController extends BaseSimpleFormController {
 		}
 		return json;
 	}
-	
+
 	@RequestMapping(value = "/editNoticeOfPublish.html", produces = "application/json;charset=utf-8")
 	public String editNoticeOfPublishPage(Model model) {
 		Parameter parameter = new Parameter();
@@ -333,7 +340,7 @@ public class ManagerController extends BaseSimpleFormController {
 		model.addAttribute("parameter", parameter);
 		return "/manager/noticeOfPublishEdit";
 	}
-	
+
 	@RequestMapping(value = "/editNoticeOfPublish.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public Json editNoticeOfPublish(HttpServletRequest request, HttpSession session, Parameter parameter) {
@@ -345,7 +352,23 @@ public class ManagerController extends BaseSimpleFormController {
 		}
 		return json;
 	}
-	
+
+	@RequestMapping(value = "/cashList.html", produces = "application/json;charset=utf-8")
+	public String cashList(Model model) {
+		List<EntityList> cashStatus = parameterService.getParameterInfo("cash.status");
+		model.addAttribute("cashStatus", JSONArray.fromObject(cashStatus));
+		return "/manager/cash";
+	}
+
+	@RequestMapping(value = "/cashList.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String queryWithdrawalRecord(HttpServletRequest request, HttpSession session, WithdrawalRecord withdrawalRecord,
+			PageHelper page) {
+		QueryResult<WithdrawalRecord> pageResult = withdrawalRecordService.queryWithdrawalRecord(withdrawalRecord, page, request);
+		String result = JSONUtilS.object2json(pageResult);
+		return result;
+	}
+
 	private void sendTemplageMessage(String openId, String message, String reason) {
 		try {
 			String formId = miniProgramFormIdService.getFormIdByCreateTime(openId).getFormId();
@@ -354,10 +377,10 @@ public class ManagerController extends BaseSimpleFormController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getWeiXinAppAccessToken() {
 		String path = null;
-		
+
 		path = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" + Constants.APP_ID
 				+ "&secret=" + Constants.APP_SECRET;
 		String responseMsg = HttpsGetUtil.doHttpsGetJson(path);

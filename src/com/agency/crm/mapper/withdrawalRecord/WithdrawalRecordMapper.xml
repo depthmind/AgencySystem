@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.withdrawalRecord.WithdrawalRecordMapper">
+	<select id="selectWithdrawalRecordByStatus" parameterType="map" resultType="WithdrawalRecord">
+		select id, open_id as openId, amount, name, wechat, status, create_time as createTime, update_time as updateTime,
+		 is_del as isDel
+		from withdrawal_record 
+		where is_del = 0
+		and status = #{status}
+		and open_id = #{openId}
+		order by create_time desc
+	</select>
+	
+	<select id="sumWithdrawalRecordByParam" parameterType="map" resultType="WithdrawalRecord">
+		select sum(amount) as applyAmount
+		from withdrawal_record
+		where is_del = 0
+		and status = #{status}
+		and open_id = #{openId}
+	</select>
+	
+	<insert id="saveWithdrawalRecord" parameterType="WithdrawalRecord">
+		<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
+		insert into withdrawal_record(
+		open_id,
+		amount,
+		name,
+		wechat,
+		status,
+		create_time,
+		update_time,
+		is_del
+		) values (
+		#{openId,jdbcType=VARCHAR},
+		#{amount,jdbcType=DECIMAL},
+		#{name,jdbcType=VARCHAR},
+		#{wechat,jdbcType=VARCHAR},
+		1,
+		now(),
+		now(),
+		0
+		)
+	</insert>
+	
+	<select id="queryWithdrawalRecord" parameterType="Map" resultType="WithdrawalRecord">
+		select id, open_id as openId, amount, name, wechat, status, create_time as createTime, update_time as updateTime,
+		 is_del as isDel
+		from withdrawal_record
+		where is_del = 0
+		<if test="wechat != null and wechat != ''">
+			and wechat = #{wechat}
+		</if>
+		<if test="status != null and status != ''">
+			and status = #{status}
+		</if>
+		<if test="searchStartTime != null and searchStartTime != ''">
+			and create_time &gt; #{searchStartTime}
+		</if>
+		<if test="searchEndTime != null and searchEndTime != ''">
+			and create_time &lt; #{searchEndTime}
+		</if>
+		order by create_time desc
+		limit #{start},#{length}
+	</select>
+	
+	<select id="countWithdrawalRecord" resultType="long">
+		select count(id) 
+		from withdrawal_record
+		where is_del = 0
+	</select>
+	
+	<update id="updateWithdrawalRecordByParam" parameterType="map">
+		update withdrawal_record
+		<set>
+			<if test="amount != null and amount != ''">
+				amount = #{amount},
+			</if>
+			<if test="name != null and name != ''">
+				name = #{name},
+			</if>
+			<if test="wechat != null and wechat != ''">
+				wechat = #{wechat},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+			<if test="isDel != null and isDel != ''">
+				is_del = #{isDel},
+			</if>
+		</set>
+		where id = #{id}
+		and is_del = 0
+	</update>
+</mapper>

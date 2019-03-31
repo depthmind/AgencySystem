@@ -81,6 +81,11 @@
                     <li><a href="${rootPath }manager/signinTermList.html"><i class="fa fa-caret-right"></i> 入驻期限</a></li>
                 </ul>     
             </li> 
+            <li class="nav-parent" id="cash"><a href=""><i class="fa fa-credit-card"></i> <span>提现管理</span></a>
+                <ul class="children">
+                    <li><a href="${rootPath }manager/cashList.html"><i class="fa fa-caret-right"></i> 提现列表</a></li>
+                </ul>     
+            </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-list"></i> <span>订单管理</span></a>
                 <ul class="children">
                     <li><a href="${rootPath }manager/agencyList.html"><i class="fa fa-caret-right"></i> 订单列表</a></li>

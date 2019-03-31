@@ -117,6 +117,9 @@
 		<if test="searchEndTime != null and searchEndTime != ''">
 			and c.create_time &lt; #{searchEndTime}
 		</if>
+		<if test="openId != null and openId != ''">
+			and c.open_id = #{openId}
+		</if>
 		and p.para_domain = 'publish.category'
 		order by c.create_time desc
 		limit #{start},#{length}
@@ -189,6 +192,34 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<select id="selectPublishContentByParamNoLimit" parameterType="map" resultType="PublishContent">
+		select c.id, p.chinese as category, c.description, c.images, c.contact_name as contactName, c.mobilephone, c.city, c.location, open_id as openId, 
+			c.status, c.update_time as updateTime, c.create_time as createTime 
+		from publish_content c
+		left join parameter p
+		on c.category = p.para_value
+		where c.is_del = 0
+		<if test="mobilephone != null and mobilephone != ''">
+			and c.mobilephone = #{mobilephone}
+		</if>
+		<if test="status != null and status != ''">
+			and c.status = #{status}
+		</if>
+		<if test="category != null and category != ''">
+			and c.category = #{category}
+		</if>
+		<if test="searchStartTime != null and searchStartTime != ''">
+			and c.create_time &gt; #{searchStartTime}
+		</if>
+		<if test="searchEndTime != null and searchEndTime != ''">
+			and c.create_time &lt; #{searchEndTime}
+		</if>
+		<if test="openId != null and openId != ''">
+			and c.open_id = #{openId}
+		</if>
+		and p.para_domain = 'publish.category'
+	</select>
 </mapper>
 
 

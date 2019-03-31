@@ -1,5 +1,6 @@
 package com.agency.crm.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.agency.crm.common.framework.BaseBean;
@@ -27,9 +28,19 @@ public class Partner extends BaseBean<Partner> {
 	
 	private String area;
 	
+	private BigDecimal commission;
+	
 	private Date createTime;
 	
 	private Date updateTime;
+
+	public BigDecimal getCommission() {
+		return commission;
+	}
+
+	public void setCommission(BigDecimal commission) {
+		this.commission = commission;
+	}
 
 	public String getOpenId() {
 		return openId;

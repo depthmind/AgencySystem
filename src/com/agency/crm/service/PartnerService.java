@@ -1,5 +1,8 @@
 package com.agency.crm.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,5 +32,25 @@ public class PartnerService extends BaseService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public Partner findPartnerByOpenId(String openId) {
+		Partner partner = new Partner();
+		try {
+			partner = partnerMapper.selectPartnerByOpenId(openId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return partner;
+	}
+	
+	public List<Partner> findPartnerByIntroducer(String openId) {
+		List<Partner> partners = new ArrayList<Partner>();
+		try {
+			partners = partnerMapper.selectPartnerByIntroducer(openId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return partners;
 	}
 }
