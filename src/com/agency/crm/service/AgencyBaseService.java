@@ -150,4 +150,14 @@ public class AgencyBaseService extends BaseService {
 		}
 		return result;
 	}
+	
+	public int updateAgencyBaseByOpenId(AgencyBase agencyBase) {
+		int result = 0;
+		try {
+			result = agencyBaseMapper.updateAgencyBaseByOpenId(agencyBase);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

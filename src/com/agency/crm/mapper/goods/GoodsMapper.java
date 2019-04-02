@@ -20,4 +20,6 @@ public interface GoodsMapper {
     int countGoodsByAgencyId(String agencyId);
     
     Goods selectGoodsByGoodsId(int id);
+    
+    List<Goods> selectGoodsByOpenId(String openId);
 }

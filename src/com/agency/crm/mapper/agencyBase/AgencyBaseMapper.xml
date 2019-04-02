@@ -118,6 +118,7 @@
 		select 
 		id,
 		agency_name as agencyName,
+		contact_name as contactName,
 		sys_user_name as sysUserName,
 		sys_user_password as sysUserPassword,
 		mobilephone as mobilephone,
@@ -129,6 +130,8 @@
 		address,
 		wechat_image_path as wechatImagePath,
 		logo_image_path as logoImagePath,
+		licence1_image_path as licence1ImagePath,
+		licence2_image_path as licence2ImagePath,
 		create_time as createTime,
 		update_time as updateTime,
 		type as type,
@@ -259,6 +262,65 @@
 			</if>
 			update_time = now()
 			where id = #{id}
+		</set>
+	</update>
+	
+	<update id="updateAgencyBaseByOpenId" parameterType="AgencyBase">
+		update agency_base
+		<set>
+			<if test="agencyName != null and agencyName != ''">
+				agency_name = #{agencyName},
+			</if>
+			<if test="sysUserName != null and sysUserName != ''">
+				sys_user_name = #{sysUserName},
+			</if>
+			<if test="sysUserPassword != null and sysUserPassword != ''">
+				sys_user_password = #{sysUserPassword},
+			</if>
+			<if test="mobilephone != null and mobilephone != ''">
+				mobilephone = #{mobilephone},
+			</if>
+			<if test="email != null and email != ''">
+				email = #{email},
+			</if>
+			<if test="openId != null and openId != ''">
+				open_id = #{openId},
+			</if>
+			<if test="isCooperation != null and isCooperation != ''">
+				is_cooperation = #{isCooperation},
+			</if>
+			<if test="city != null and city != ''">
+				city = #{city},
+			</if>
+			<if test="location != null and location != ''">
+				location = #{location},
+			</if>
+			<if test="address != null and address != ''">
+				address = #{address},
+			</if>
+			<if test="wechatImagePath != null and wechatImagePath != ''">
+				wechat_image_path = #{wechatImagePath},
+			</if>
+			<if test="logoImagePath != null and logoImagePath != ''">
+				logo_image_path = #{logoImagePath},
+			</if>
+			<if test="licence1ImagePath != null and licence1ImagePath != ''">
+				licence1_image_path = #{licence1ImagePath},
+			</if>
+			<if test="licence2ImagePath != null and licence2ImagePath != ''">
+				licence2_image_path = #{licence2ImagePath},
+			</if>
+			<if test="status != null and status != ''">
+				status = #{status},
+			</if>
+			<if test="type != null and type != ''">
+				type = #{type},
+			</if>
+			update_time = now()
+			where open_id = #{openId}
+			<if test="type != null and type != ''">
+				and type = #{type}
+			</if>
 		</set>
 	</update>
 </mapper>

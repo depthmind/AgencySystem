@@ -7,6 +7,7 @@ public class Goods {
     private long id;
     private long productId;
     private long agencyId;
+    private String openId;
     private String province;
     private String city;
     private String area;
@@ -22,7 +23,15 @@ public class Goods {
     private String oneLevelCategory;
     private String secondLevelCategory;
 
-    public BigDecimal getPrice() {
+    public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	public BigDecimal getPrice() {
 		return price;
 	}
 

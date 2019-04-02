@@ -59,6 +59,7 @@
       	insert into goods(
       		product_id,
       		agency_id,
+      		open_id,
       		goods_name,
       		goods_description,
       		price,
@@ -73,6 +74,7 @@
       	) values (
       		#{productId,jdbcType=VARCHAR},
       		#{agencyId,jdbcType=VARCHAR},
+      		#{openId,jdbcType=VARCHAR},
       		#{goodsName,jdbcType=VARCHAR},
       		#{goodsDescription,jdbcType=VARCHAR},
       		#{price,jdbcType=DECIMAL},
@@ -109,11 +111,20 @@
 	</insert>
 	
 	<select id="selectGoodsByAgencyId" parameterType="int" resultType="Goods">
-		select agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
-			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, 
+		select id, agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
 			update_time as updateTime, is_del as isDel
 		from goods
 		where agencyId = #{agencyId}
+		and is_del = 0
+	</select>
+	
+	<select id="selectGoodsByOpenId" parameterType="String" resultType="Goods">
+		select id, agency_id as agencyId, open_id as openId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
+			update_time as updateTime, is_del as isDel
+		from goods
+		where open_id = #{openId}
 		and is_del = 0
 	</select>
 	
@@ -126,7 +137,7 @@
 	
 	<select id="selectGoodsByGoodsId" parameterType="int" resultType="Goods">
 		select agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, price, is_top as isTop, 
-			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, 
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
 			update_time as updateTime, is_del as isDel
 		from goods
 		where id = #{id}

@@ -25,8 +25,28 @@
 		select id as id, category_name as text
 		from second_level_category
 		where is_del = 0
-		and one_level_category_id = #{oneLevelCategoryId}
 	</select>
+	
+	<insert id="saveSecondLevelCategory" parameterType="SecondLevelCategory">
+		<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
+      	insert into second_level_category(
+      		one_level_category_id,
+      		category_name,
+      		open_id,
+      		create_time,
+      		update_time,
+      		is_del
+      	) values (
+      		#{oneLevelCategoryId,jdbcType=VARCHAR},
+      		#{categoryName,jdbcType=VARCHAR},
+      		#{openId,jdbcType=VARCHAR},
+      		now(),
+      		now(),
+      		0
+      	)
+	</insert>
 </mapper>
 
 

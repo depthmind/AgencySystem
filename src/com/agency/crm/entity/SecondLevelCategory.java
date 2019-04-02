@@ -22,13 +22,31 @@ public class SecondLevelCategory extends BaseBean<SecondLevelCategory> {
 	
 	private String oneLevelCategoryId;
 	
-	private String category;
+	private String categoryName;
+	
+	private String openId;
 	
 	private Date createTime;
 	
 	private Date updateTime;
 	
 	private Integer isDel;
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
 
 	public String getOneLevelCategoryId() {
 		return oneLevelCategoryId;
@@ -44,14 +62,6 @@ public class SecondLevelCategory extends BaseBean<SecondLevelCategory> {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	public Date getCreateTime() {

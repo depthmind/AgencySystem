@@ -9,8 +9,8 @@
         </layout> 
         
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="LevelMin" value="INFO" />
-			<param name="LevelMax" value="ERROR" />
+			<param name="LevelMin" value="debug" />
+			<param name="LevelMax" value="debug" />
 		</filter> 
     </appender>
     <appender name="File" class="org.apache.log4j.RollingFileAppender">     
@@ -25,41 +25,41 @@
     </appender>
 
     <logger name="org.apache">
-        <level value="WARN"/>
+        <level value="debug"/>
     </logger>
 
     <logger name="org.springframework">
-        <level value="WARN"/>
+        <level value="debug"/>
     </logger>
     
     <logger name="com.agency">
-        <level value="INFO"/>
+        <level value="debug"/>
     </logger>
    
    <!-- 如果不想控制台输出sql语句，则注释掉下面两个category标签
     -->
     <!-- 是否显示数据库连接状态 deng+-->
 	<category name="java.sql.Connection">
-		<priority value="error" />
+		<priority value="debug" />
 	</category>
 	<!--打印SQL语句执行的ibatis方法 deng+-->
 	<category name="java.sql.Statement">
-		<priority value="error" />
+		<priority value="debug" />
 	</category>
 	<!-- SQL语句执行打印 deng+-->
 	<category name="java.sql.PreparedStatement">
-		<priority value="info" />
+		<priority value="debug" />
 	</category>
 	<!-- 是否显示sql执行返回值 deng+ -->
 	<category name="java.sql.ResultSet">
-		<priority value="info" />
+		<priority value="debug" />
 	</category>
 	<category name="com.ibatis">
-		<priority value="info" />
+		<priority value="debug" />
 	</category>
 	  
     <root>
-        <level value="WARN"/>
+        <level value="debug"/>
         <appender-ref ref="Export"/>
         <appender-ref ref="File"/>
     </root>

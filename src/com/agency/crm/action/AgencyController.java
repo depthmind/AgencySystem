@@ -231,4 +231,19 @@ public class AgencyController extends BaseSimpleFormController {
 		
 		return result;
 	}
+	
+	@RequestMapping(value = "/updateAgencyBaseByOpenId.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Json updateAgencyBaseByOpenId(AgencyBase agencyBase) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		
+		result = agencyBaseService.updateAgencyBaseByOpenId(agencyBase);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
 }

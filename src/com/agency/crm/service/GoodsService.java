@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +69,16 @@ public class GoodsService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+    	return goods;
+    }
+    
+    public List<Goods> findGoodsByOpenId(String openId) {
+    	List<Goods> goods = new ArrayList<Goods>();
+    	try {
+    		goods = goodsMapper.selectGoodsByOpenId(openId);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     	return goods;
     }
 }

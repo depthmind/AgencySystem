@@ -214,6 +214,14 @@ public class GoodsController {
     	return JSON.toJSONString(goods);
     }
     
+    @RequestMapping(value="/findGoodsByOpenId.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String findGoodsByOpenId(String openId) {
+    	List<Goods> goods = new ArrayList<Goods>();
+    	goods = goodsService.findGoodsByOpenId(openId);
+    	return JSON.toJSONString(goods);
+    }
+    
     /**
      * 
      * @param request

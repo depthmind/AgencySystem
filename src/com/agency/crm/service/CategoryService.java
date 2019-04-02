@@ -69,10 +69,20 @@ public class CategoryService extends BaseService {
 		return result;
 	}
 	
-	public List<EntityList> findSecondLevelCategoryAsParameter(String oneLevelCategoryId) {
+	public List<EntityList> findSecondLevelCategoryAsParameter() {
 		List<EntityList> result = new ArrayList<EntityList>();
 		try {
-			result = categoryMapper.selectSecondLevelCategoryAsParameter(oneLevelCategoryId);
+			result = categoryMapper.selectSecondLevelCategoryAsParameter();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int saveSecondLevelCategory(SecondLevelCategory secondLevelCategory) {
+		int result = 0;
+		try {
+			result = categoryMapper.saveSecondLevelCategory(secondLevelCategory);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
