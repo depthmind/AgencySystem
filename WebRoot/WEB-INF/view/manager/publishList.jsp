@@ -38,6 +38,15 @@
 			                    <div class="col-sm-2">
 									<input type="text" id="searchCategory" name="searchCategory" class="publish-select-category fullwidth" value="" />
 			                    </div>
+			                    <div class="col-sm-2">
+									<input type="text" id="contactName" class="form-control" placeholder="发布人"  value="" />
+								</div>
+			                    <div class="col-sm-2">
+									<input type="text" id="city" class="form-control" placeholder="城市"  value="" />
+								</div>
+			                    <div class="col-sm-2">
+									<input type="text" id="description" class="form-control" placeholder="内容"  value="" />
+								</div>
 								<div class="col-sm-2">
 				                    <div class="input-group input-datepicker" style="padding:0;">
 				                        <input readonly="readonly" id="searchStartDateTime" type="text" name="searchStartDateTime" class="form-control datepicker" placeholder="请点击输入查询开始日期" value="" autocomplete="on">
@@ -63,13 +72,14 @@
 							<table id="dataTable" class="table">
 								<thead>
 									<tr>
-										<th>内容</th>
-										<th>联系人</th>
-										<th>联系方式</th>
-										<th>状态</th>
+										<th>城市</th>
+										<th>发布人</th>
+										<th>id</th>
+										<th>电话</th>
 										<th>类别</th>
-										<th>创建时间</th>
-										<th>更新时间</th>
+										<th>发布时间</th>
+										<th>内容</th>
+										<th>状态</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -178,6 +188,9 @@
 					url: '${rootPath}manager/publishContentList.do',
 					data: function(data){
 						var mobilephone = $('#mobilephone').val();
+						var contactName = $('#contactName').val();
+						var description = $('#description').val();
+						var city = $('#city').val();
 						var searchStatus=$('#searchStatus').val();
 						var searchCategory=$('#searchCategory').val();
 						var searchStartTime = $('#searchStartDateTime').val();
@@ -185,6 +198,15 @@
 						
 						if(mobilephone != null && mobilephone !="" ){
 							data.mobilephone = mobilephone;
+			 			}
+						if(contactName != null && contactName !="" ){
+							data.contactName = contactName;
+			 			}
+						if(description != null && description !="" ){
+							data.description = description;
+			 			}
+						if(city != null && city !="" ){
+							data.city = city;
 			 			}
 						if(searchStatus != null && searchStatus !="" ){
 							data.status = searchStatus;
@@ -209,7 +231,7 @@
 				},
 				columnDefs: [
 				  {
-	                  data: "description",
+	                  data: "city",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -225,7 +247,7 @@
 	                  targets: 1
 				  },
 				  {
-	                  data: "mobilephone",
+	                  data: "id",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -233,25 +255,10 @@
 	                  targets: 2
 				  },
 				  {
-	                  data: "status",
+	                  data: "mobilephone",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                	  /* if (data == '1') {
-	                		  return '<div>' + '待审核' +'</div>';
-	                	  } else if(data == '2') {
-	                		  return '<div>' + '审核通过' +'</div>';
-	                	  } else {
-	                		  return '<div>' + '审核不通过' +'</div>';
-	                	  } */
-	                	  if(full.status){
-		                		for(var i=0;i <publishStatus.length;i++){
-			                		if(full.status==publishStatus[i].id){
-			                			return '<div>' + publishStatus[i].text +'</div>';
-			                		}				                	
-			                	}
-			                } else {
-			                	return '<div></div>';
-			                }
+	                      return '<div>' + data +'</div>';
 	                  },
 	                  targets: 3
 				  },
@@ -285,18 +292,35 @@
 	                  targets: 5
 				  },
 				  {
-	                  data: "updateTime",
+	                  data: "description",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                	  var n = full.updateTime.time;
-		                	if(full.updateTime){
-		                		n=new Date(n).format("yyyy-MM-dd hh:mm:ss");
-		                	}else{
-		                		n="";
-		                	}
-		                	return n;
+	                      return '<div>' + data +'</div>';
 	                  },
 	                  targets: 6
+				  },
+				  {
+	                  data: "status",
+	                  orderable: false,
+	                  render: function ( data, type, full, meta ) {
+	                	  /* if (data == '1') {
+	                		  return '<div>' + '待审核' +'</div>';
+	                	  } else if(data == '2') {
+	                		  return '<div>' + '审核通过' +'</div>';
+	                	  } else {
+	                		  return '<div>' + '审核不通过' +'</div>';
+	                	  } */
+	                	  if(full.status){
+		                		for(var i=0;i <publishStatus.length;i++){
+			                		if(full.status==publishStatus[i].id){
+			                			return '<div>' + publishStatus[i].text +'</div>';
+			                		}				                	
+			                	}
+			                } else {
+			                	return '<div></div>';
+			                }
+	                  },
+	                  targets: 7
 				  },
 				  {
 	                  data: "id",
@@ -304,7 +328,7 @@
 	                  render: function ( data, type, full, meta ) {
 	                	  return '<a class="btn btn-success btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 编辑</a>&nbsp;<a class="btn btn-danger btn-xs" id="'+data+'"><span class="fa fa-edit"></span> 删除</a>&nbsp;';
 	                  },
-	                  targets: 7
+	                  targets: 8
 				  },
 				  {
 					  orderable: false,
@@ -312,13 +336,14 @@
 				  },
 				],
 				columns: [
-		            { data: "description" },
+		            { data: "city" },
 		            { data: "contactName" },
+		            { data: "id" },
 		            { data: "mobilephone" },
-		            { data: "status" },
 		            { data: "category" },
 		            { data: "createTime" },
-		            { data: "updateTime" },
+		            { data: "description" },
+		            { data: "status" },
 		            { data: "id" }
 		        ]
 			});

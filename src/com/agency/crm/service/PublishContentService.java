@@ -110,6 +110,15 @@ public class PublishContentService extends BaseService {
 		if (StringUtils.isNotBlank(publishContent.getMobilephone())) {
 			map.put("mobilephone", publishContent.getMobilephone());
 		}
+		if (StringUtils.isNotBlank(publishContent.getContactName())) {
+			map.put("contactName", publishContent.getContactName());
+		}
+		if (StringUtils.isNotBlank(publishContent.getCity())) {
+			map.put("city", publishContent.getCity());
+		}
+		if (StringUtils.isNotBlank(publishContent.getDescription())) {
+			map.put("description", "%" + publishContent.getDescription() + "%");
+		}
 		if (StringUtils.isNotBlank(status)) {
 			map.put("status", status);
 		}

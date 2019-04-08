@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.agency.crm.mapper.brandCategory.BrandCategoryMapper">
+	<select id="selectFavoriteByParam" parameterType="map" resultType="Favorite">
+		select id, open_id as openId, union_id as unionId, favorite_id as favoriteId, type, status, 
+			create_time as createTime, update_time as updateTime,is_del as isDel
+		from favorite 
+		where is_del = 0
+		<if test="openId != null and openId != ''">
+			and open_id = #{openId}
+		</if>
+		<if test="unionId != null and unionId != ''">
+			and union_id = #{unionId}
+		</if>
+		<if test="favoriteId != null and favoriteId != ''">
+			and favorite_id = #{favoriteId}
+		</if>
+		<if test="type != null and type != ''">
+			and type = #{type}
+		</if>
+		order by create_time
+		limit 0,1
+	</select>
+	
+	<insert id="saveBrandCategory" parameterType="BrandCategory">
+		<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+          SELECT LAST_INSERT_ID()
+      	</selectKey>
+		insert into brand_category(
+		category_name,
+		open_id,
+		create_time,
+		update_time,
+		is_del
+		) values (
+		#{categoryName,jdbcType=VARCHAR},
+		#{openId,jdbcType=VARCHAR},
+		now(),
+		now(),
+		0
+		)
+	</insert>
+	
+	
+	<select id="selectBrandCategoryByOpenId" parameterType="String" resultType="BrandCategory">
+		select 
+		id as id,
+        category_name as categoryName,
+        open_id as openId,
+        create_time as createTime,
+        update_time as updateTime,
+        is_del as isDel
+		from brand_category
+		where open_id = #{openId}
+	</select>
+	
+	<select id="selectFavoriteAgencyByTypeAndUnionId" parameterType="map" resultType="AgencyBase">
+		select
+			a.id,
+			a.agency_name as agencyName,
+			a.sys_user_name as sysUserName,
+			a.sys_user_password as sysUserPassword,
+			a.mobilephone as mobilephone,
+			a.email as email,
+			a.open_id as openId,
+			a.is_cooperation as isCooperation,
+			a.province,
+			a.city,
+			a.area,
+			a.address,
+			a.wechat_image_path as wechatImagePath,
+			a.logo_image_path as logoImagePath,
+			a.create_time as createTime,
+			a.update_time as updateTime,
+			a.latitude as latitude,
+			a.longitude as longitude,
+			a.status as status,
+			a.type as type,
+			a.is_del as isDel
+		from agency_base a
+		left join favorite f
+		on a.id = f.favorite_id
+		where f.type = '2' and f.open_id = #{openId}
+	</select>
+</mapper>

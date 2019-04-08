@@ -105,6 +105,15 @@
 		<if test="mobilephone != null and mobilephone != ''">
 			and c.mobilephone = #{mobilephone}
 		</if>
+		<if test="contactName != null and contactName != ''">
+			and c.contact_name = #{contactName}
+		</if>
+		<if test="description != null and description != ''">
+			and c.description like #{description}
+		</if>
+		<if test="city != null and city != ''">
+			and c.city = #{city}
+		</if>
 		<if test="status != null and status != ''">
 			and c.status = #{status}
 		</if>
