@@ -22,11 +22,21 @@ public class SeriesCategory extends BaseBean<SeriesCategory> {
 	
 	private String brandId;
 	
+	private String categoryName;
+	
 	private Date createTime;
 	
 	private Date updateTime;
 	
 	private Integer isDel;
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 
 	public Integer getId() {
 		return id;

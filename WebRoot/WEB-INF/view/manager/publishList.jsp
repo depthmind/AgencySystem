@@ -153,11 +153,13 @@
 		
 		$(".publish-select-status").select2({
 	 	     placeholder: '状态',
+	 	     allowClear: true,
 	 	     minimumResultsForSearch: Infinity,
 	 	     data: publishStatus
 	 	 });
 		$(".publish-select-category").select2({
 	 	     placeholder: '类别',
+	 	     allowClear: true,
 	 	     minimumResultsForSearch: Infinity,
 	 	     data: category
 	 	 });

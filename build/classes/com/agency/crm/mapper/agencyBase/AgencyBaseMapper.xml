@@ -104,6 +104,15 @@
 		<if test="address != null and address != ''">
 			and address like '%${address}%'
 		</if>
+		<if test="status != null and status != ''">
+			and status = #{status}
+		</if>
+		<if test="agencyName != null and agencyName != ''">
+			and agency_name like '%${agencyName}%'
+		</if>
+		<if test="city != null and city != ''">
+			and city like '%${city}%'
+		</if>
 		<if test="searchStartTime != null and searchStartTime != ''">
 			and create_time &gt; #{searchStartTime}
 		</if>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.agency.crm.common.action.BaseSimpleFormController;
 import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.entity.EntityList;
+import com.agency.crm.entity.OneLevelCategory;
 import com.agency.crm.entity.SecondLevelCategory;
 import com.agency.crm.service.CategoryService;
 
@@ -20,7 +21,7 @@ import net.sf.json.JSONArray;
 
 /**
  * @author zyy
- *
+ * 平台分类
  */
 @Controller
 @RequestMapping("/category")
@@ -36,11 +37,18 @@ public class CategoryController extends BaseSimpleFormController {
 		return JSONArray.fromObject(list);
 	}
 	
+	@RequestMapping(value="/findAllOneLevelCategory.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<OneLevelCategory> findAllOneLevelCategory() {
+		List<OneLevelCategory> list = categoryService.findAllOneLevelCategory();
+		return list;
+	}
+	
 	@RequestMapping(value="/findSecondLevelCategory.do", produces="application/json;charset=utf-8")
 	@ResponseBody
-	public JSONArray findSecondLevelCategoryById() {
-		List<EntityList> list = categoryService.findSecondLevelCategoryAsParameter();
-		return JSONArray.fromObject(list);
+	public List<SecondLevelCategory> findSecondLevelCategoryById(String oneLevelCategoryId) {
+		List<SecondLevelCategory> list = categoryService.findSecondLevelCategoryByOneLevelCategoryId(oneLevelCategoryId);
+		return list;
 	}
 	
 	@RequestMapping(value="/saveSecondLevelCategory.do", produces="application/json;charset=utf-8")

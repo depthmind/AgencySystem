@@ -29,19 +29,25 @@
 					<h3 class="panel-title">代理商列表</h3>
 						<div class="row" style="margin-top: 20px">
 							<div class="form-group col-sm-10">
-								<div class="col-sm-2">
+								<div class="col-sm-4">
 									<input type="text" id="mobilephone" class="form-control" placeholder="手机号"  value="" />
 								</div>
 								<div class="col-sm-2">
-									<input type="text" id="address" class="form-control" placeholder="地址"  value="" />
+									<input type="text" id="searchStatus" name="searchStatus" class="agency-select-status fullwidth" value="" />
+			                    </div>
+								<div class="col-sm-4">
+									<input type="text" id="agencyName" class="form-control" placeholder="代理商名称"  value="" />
 								</div>
-								<div class="col-sm-2">
+			                    <div class="col-sm-4">
+									<input type="text" id="city" class="form-control" placeholder="城市"  value="" />
+								</div>
+								<div class="col-sm-4">
 				                    <div class="input-group input-datepicker" style="padding:0;">
 				                        <input readonly="readonly" id="searchStartDateTime" type="text" name="searchStartDateTime" class="form-control datepicker" placeholder="请点击输入查询开始日期" value="" autocomplete="on">
 				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 				                    </div>
 				                </div>
-			                    <div class="col-sm-2">
+			                    <div class="col-sm-4">
 				                    <div class="input-group input-datepicker" style="padding: 0;">
 				                        <input readonly="readonly" id="searchEndDateTime" type="text" name="searchEndDateTime" class="form-control datepicker" placeholder="请点击输入查询截止日期" value="" autocomplete="on">
 				                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
@@ -60,14 +66,14 @@
 							<table id="dataTable" class="table">
 								<thead>
 									<tr>
+										<th>代理商ID</th>
 										<th>名称</th>
-										<th>联系方式</th>
-										<th>地址</th>
-										<th>省</th>
-										<th>市</th>
-										<th>县/区</th>
+										<th>城市</th>
+										<th>详细地址</th>
+										<th>电话</th>
+										<th>入驻时间</th>
+										<th>到期时间</th>
 										<th>状态</th>
-										<th>创建时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -137,6 +143,12 @@
 
 	<script type="text/javascript">
 	var publishStatus = ${publishStatus};
+	$(".agency-select-status").select2({
+	     placeholder: '状态',
+	     allowClear: true,
+	     minimumResultsForSearch: Infinity,
+	     data: publishStatus
+	 });
 	jQuery("#searchStartDateTime").datepicker({
         dateFormat: "yy-mm-dd",
         changeYear: true,
@@ -165,7 +177,9 @@
 						var mobilephone = $('#mobilephone').val();
 						var searchStartTime = $('#searchStartDateTime').val();
 						var searchEndTime = $('#searchEndDateTime').val();
-						var address = $('#address').val();
+						var agencyName = $('#agencyName').val();
+						var city = $('#city').val();
+						var searchStatus=$('#searchStatus').val();
 			 			
 			 			if(mobilephone != null && mobilephone !="" ){
 							data.mobilephone = mobilephone;
@@ -176,8 +190,14 @@
 			 			if(searchEndTime != null && searchEndTime !="" ){
 							data.searchEndTime = searchEndTime;
 			 			}
-			 			if(address != null && address !="" ){
-							data.address = address;
+			 			if(agencyName != null && agencyName !="" ){
+							data.agencyName = agencyName;
+			 			}
+			 			if(city != null && city !="" ){
+							data.city = city;
+			 			}
+			 			if(searchStatus != null && searchStatus !="" ){
+							data.status = searchStatus;
 			 			}
 					},
 					dataFilter: function(data){
@@ -188,9 +208,10 @@
 			            return JSON.stringify( json );
 			        }
 				},
+				
 				columnDefs: [
 				  {
-	                  data: "agencyName",
+	                  data: "id",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -198,7 +219,7 @@
 	                  targets: 0
 				  },
 				  {
-	                  data: "mobilephone",
+	                  data: "agencyName",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -206,7 +227,7 @@
 	                  targets: 1
 				  },
 				  {
-	                  data: "address",
+	                  data: "city",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -214,7 +235,7 @@
 	                  targets: 2
 				  },
 				  {
-	                  data: "province",
+	                  data: "address",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -222,7 +243,7 @@
 	                  targets: 3
 				  },
 				  {
-	                  data: "city",
+	                  data: "mobilephone",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
 	                      return '<div>' + data +'</div>';
@@ -230,12 +251,32 @@
 	                  targets: 4
 				  },
 				  {
-	                  data: "area",
+	                  data: "createTime",
 	                  orderable: false,
 	                  render: function ( data, type, full, meta ) {
-	                      return '<div>' + data +'</div>';
+	                	  var n = full.createTime.time;
+		                	if(full.createTime){
+		                		n=new Date(n).format("yyyy-MM-dd hh:mm:ss");
+		                	}else{
+		                		n="";
+		                	}
+		                return n;
 	                  },
 	                  targets: 5
+				  },
+				  {
+	                  data: "createTime",
+	                  orderable: false,
+	                  render: function ( data, type, full, meta ) {
+	                	  var n = full.createTime.time;
+		                	if(full.createTime){
+		                		n=new Date(n).format("yyyy-MM-dd hh:mm:ss");
+		                	}else{
+		                		n="";
+		                	}
+		                return "";
+	                  },
+	                  targets: 6
 				  },
 				  {
 					  data: "status",
@@ -251,22 +292,9 @@
 			                	return '<div></div>';
 			                }
 	                  },
-	                  targets: 6
-				  },
-				  {
-	                  data: "createTime",
-	                  orderable: false,
-	                  render: function ( data, type, full, meta ) {
-	                	  var n = full.createTime.time;
-		                	if(full.createTime){
-		                		n=new Date(n).format("yyyy-MM-dd hh:mm:ss");
-		                	}else{
-		                		n="";
-		                	}
-		                return n;
-	                  },
 	                  targets: 7
 				  },
+				  
 				  {
 	                  data: "id",
 	                  orderable: false,
@@ -286,14 +314,14 @@
 				  },
 				],
 				columns: [
+		            { data: "id" },
 		            { data: "agencyName" },
-		            { data: "mobilephone" },
-		            { data: "address" },
-		            { data: "province" },
 		            { data: "city" },
-		            { data: "area" },
-		            { data: "status" },
+		            { data: "address" },
+		            { data: "mobilephone" },
 		            { data: "createTime" },
+		            { data: "createTime" },
+		            { data: "status" },
 		            { data: "id" }
 		        ]
 			});

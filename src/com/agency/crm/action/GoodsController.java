@@ -222,6 +222,12 @@ public class GoodsController {
     	return JSON.toJSONString(goods);
     }
     
+    @RequestMapping(value="/addGoods.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public void addGoods(Goods goods) {
+    	goodsService.saveGoods(goods);
+    }
+    
     /**
      * 
      * @param request

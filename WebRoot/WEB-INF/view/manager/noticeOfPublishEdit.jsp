@@ -24,7 +24,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="glyphicon glyphicon-cog"></i> 代理商管理 <span>入驻时间</span>
+					<i class="glyphicon glyphicon-cog"></i> 帖子管理 <span>发布须知</span>
 				</h2>
 			</div>
 
@@ -36,8 +36,7 @@
           <div class="panel-btns">
             <a href="" class="minimize">&minus;</a>
           </div>
-          <h4 class="panel-title">商品基本信息</h4>
-          <p>填写下表，完成商品创建。</p>
+          <h4 class="panel-title">发布须知内容</h4>
         </div>
         <form class="form-horizontal" id="form">
         <div class="panel-body panel-body-nopadding">

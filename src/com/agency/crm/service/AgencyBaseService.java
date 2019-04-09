@@ -130,6 +130,15 @@ public class AgencyBaseService extends BaseService {
 		if (StringUtils.isNotBlank(agencyBase.getSearchEndTime())) {
 			map.put("searchEndTime", agencyBase.getSearchEndTime() + " 00:00:00");
 		}
+		if (StringUtils.isNotBlank(agencyBase.getStatus())) {
+			map.put("status", agencyBase.getStatus());
+		}
+		if (StringUtils.isNotBlank(agencyBase.getAgencyName())) {
+			map.put("agencyName", agencyBase.getAgencyName());
+		}
+		if (StringUtils.isNotBlank(agencyBase.getCity())) {
+			map.put("city", agencyBase.getCity());
+		}
 		
 		List<AgencyBase> data = agencyBaseMapper.selectAgencyBase(map);
 		long count = agencyBaseMapper.countAgencyBase(map);

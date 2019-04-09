@@ -368,6 +368,36 @@ public class ManagerController extends BaseSimpleFormController {
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}
+	
+	@RequestMapping(value = "/publishCategoryList.html", produces = "application/json;charset=utf-8")
+	public String publishCategoryListPage(Model model) {
+		return "/manager/publishCategory";
+	}
+	
+	@RequestMapping(value = "/publishCategoryList.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String publishCategoryList(HttpServletRequest request, HttpSession session, Model model,
+			Parameter parameter, PageHelper page) {
+		parameter.setDomain("publish.category");
+		QueryResult<Parameter> pageResult = parameterService.queryParameter(parameter, page, request);
+		String result = JSONUtilS.object2json(pageResult);
+		return result;
+	}
+	
+	@RequestMapping(value = "/addPublishCategory.html", produces = "application/json;charset=utf-8")
+	public String addPublishCategoryPage(Model model) {
+		return "/manager/addPublishCategory";
+	}
+	
+	@RequestMapping(value = "/addPublishCategory.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String addPublishCategory(HttpServletRequest request, HttpSession session, Model model,
+			Parameter parameter, PageHelper page) {
+		parameter.setDomain("publish.category");
+		QueryResult<Parameter> pageResult = parameterService.queryParameter(parameter, page, request);
+		String result = JSONUtilS.object2json(pageResult);
+		return result;
+	}
 
 	private void sendTemplageMessage(String openId, String message, String reason) {
 		try {

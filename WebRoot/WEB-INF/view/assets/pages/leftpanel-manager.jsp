@@ -72,6 +72,7 @@
                     <li><a href="${rootPath }manager/publishContentList.html"><i class="fa fa-caret-right"></i> 帖子列表</a></li>
                     <li><a href="${rootPath }manager/addPublish.html"><i class="fa fa-caret-right"></i> 发布帖子</a></li>
                     <li><a href="${rootPath }manager/editNoticeOfPublish.html"><i class="fa fa-caret-right"></i> 发布须知</a></li>
+                    <li><a href="${rootPath }manager/publishCategoryList.html"><i class="fa fa-caret-right"></i> 帖子分类</a></li>
                 </ul>     
             </li> 
             <li class="nav-parent" id="goods"><a href=""><i class="fa fa-user-circle"></i> <span>商家管理</span></a>

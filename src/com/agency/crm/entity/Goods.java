@@ -17,13 +17,40 @@ public class Goods {
     private String goodsName;
     private String goodsDescription;
     private BigDecimal price;
+    private Integer stock;
     private String goodsPic;
     private String thumbnail;
     private Integer isTop;
     private String oneLevelCategory;
     private String secondLevelCategory;
+    private String brandCategory;
+    private String seriesCategory;
 
-    public String getOpenId() {
+    public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
+	public String getBrandCategory() {
+		return brandCategory;
+	}
+
+	public void setBrandCategory(String brandCategory) {
+		this.brandCategory = brandCategory;
+	}
+
+	public String getSeriesCategory() {
+		return seriesCategory;
+	}
+
+	public void setSeriesCategory(String seriesCategory) {
+		this.seriesCategory = seriesCategory;
+	}
+
+	public String getOpenId() {
 		return openId;
 	}
 
