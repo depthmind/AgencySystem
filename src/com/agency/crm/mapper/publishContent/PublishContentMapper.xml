@@ -81,10 +81,14 @@
 	</select>
 
 	<select id="selectPublishContentById" resultType="PublishContent" parameterType="int">
-		select id, category, description, images, contact_name as contactName, mobilephone, province, city, area, location, open_id as openId,
-		update_time as updateTime, create_time as createTime from publish_content
-		where id = #{id}
-		and is_del = 0
+		select pc.id, pc.description, pc.images, pc.contact_name as contactName, pc.mobilephone, pc.province, 
+		pc.city, pc.area, pc.location, pc.open_id as openId, p.chinese as category, pc.address,
+		pc.update_time as updateTime, pc.create_time as createTime from publish_content pc
+		left join parameter p
+		on pc.category = p.para_value
+		where pc.id = #{id}
+		and pc.is_del = 0
+		and p.para_domain = 'publish.category'
 	</select>
 	
 	<select id="selectPublishContentByStatus" parameterType="String" resultType="PublishContent">

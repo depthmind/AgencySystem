@@ -158,7 +158,7 @@
 	
 	<select id="selectGoodsByGoodsId" parameterType="int" resultType="Goods">
 		select agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, price, is_top as isTop, 
-			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price, stock,
 			update_time as updateTime, is_del as isDel
 		from goods
 		where id = #{id}
