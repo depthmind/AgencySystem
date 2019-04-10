@@ -81,4 +81,14 @@ public class GoodsService {
     	}
     	return goods;
     }
+    
+    public List<Goods> findGoodsByBrandCategory(String brandCategory) {
+    	List<Goods> goods = new ArrayList<Goods>();
+    	try {
+    		goods = goodsMapper.selectGoodsByBrandCategory(brandCategory);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	return goods;
+    }
 }

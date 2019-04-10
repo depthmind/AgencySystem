@@ -140,6 +140,15 @@
 		and is_del = 0
 	</select>
 	
+	<select id="selectGoodsByBrandCategory" parameterType="String" resultType="Goods">
+		select id, agency_id as agencyId, open_id as openId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
+			update_time as updateTime, is_del as isDel
+		from goods
+		where brand_category = #{brandCategory}
+		and is_del = 0
+	</select>
+	
 	<select id="countGoodsByAgencyId" parameterType="int" resultType="int">
 		select count(id)
 		from goods

@@ -222,6 +222,14 @@ public class GoodsController {
     	return JSON.toJSONString(goods);
     }
     
+    @RequestMapping(value="/findGoodsByBrandId.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String findGoodsByBrandId(String brandCategory) {
+    	List<Goods> goods = new ArrayList<Goods>();
+    	goods = goodsService.findGoodsByBrandCategory(brandCategory);
+    	return JSON.toJSONString(goods);
+    }
+    
     @RequestMapping(value="/addGoods.do",produces="application/json;charset=utf-8")
     @ResponseBody
     public void addGoods(Goods goods) {

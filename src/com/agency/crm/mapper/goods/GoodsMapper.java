@@ -22,4 +22,6 @@ public interface GoodsMapper {
     Goods selectGoodsByGoodsId(int id);
     
     List<Goods> selectGoodsByOpenId(String openId);
+    
+    List<Goods> selectGoodsByBrandCategory(String brandCategory);
 }
