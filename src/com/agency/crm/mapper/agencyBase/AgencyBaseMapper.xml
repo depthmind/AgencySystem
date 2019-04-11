@@ -9,6 +9,7 @@
       	</selectKey>
 		insert into agency_base (
 		agency_name,
+		description,
 		contact_name,
 		sys_user_name,
 		sys_user_password,
@@ -36,6 +37,7 @@
 		is_del
 		) values (
 		#{agencyName,jdbcType=VARCHAR},
+		#{description,jdbcType=VARCHAR},
 		#{contactName,jdbcType=VARCHAR},
 		#{sysUserName,jdbcType=VARCHAR},
 		#{sysUserPassword,jdbcType=VARCHAR},
@@ -68,6 +70,7 @@
 		select 
 		id,
 		agency_name as agencyName,
+		description as description,
 		sys_user_name as sysUserName,
 		sys_user_password as sysUserPassword,
 		mobilephone as mobilephone,
@@ -127,6 +130,7 @@
 		select 
 		id,
 		agency_name as agencyName,
+		description as description,
 		contact_name as contactName,
 		sys_user_name as sysUserName,
 		sys_user_password as sysUserPassword,
@@ -178,6 +182,7 @@
 		select 
 		id,
 		agency_name as agencyName,
+		description as description,
 		sys_user_name as sysUserName,
 		sys_user_password as sysUserPassword,
 		mobilephone as mobilephone,
@@ -223,6 +228,9 @@
 		<set>
 			<if test="agencyName != null and agencyName != ''">
 				agency_name = #{agencyName},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
 			</if>
 			<if test="sysUserName != null and sysUserName != ''">
 				sys_user_name = #{sysUserName},
@@ -279,6 +287,9 @@
 		<set>
 			<if test="agencyName != null and agencyName != ''">
 				agency_name = #{agencyName},
+			</if>
+			<if test="description != null and description != ''">
+				description = #{description},
 			</if>
 			<if test="sysUserName != null and sysUserName != ''">
 				sys_user_name = #{sysUserName},

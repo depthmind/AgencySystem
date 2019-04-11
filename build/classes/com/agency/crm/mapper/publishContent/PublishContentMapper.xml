@@ -134,7 +134,7 @@
 			and c.open_id = #{openId}
 		</if>
 		and p.para_domain = 'publish.category'
-		order by c.create_time desc
+		order by c.create_time asc
 		limit #{start},#{length}
 	</select>
 	
@@ -232,6 +232,7 @@
 			and c.open_id = #{openId}
 		</if>
 		and p.para_domain = 'publish.category'
+		order by c.create_time desc
 	</select>
 </mapper>
 
