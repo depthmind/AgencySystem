@@ -47,7 +47,7 @@ public class AgencyContactService extends BaseService {
 	 * @param agencyId
 	 * @return 查询代理商的所有员工
 	 */
-	public List<AgencyContact> findAgnecyContactByAgencyId(int agencyId) {
+	public List<AgencyContact> findAgnecyContactByAgencyId(String agencyId) {
 		List<AgencyContact> result = new ArrayList<AgencyContact>();
 		try {
 			result = agencyContactMapper.selectAgnecyContactByAgencyId(agencyId);
@@ -57,7 +57,7 @@ public class AgencyContactService extends BaseService {
 		return result;
 	}
 	
-	public QueryResult<AgencyContact> queryAgnecyContactByAgencyId(int agencyId, PageHelper pageHelper, HttpServletRequest request) {
+	public QueryResult<AgencyContact> queryAgnecyContactByAgencyId(String agencyId, PageHelper pageHelper, HttpServletRequest request) {
 
 		QueryResult<AgencyContact> pageResult = new QueryResult<AgencyContact>();
 		List<AgencyContact> data = agencyContactMapper.selectAgnecyContactByAgencyId(agencyId);

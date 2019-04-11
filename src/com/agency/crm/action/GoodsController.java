@@ -224,9 +224,12 @@ public class GoodsController {
     
     @RequestMapping(value="/findGoodsByBrandId.do",produces="application/json;charset=utf-8")
     @ResponseBody
-    public String findGoodsByBrandId(String brandCategory) {
+    public String findGoodsByBrandId(String brandCategory, String agencyId) {
     	List<Goods> goods = new ArrayList<Goods>();
-    	goods = goodsService.findGoodsByBrandCategory(brandCategory);
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("brandCategory", brandCategory);
+    	map.put("agencyId", agencyId);
+    	goods = goodsService.findGoodsByBrandCategory(map);
     	return JSON.toJSONString(goods);
     }
     

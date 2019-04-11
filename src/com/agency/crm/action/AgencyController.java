@@ -221,7 +221,7 @@ public class AgencyController extends BaseSimpleFormController {
 	 */
 	@RequestMapping(value = "/findAllEmployee.do", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String findAllEmployee(@RequestParam(required = true) Integer agencyId, HttpServletRequest request,
+	public String findAllEmployee(String agencyId, HttpServletRequest request,
 			HttpSession session, Model model, PageHelper page) {
 		String result = "";
 
@@ -230,6 +230,15 @@ public class AgencyController extends BaseSimpleFormController {
 		result = JSONUtilS.object2json(pageResult);
 		
 		return result;
+	}
+	
+	@RequestMapping(value = "/findAgnecyContactByAgencyId.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public List<AgencyContact> findAgnecyContactByAgencyId(String agencyId) {
+
+		List<AgencyContact> list = agencyContactService.findAgnecyContactByAgencyId(agencyId);
+		
+		return list;
 	}
 	
 	@RequestMapping(value = "/updateAgencyBaseByOpenId.do", produces = "application/json;charset=UTF-8")

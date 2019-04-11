@@ -140,12 +140,14 @@
 		and is_del = 0
 	</select>
 	
-	<select id="selectGoodsByBrandCategory" parameterType="String" resultType="Goods">
+	<select id="selectGoodsByBrandCategory" parameterType="map" resultType="Goods">
 		select id, agency_id as agencyId, open_id as openId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
-			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price, stock,
 			update_time as updateTime, is_del as isDel
 		from goods
-		where brand_category = #{brandCategory}
+		where 
+		brand_category = #{brandCategory}
+		and agency_id = #{agencyId}
 		and is_del = 0
 	</select>
 	

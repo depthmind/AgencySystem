@@ -82,10 +82,10 @@ public class GoodsService {
     	return goods;
     }
     
-    public List<Goods> findGoodsByBrandCategory(String brandCategory) {
+    public List<Goods> findGoodsByBrandCategory(Map<String, Object> params) {
     	List<Goods> goods = new ArrayList<Goods>();
     	try {
-    		goods = goodsMapper.selectGoodsByBrandCategory(brandCategory);
+    		goods = goodsMapper.selectGoodsByBrandCategory(params);
     	} catch (Exception e) {
     		e.printStackTrace();
     	}

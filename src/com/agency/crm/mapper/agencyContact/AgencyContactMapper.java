@@ -10,7 +10,7 @@ public interface AgencyContactMapper extends BaseMapper {
 
 	int insertAgencyContact(AgencyContact agencyContact);
 	
-	List<AgencyContact> selectAgnecyContactByAgencyId(int agencyId);
+	List<AgencyContact> selectAgnecyContactByAgencyId(String agencyId);
 	
-	int countAgnecyContactByAgencyId(int agencyId);
+	int countAgnecyContactByAgencyId(String agencyId);
 }

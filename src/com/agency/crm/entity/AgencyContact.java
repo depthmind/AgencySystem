@@ -15,7 +15,9 @@ public class AgencyContact extends BaseBean<AgencyContact> {
 	private String contactName;
 	private String mobilephone;
 	private String address;
+	private String province;
 	private String city;
+	private String area;
 	private String location;
 	private String sysUserName;
 	private String sysUserPassword;
@@ -25,6 +27,18 @@ public class AgencyContact extends BaseBean<AgencyContact> {
 	private String latitude;
 	private String longitude;
 	
+	public String getProvince() {
+		return province;
+	}
+	public void setProvince(String province) {
+		this.province = province;
+	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
 	public String getLatitude() {
 		return latitude;
 	}

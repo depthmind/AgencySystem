@@ -9,7 +9,9 @@
 			contact_name,
 			mobilephone,
 			address,
+			province,
 			city,
+			area,
 			location,
 			latitude,
 			longitude,
@@ -21,7 +23,9 @@
 			#{contactName,jdbcType=VARCHAR},
 			#{mobilephone,jdbcType=VARCHAR},
 			#{address,jdbcType=VARCHAR},
+			#{province,jdbcType=VARCHAR},
 			#{city,jdbcType=VARCHAR},
+			#{area,jdbcType=VARCHAR},
 			#{location,jdbcType=VARCHAR},
 			#{latitude,jdbcType=VARCHAR},
 			#{longitude,jdbcType=VARCHAR},
@@ -31,16 +35,16 @@
 		)
 	</insert>
 	
-	<select id="selectAgnecyContactByAgencyId" parameterType="int" resultType="AgencyContact">
+	<select id="selectAgnecyContactByAgencyId" parameterType="String" resultType="AgencyContact">
 		select agency_id as agencyId, contact_name as contactName, mobilephone, address, city, location,
-			sys_user_name as sysUserName, sys_user_password as sysUserPassword, latitude, longitude, 
+			sys_user_name as sysUserName, sys_user_password as sysUserPassword, latitude, longitude, area, province,
 			create_time as createTime, update_time as updateTime, is_del as isDel
 		from agency_contact
 		where agency_id = #{agencyId}
 		and is_del = 0
 	</select>
 	
-	<select id="countAgnecyContactByAgencyId" parameterType="int" resultType="int">
+	<select id="countAgnecyContactByAgencyId" parameterType="String" resultType="int">
 		select count(1)
 		from agency_contact
 		where agency_id = #{agencyId}

@@ -23,5 +23,5 @@ public interface GoodsMapper {
     
     List<Goods> selectGoodsByOpenId(String openId);
     
-    List<Goods> selectGoodsByBrandCategory(String brandCategory);
+    List<Goods> selectGoodsByBrandCategory(Map<String, Object> params);
 }
