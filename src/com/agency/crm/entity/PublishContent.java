@@ -52,9 +52,29 @@ public class PublishContent extends BaseBean<PublishContent> {
 	
 	private String openId;
 	
+	private String avatarUrl;
+	
+	private String nickName;
+	
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 	private String searchStartTime;
 	
 	private String searchEndTime;
+
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
 
 	public String getSearchStartTime() {
 		return searchStartTime;

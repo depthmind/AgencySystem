@@ -44,4 +44,14 @@ public class BrandCategoryService extends BaseService {
 		}
 		return result;
 	}
+	
+	public List<BrandCategory> findBrandCategoryByAgencyId(String agencyId) {
+		List<BrandCategory> result = new ArrayList<BrandCategory>();
+		try {
+			result = mapper.selectBrandCategoryByAgencyId(agencyId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

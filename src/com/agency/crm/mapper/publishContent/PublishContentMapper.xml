@@ -17,6 +17,8 @@
 		address,
 		is_top,
 		open_id,
+		avatar_url,
+		nick_name,
 		status,
 		create_time,
 		update_time,
@@ -34,6 +36,8 @@
 		#{address,jdbcType=VARCHAR},
 		#{isTop,jdbcType=VARCHAR},
 		#{openId,jdbcType=VARCHAR},
+		#{avatarUrl,jdbcType=VARCHAR},
+		#{nickName,jdbcType=VARCHAR},
 		0,
 		now(),
 		now(),
@@ -59,11 +63,13 @@
 		is_del as isDel
 		from agency_base
 		where is_del = 0
+		order by create_time asc
 		limit #{start},#{length}
 	</select>
 
 	<select id="selectPublishContent" resultType="PublishContent" parameterType="map">
-		select p1.id, p1.category, p1.description, p1.images, p1.contact_name, p1.mobilephone, p1.city, p1.location, p1.update_time
+		select p1.id, p2.chinese as category, p1.description, p1.images, p1.contact_name as contactName, p1.mobilephone, 
+		p1.city, p1.location, p1.update_time, p1.avatar_url as avatarUrl, p1.nick_name as nickName
 		from publish_content p1 right join parameter p2 on p1.category = p2.para_value
 		where 1=1
 		<if test="city != null and city != ''">
@@ -77,12 +83,14 @@
 		</if>
 		and p2.para_domain = 'publish.category'
 		and p2.para_value = #{paraId}
+		order by p1.create_time desc
 		limit #{offset}, #{rows}
 	</select>
 
 	<select id="selectPublishContentById" resultType="PublishContent" parameterType="int">
 		select pc.id, pc.description, pc.images, pc.contact_name as contactName, pc.mobilephone, pc.province, 
 		pc.city, pc.area, pc.location, pc.open_id as openId, p.chinese as category, pc.address,
+		pc.avatar_url as avatarUrl, pc.nick_name as nickName,
 		pc.update_time as updateTime, pc.create_time as createTime from publish_content pc
 		left join parameter p
 		on pc.category = p.para_value
@@ -134,7 +142,7 @@
 			and c.open_id = #{openId}
 		</if>
 		and p.para_domain = 'publish.category'
-		order by c.create_time asc
+		order by c.create_time desc
 		limit #{start},#{length}
 	</select>
 	

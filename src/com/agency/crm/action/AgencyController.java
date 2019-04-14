@@ -49,7 +49,7 @@ public class AgencyController extends BaseSimpleFormController {
 		int result = 0;
 		Json json = new Json();
 		AgencyContact agencyContact = new AgencyContact();
-
+System.out.println("agencyBase=" + agencyBase.toString());
 		json.setSuccess(false);
 		result = agencyBaseService.saveAgencyBase(agencyBase);
 		if (result > 0) {

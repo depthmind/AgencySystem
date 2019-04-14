@@ -29,12 +29,14 @@
       	</selectKey>
 		insert into brand_category(
 		category_name,
+		agency_id,
 		open_id,
 		create_time,
 		update_time,
 		is_del
 		) values (
 		#{categoryName,jdbcType=VARCHAR},
+		#{agencyId,jdbcType=VARCHAR},
 		#{openId,jdbcType=VARCHAR},
 		now(),
 		now(),
@@ -53,6 +55,18 @@
         is_del as isDel
 		from brand_category
 		where open_id = #{openId}
+	</select>
+	
+	<select id="selectBrandCategoryByAgencyId" parameterType="String" resultType="BrandCategory">
+		select 
+		id as id,
+        category_name as categoryName,
+        open_id as openId,
+        create_time as createTime,
+        update_time as updateTime,
+        is_del as isDel
+		from brand_category
+		where agency_id = #{agencyId}
 	</select>
 	
 	<select id="selectFavoriteAgencyByTypeAndUnionId" parameterType="map" resultType="AgencyBase">

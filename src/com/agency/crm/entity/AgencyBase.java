@@ -256,5 +256,8 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	public void setIsDel(Integer isDel) {
 		this.isDel = isDel;
 	}
-	
+	@Override
+	public String toString() {
+		return "searchEndTime=" + searchEndTime + ",searchStartTime=" + searchStartTime + ",type=" + type + "";
+	}
 }

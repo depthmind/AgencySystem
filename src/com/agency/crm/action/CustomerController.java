@@ -49,4 +49,6 @@ public class CustomerController extends BaseSimpleFormController {
 		String result = JSONUtilS.object2json(pageResult);
 		return result;
 	}
+	
+
 }

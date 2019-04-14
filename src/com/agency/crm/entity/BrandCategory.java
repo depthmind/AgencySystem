@@ -29,6 +29,16 @@ public class BrandCategory extends BaseBean<BrandCategory> {
 	private Date updateTime;
 	
 	private Integer isDel;
+	
+	private String agencyId;
+
+	public String getAgencyId() {
+		return agencyId;
+	}
+
+	public void setAgencyId(String agencyId) {
+		this.agencyId = agencyId;
+	}
 
 	public String getOpenId() {
 		return openId;

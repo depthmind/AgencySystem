@@ -49,4 +49,12 @@ public class BrandCategoryController extends BaseSimpleFormController {
 		result = brandCategoryService.findBrandCategoryByOpenId(openId);
 		return result;
 	}
+	
+	@RequestMapping(value = "/findBrandCategoryByAgencyId.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public List<BrandCategory> findBrandCategoryByAgencyId(String agencyId) {
+		List<BrandCategory> result = new ArrayList<BrandCategory>();
+		result = brandCategoryService.findBrandCategoryByAgencyId(agencyId);
+		return result;
+	}
 }
