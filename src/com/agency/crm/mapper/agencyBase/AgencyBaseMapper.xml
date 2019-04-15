@@ -99,7 +99,7 @@
 			and province = #{province}
 		</if>
 		<if test="area != null and area != ''">
-			and area = #{area}
+			and area like '%${area}%'
 		</if>
 		<if test="mobilephone != null and mobilephone != ''">
 			and mobilephone = #{mobilephone}
@@ -167,7 +167,7 @@
 		from agency_base 
 		where agency_name like #{name} 
 		<if test="city != null and city != ''">
-			and city = #{city}
+			and area like '%{area}%'
 		</if>
 		<if test="province != null and province != ''">
 			and province = #{province}
