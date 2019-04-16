@@ -55,6 +55,7 @@
         is_del as isDel
 		from brand_category
 		where open_id = #{openId}
+		and is_del = 0
 	</select>
 	
 	<select id="selectBrandCategoryByAgencyId" parameterType="String" resultType="BrandCategory">
@@ -67,6 +68,7 @@
         is_del as isDel
 		from brand_category
 		where agency_id = #{agencyId}
+		and is_del = 0
 	</select>
 	
 	<select id="selectFavoriteAgencyByTypeAndUnionId" parameterType="map" resultType="AgencyBase">
@@ -97,4 +99,10 @@
 		on a.id = f.favorite_id
 		where f.type = '2' and f.open_id = #{openId}
 	</select>
+	
+	<update id="deleteBrandCategoryById" parameterType="int">
+		update brand_category
+		set is_del = 1
+		where id = #{id}
+	</update>
 </mapper>

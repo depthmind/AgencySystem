@@ -34,6 +34,16 @@ public class Customer extends BaseBean<Customer> {
 	private Date updateTime;
 	
 	private Integer isDel;
+	
+	private Integer isValid;
+
+	public Integer getIsValid() {
+		return isValid;
+	}
+
+	public void setIsValid(Integer isValid) {
+		this.isValid = isValid;
+	}
 
 	public String getCountry() {
 		return country;

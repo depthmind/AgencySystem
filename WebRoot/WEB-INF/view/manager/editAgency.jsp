@@ -45,49 +45,74 @@
 	            <div class="form-group col-sm-4">
 	              <label class="col-sm-4 control-label">商家名称 <span class="asterisk">*</span></label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="agencyName" name="agencyName" placeholder="商品名称" class="form-control" value="${agencyBase.agencyName }" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">手机 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">联系人 </label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="contactName" name="contactName" placeholder="联系人" class="form-control"  value="${agencyBase.contactName }" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">联系人电话 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">电话 </label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="mobilephone" name="mobilephone" placeholder="电话" class="form-control"  value="${agencyBase.mobilephone }" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">省 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">省 </label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="province" name="province" placeholder="省" class="form-control" value="${agencyBase.province }" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">市 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">市 </label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="city" name="city" placeholder="市" class="form-control" value="${agencyBase.city }" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">县 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">县 </label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="area" name="area" placeholder="县" class="form-control" value="${agencyBase.area }" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label">地址详情 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">地址详情 </label>
 	              <div class="col-sm-8">
-	                <input type="text" id="goodsName" name="goodsName" placeholder="商品名称" class="form-control" />
+	                <input type="text" id="address" name="address" placeholder="地址详情" class="form-control" value="${agencyBase.address }" />
 	              </div>
 	            </div>
 	            <div class="form-group col-sm-4">
-	              <label class="col-sm-4 control-label"> 图片 <span class="asterisk">*</span></label>
+	              <label class="col-sm-4 control-label">商家简介 </label>
 	              <div class="col-sm-8">
-	                <input type="file" multiple="multiple" onchange="uploadGoodsPic(this)" id="goodsPic" name="goodsPic" class="form-control" />
+	                <input type="text" id="description" name="description" placeholder="商家简介" class="form-control" value="${agencyBase.description }" />
+	              </div>
+	            </div>
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label"> logo图片 <span class="asterisk">*</span></label>
+	              <div class="col-sm-8">
+	              	<img id="logo" style="width: 280px; height: 380px;" alt="" src="${agencyBase.logoImagePath }">
+	              </div>
+	            </div>
+	            <!-- <input type="file" id="file" onclick="show()"/> -->
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label"> 微信图片 <span class="asterisk">*</span></label>
+	              <div class="col-sm-8">
+	              	<img style="width: 280px; height: 380px;" alt="" src="${agencyBase.wechatImagePath }">
+	              </div>
+	            </div>
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label"> 营业执照 <span class="asterisk">*</span></label>
+	              <div class="col-sm-8">
+	              	<img style="width: 280px; height: 380px;" alt="" src="${agencyBase.licence1ImagePath }">
+	              </div>
+	            </div>
+	            <div class="form-group col-sm-4">
+	              <label class="col-sm-4 control-label"> 食品经营许可证 <span class="asterisk">*</span></label>
+	              <div class="col-sm-8">
+	              	<img style="width: 280px; height: 380px;" alt="" src="${agencyBase.licence2ImagePath }">
 	              </div>
 	            </div>
 	            <div id="pics"></div>
@@ -157,10 +182,10 @@
 	        </div> --%>                                          
         </div><!-- panel-body -->
         
-        <div class="panel-footer align-center">
+        <!-- <div class="panel-footer align-center">
 			<input class="btn btn-primary" type="submit" value="保存"/>&nbsp;
 			<input class="btn btn-default" type="button" id="btn-back" value="取消"/>
-		</div><!-- panel-footer -->
+		</div> -->
      </form>   
       </div><!-- panel -->
 			</div>
@@ -177,29 +202,6 @@
 	<script type="text/javascript" src="${rootPath}assets/js/jquery.easyui.min.js"></script> --%>
 	
 	<script type="text/javascript">
-	var category = ${publishCategory};
-	$(".publish-select-category").select2({
-	     placeholder: '类别',
-	     minimumResultsForSearch: Infinity,
-	     data: category
-	 });
-	
-	$("#oneLevelCategory").change(function(){
-  		var id = $("#oneLevelCategory").val();
-  		try{
-   		  $.post("${rootPath}category/findSecondLevelCategoryById.do?id=" + id,function(result) {
-   			  $("#erji").show()
-				var secondLevelCategory = result
-				$(".level-two-select").select2({
-					 placeholder: '选择一个企业客户',
-					 data: secondLevelCategory
-				});
-			}, "JSON");
-   		  }
-   	  catch(e) {
-   		  alert(e);
-   	  }  		
-  	})
 	
 	var selectedGoodsPic = ''; //定义全局变量，用于存储已选图片
 	if (typeof FileReader == 'undefined') {
@@ -471,6 +473,26 @@
 			alert(rows.length+' rows are changed!');
 		}
 	}
+		/* $(function(){
+            $("#logo").on('click', function(){
+            	var imagePath = $("#logo")[0].src;
+            	window.parent.location = "${rootPath}preview?imagePath="+imagePath;
+            })
+        }) */
+        
+        /* function show() {
+            var fileTag = document.getElementById('file');
+            fileTag.onchange = function () {
+                var file = fileTag.files[0];
+                var fileReader = new FileReader();
+                fileReader.onloadend = function () {
+                    if (fileReader.readyState == fileReader.DONE) {
+                        document.getElementById('logo').setAttribute('src', fileReader.result);
+                    }
+                };
+                fileReader.readAsDataURL(file);
+            };
+        }; */
 	</script>
 
 </body>

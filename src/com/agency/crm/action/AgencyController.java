@@ -255,4 +255,24 @@ System.out.println("agencyBase=" + agencyBase.toString());
 		
 		return json;
 	}
+	
+	@RequestMapping(value = "/deleteAgencyBase.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Json deleteAgencyBase(@RequestParam(required = true) Integer id) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		AgencyBase agencyBase = new AgencyBase();
+		agencyBase.setId(id);
+		agencyBase.setIsDel(1);
+		agencyBase.setIsCooperation(0);
+		
+		result = agencyBaseService.updateAgencyBase(agencyBase);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
+	
 }

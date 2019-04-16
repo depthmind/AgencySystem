@@ -164,12 +164,10 @@ public class ManagerController extends BaseSimpleFormController {
 
 	@RequestMapping(value = "/editAgency.html", produces = "application/json;charset=utf-8")
 	public String editAgencyPage(Model model, @RequestParam(required = true) Integer id) {
-		PublishContent publish = new PublishContent();
-		publish = publishContentService.findPublishContentById(id);
-		List<EntityList> categoryList = parameterService.getParameterInfo("publish.category");
-		model.addAttribute("publishCategory", JSONArray.fromObject(categoryList));
-		model.addAttribute("publish", publish);
-		return "/manager/editPublish";
+		AgencyBase agencyBase = new AgencyBase();
+		agencyBase = agencyBaseService.findAgencyBaseById(id);
+		model.addAttribute("agencyBase", agencyBase);
+		return "/manager/editAgency";
 	}
 
 	@RequestMapping(value = "/editAgency.do", produces = "application/json;charset=utf-8")

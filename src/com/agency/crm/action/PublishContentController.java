@@ -121,4 +121,19 @@ public class PublishContentController extends BaseSimpleFormController {
 		list = publishContentService.findPublishContentByParamNoLimit(map);
 		return list;
 	}
+	
+	@RequestMapping(value = "/updatePublishContent.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Json updatePublishContent(PublishContent publishContent) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		
+		result = publishContentService.updatePublishContent(publishContent);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
 }

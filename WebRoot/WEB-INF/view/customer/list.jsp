@@ -39,11 +39,13 @@
 									<th>ID</th>
 									<th>昵称</th>
 									<th>openId</th>
-									<th>unionId</th>
+									<th>性别</th>
 									<th>国家</th>
 									<th>省份</th>
 									<th>城市</th>
-									<th>创建时间</th>
+									<th>状态</th>
+									<th>注册时间</th>
+									<th>操作</th>
 								</tr>
 							</thead>								
 						</table>
@@ -95,6 +97,25 @@
       </div>
       <div class="modal-body">
         确定删除么？
+      </div>
+      <div class="modal-footer">
+      	<input type="hidden" class="hiddenId" value="" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger">删除</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+<!-- Modal -->
+<div class="modal fade" id="laheiModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><span class="fa fa-warning"></span> 提示</h4>
+      </div>
+      <div class="modal-body">
+        确定拉黑么？
       </div>
       <div class="modal-footer">
       	<input type="hidden" class="hiddenId" value="" />
@@ -166,10 +187,18 @@
 						    targets: 2
 						},
 						{
-						    data: "unionId",
+						    data: "gender",
 						    orderable: false,
 						    render: function ( data, type, full, meta ) {
-						        return '<div>' + data +'</div>';
+						    	if (data == 0) {
+						        	return '<div>' + '未知' +'</div>';
+						    	}
+						    	if (data == 1) {
+						        	return '<div>' + '男' +'</div>';
+						    	}
+						    	if (data == 2) {
+						        	return '<div>' + '女' +'</div>';
+						    	}
 						    },
 						    targets: 3
 						},
@@ -198,6 +227,17 @@
 						    targets: 6
 						},
 						{
+						    data: "isValid",
+						    orderable: false,
+						    render: function ( data, type, full, meta ) {
+						    	if (data == 0) {
+						    		return '<div>' + '拉黑' +'</div>';
+						    	}
+						        return '<div>' + '正常' +'</div>';
+						    },
+						    targets: 7
+						},
+						{
 			                  data: "createTime",
 			                  orderable: false,
 			                  render: function ( data, type, full, meta ) {
@@ -209,7 +249,17 @@
 				                	}
 				                return n;
 			                  },
-			                  targets: 7
+			                  targets: 8
+						  },
+						  
+						  {
+			                  data: "id",
+			                  orderable: false,
+			                  render: function ( data, type, full, meta ) {
+		                	  	var n = '<a class="btn btn-default btn-xs" id="' + data + '"><span class="fa fa-edit"></span> 拉黑</a>&nbsp;<a class="btn btn-danger btn-xs" id="' + data + '"><span class="fa fa-edit"></span> 删除</a>&nbsp;';
+	                		  	return n;
+			                  },
+			                  targets: 9
 						  },
 				    {
 					  orderable: false,
@@ -220,11 +270,13 @@
 		            { data: "id" },
 		            { data: "nickName" },
 		            { data: "openId" },
-		            { data: "unionId" },
+		            { data: "gender" },
 		            { data: "country" },
 		            { data: "province" },
 		            { data: "city" },
-		            { data: "createTime" }
+		            { data: "isValid" },
+		            { data: "createTime" },
+		            { data: "id" }
 		        ]
 			});
 			
@@ -247,9 +299,9 @@
 		        edit($(this).attr('id'));
 		    } );
 			
-			$('#dataTable tbody').on( 'click', 'a.btn-primary', function () {
+			$('#dataTable tbody').on( 'click', 'a.btn-default', function () {
 		        var data = t.row($(this).parents('tr')).data();
-		        addCase($(this).attr('id'));
+		        lahei($(this).attr('id'));
 		    } );
 
 			$('#dataTable tbody').on( 'click', 'a.btn-danger', function () {
@@ -260,6 +312,11 @@
 			$('#confirmDelModal').on( 'click', 'button.btn-danger', function () {
 		        var id = $("#confirmDelModal .hiddenId").val();
 		        doDel(id);
+		    } ); 
+			
+			$('#laheiModal').on( 'click', 'button.btn-danger', function () {
+		        var id = $("#laheiModal .hiddenId").val();
+		        doLahei(id);
 		    } ); 
 		    
 			// Select2
@@ -274,8 +331,10 @@
 			window.parent.location = "${rootPath}customer/edit.html?id="+id;
 		}
 		
-		function addCase(id){
-			window.parent.location = "${rootPath}case/addCase.html?customerId="+id;
+		function lahei(id) {
+			$("#laheiModal .hiddenId").val("");
+			$("#laheiModal .hiddenId").val(id);
+			$("#laheiModal").modal('show');
 		}
 		
 		function del(id) {
@@ -286,7 +345,19 @@
 		
 		function doDel(id){
 			$.ajax({
-				url: "${rootPath}customer/del.do?id=" + id, 
+				url: "${rootPath}customer/delCustomer.do?id=" + id, 
+				async: true,
+				success: function(o) {
+					window.location.reload();
+				},
+				error: function(o) {
+					alert(2);
+				}
+			});			
+		}
+		function doLahei(id){
+			$.ajax({
+				url: "${rootPath}customer/notValid.do?id=" + id, 
 				async: true,
 				success: function(o) {
 					window.location.reload();

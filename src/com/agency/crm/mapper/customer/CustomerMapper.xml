@@ -37,6 +37,7 @@
 		language,
 		create_time,
 		update_time,
+		is_valid,
 		is_del
 		) values (
 		#{nickName,jdbcType=VARCHAR},
@@ -47,6 +48,7 @@
 		#{province,jdbcType=VARCHAR},
 		#{city,jdbcType=VARCHAR},
 		#{language,jdbcType=VARCHAR},
+		#{isValid,jdbcType=VARCHAR},
 		now(),
 		now(),
 		0
@@ -55,7 +57,7 @@
 	
 	<select id="queryCustomer" parameterType="Map" resultType="Customer">
 		select id, nick_name as nickName, open_id as openId, union_id as unionId, gender, language, country, province,
-			city, create_time as createTime, update_time as updateTime, is_del as isDel
+			city, create_time as createTime, update_time as updateTime, is_del as isDel, is_valid as isValid
 		from customer
 		where is_del = 0
 		order by create_time desc
@@ -67,4 +69,18 @@
 		from customer
 		where is_del = 0
 	</select>
+	
+	<update id="updateCustomer" parameterType="Customer">
+		update customer
+		<set>
+			<if test="isDel != null and isDel != '' or isDel == 0">
+				is_del = #{isDel},
+			</if>
+			<if test="isValid != null and isValid != '' or isValid == 0">
+				is_valid = #{isValid},
+			</if>
+			update_time = now()
+			where id = #{id}
+		</set>
+	</update>
 </mapper>

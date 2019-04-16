@@ -12,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.agency.crm.common.action.BaseSimpleFormController;
 import com.agency.crm.common.framework.bean.QueryResult;
 import com.agency.crm.common.framework.util.JSONUtilS;
+import com.agency.crm.common.model.base.value.baseconfig.Json;
 import com.agency.crm.common.model.base.value.baseconfig.PageHelper;
 import com.agency.crm.entity.AgencyBase;
 import com.agency.crm.entity.Customer;
@@ -50,5 +52,41 @@ public class CustomerController extends BaseSimpleFormController {
 		return result;
 	}
 	
-
+	@RequestMapping(value = "/notValid.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json notValid(@RequestParam(required = true) Integer id) {
+		Json json = new Json();
+		Customer customer = new Customer();
+		int result = 0;
+		
+		json.setSuccess(false);
+		customer.setId(id);
+		customer.setIsValid(0);
+		result = customerService.updateCustomer(customer);
+		
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/delCustomer.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json delCustomer(@RequestParam(required = true) Integer id) {
+		Json json = new Json();
+		Customer customer = new Customer();
+		int result = 0;
+		
+		json.setSuccess(false);
+		customer.setId(id);
+		customer.setIsDel(1);
+		result = customerService.updateCustomer(customer);
+		
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
 }

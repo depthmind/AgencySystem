@@ -70,4 +70,14 @@ public class CustomerService extends BaseService {
 
 		return pageResult;
 	}
+	
+	public int updateCustomer(Customer customer) {
+		int result = 0;
+		try {
+			result = customerMapper.updateCustomer(customer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

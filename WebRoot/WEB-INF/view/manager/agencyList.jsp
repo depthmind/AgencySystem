@@ -140,6 +140,26 @@
   </div><!-- modal-dialog -->
 </div><!-- modal -->
 
+<!-- Modal -->
+<div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><span class="fa fa-warning"></span> 提示</h4>
+      </div>
+      <div class="modal-body">
+        确定删除么？
+      </div>
+      <div class="modal-footer">
+      	<input type="hidden" class="hiddenId" value="" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-danger">确认</button>
+      </div>
+    </div><!-- modal-content -->
+  </div><!-- modal-dialog -->
+</div><!-- modal -->
+
 
 	<script type="text/javascript">
 	var publishStatus = ${publishStatus};
@@ -340,6 +360,16 @@
 		        disagree($(this).attr('id'));
 		    } );
 			
+			$('#dataTable tbody').on( 'click', 'a.btn-warning', function () {
+		        var data = t.row($(this).parents('tr')).data();
+		        del($(this).attr('id'));
+		    } );
+			
+			$('#dataTable tbody').on( 'click', 'a.btn-default', function () {
+		        var data = t.row($(this).parents('tr')).data();
+		        edit($(this).attr('id'));
+		    } );
+			
 			$('#confirmDelModal').on( 'click', 'button.btn-danger', function () {
 		        var id = $("#confirmDelModal .hiddenId").val();
 		        doDel(id);
@@ -376,7 +406,7 @@
 		});
 		
 		function edit(id) {
-			window.parent.location = "${rootPath}parameter/edit.html?id="+id;
+			window.parent.location = "${rootPath}manager/editAgency.html?id="+id;
 		}
 		
 		function del(id) {
@@ -425,7 +455,7 @@
 		
 		function doDel(id){
 			$.ajax({
-				url: "${rootPath}parameter/del.do?id=" + id, 
+				url: "${rootPath}agency/deleteAgencyBase.do?id=" + id, 
 				async: true,
 				success: function(o) {
 					window.location.reload();

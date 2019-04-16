@@ -23,4 +23,6 @@ public interface CustomerMapper {
 	List<Customer> queryCustomer(Map<String, Object> map);
 	
 	long countCustomer();
+	
+	int updateCustomer(Customer customer);
 }

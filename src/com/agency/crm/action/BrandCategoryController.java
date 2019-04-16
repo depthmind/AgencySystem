@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.agency.crm.common.action.BaseSimpleFormController;
@@ -56,5 +57,20 @@ public class BrandCategoryController extends BaseSimpleFormController {
 		List<BrandCategory> result = new ArrayList<BrandCategory>();
 		result = brandCategoryService.findBrandCategoryByAgencyId(agencyId);
 		return result;
+	}
+	
+	@RequestMapping(value = "/deleteBrandCategoryById.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json deleteBrandCategoryById(@RequestParam(required = true) Integer id) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		
+		result = brandCategoryService.deleteBrandCategoryById(id);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
 	}
 }

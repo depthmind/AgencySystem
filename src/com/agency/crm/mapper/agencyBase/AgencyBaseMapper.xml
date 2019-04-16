@@ -182,6 +182,7 @@
 		select 
 		id,
 		agency_name as agencyName,
+		contact_name as contactName,
 		description as description,
 		sys_user_name as sysUserName,
 		sys_user_password as sysUserPassword,
@@ -189,7 +190,9 @@
 		email as email,
 		open_id as openId,
 		is_cooperation as isCooperation,
+		province,
 		city,
+		area,
 		location,
 		address,
 		wechat_image_path as wechatImagePath,
@@ -247,7 +250,7 @@
 			<if test="openId != null and openId != ''">
 				open_id = #{openId},
 			</if>
-			<if test="isCooperation != null and isCooperation != ''">
+			<if test="isCooperation != null and isCooperation != '' or isCooperation == 0">
 				is_cooperation = #{isCooperation},
 			</if>
 			<if test="city != null and city != ''">
@@ -276,6 +279,9 @@
 			</if>
 			<if test="type != null and type != ''">
 				type = #{type},
+			</if>
+			<if test="isDel != null and isDel != ''">
+				is_del = #{isDel},
 			</if>
 			update_time = now()
 			where id = #{id}

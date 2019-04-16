@@ -54,4 +54,14 @@ public class BrandCategoryService extends BaseService {
 		}
 		return result;
 	}
+	
+	public int deleteBrandCategoryById(int id) {
+		int result = 0;
+		try {
+			result = mapper.deleteBrandCategoryById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

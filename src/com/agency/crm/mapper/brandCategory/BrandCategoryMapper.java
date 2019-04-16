@@ -29,4 +29,6 @@ public interface BrandCategoryMapper {
 	List<BrandCategory> selectBrandCategoryByAgencyId(String agencyId);
 	
 	List<AgencyBase> selectFavoriteAgencyByTypeAndUnionId(Map<String, Object> map);
+	
+	int deleteBrandCategoryById(int id);
 }
