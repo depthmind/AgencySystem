@@ -91,4 +91,14 @@ public class GoodsService {
     	}
     	return goods;
     }
+    
+    public int updateGoods(Goods goods) {
+    	int result = 0;
+    	try {
+    		result = goodsMapper.updateGoods(goods);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return result;
+    }
 }

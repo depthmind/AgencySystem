@@ -239,6 +239,12 @@ public class GoodsController {
     	goodsService.saveGoods(goods);
     }
     
+    @RequestMapping(value="/updateGoods.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public void updateGoods(Goods goods) {
+    	goodsService.updateGoods(goods);
+    }
+    
     /**
      * 
      * @param request
