@@ -14,7 +14,7 @@
 			<%@ include file="../assets/pages/headerbar.jsp"%>
 			<div class="pageheader">
 				<h2>
-					<i class="fa fa-address-book"></i> 客人管理 <span>客人列表</span>
+					<i class="fa fa-address-book"></i> 会员管理 <span>会员列表</span>
 				</h2>
 			</div>
 			<div class="contentpanel">
@@ -26,7 +26,7 @@
 							<a href="" class="minimize">&minus;</a>
 						</div>
 						<!-- panel-btns -->
-						<h3 class="panel-title">客人列表</h3>
+						<h3 class="panel-title">会员列表</h3>
 						<div class="row" style="margin-top: 20px">
 						</div>
 					</div>
