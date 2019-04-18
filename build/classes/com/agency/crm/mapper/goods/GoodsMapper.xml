@@ -161,6 +161,7 @@
 	<select id="selectGoodsByGoodsId" parameterType="int" resultType="Goods">
 		select id, agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, price, is_top as isTop, 
 			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, stock,
+			one_level_category as oneLevelCategory, brand_category as brandCategory,
 			update_time as updateTime, is_del as isDel
 		from goods
 		where id = #{id}
@@ -187,6 +188,21 @@
 			</if>
 			<if test="stock != null and stock != ''">
 				stock = #{stock},
+			</if>
+			<if test="oneLevelCategory != null and oneLevelCategory != ''">
+				one_level_category = #{oneLevelCategory},
+			</if>
+			<if test="secondLevelCategory != null and secondLevelCategory != ''">
+				second_level_category = #{secondLevelCategory},
+			</if>
+			<if test="thumbnail != null and thumbnail != ''">
+				thumbnail = #{thumbnail},
+			</if>
+			<if test="goodsPic != null and goodsPic != ''">
+				goods_pic = #{goodsPic},
+			</if>
+			<if test="brandCategory != null and brandCategory != ''">
+				brand_category = #{brandCategory},
 			</if>
 			update_time = now()
 		</set>
