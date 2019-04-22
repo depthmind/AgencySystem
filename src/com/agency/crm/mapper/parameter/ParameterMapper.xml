@@ -159,6 +159,7 @@
 		select t.chinese, t.para_value as value, t.para_desc as depict
 		from parameter t 
 		where t.para_domain = #{domain} 
+		and isdel = 0
 		ORDER BY t.para_id desc
 	</select>
 	
