@@ -42,6 +42,15 @@ public class AgencyBase extends BaseBean<AgencyBase> {
 	private String type;
 	private String searchStartTime;
 	private String searchEndTime;
+	private String favoriteId;
+
+	public String getFavoriteId() {
+		return favoriteId;
+	}
+
+	public void setFavoriteId(String favoriteId) {
+		this.favoriteId = favoriteId;
+	}
 
 	public String getDescription() {
 		return description;

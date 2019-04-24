@@ -27,8 +27,17 @@ public class Goods {
     private String seriesCategory;
     private Integer online;
     private Integer isDel;
+    private Integer favoriteId;
 
-    public Integer getIsDel() {
+    public Integer getFavoriteId() {
+		return favoriteId;
+	}
+
+	public void setFavoriteId(Integer favoriteId) {
+		this.favoriteId = favoriteId;
+	}
+
+	public Integer getIsDel() {
 		return isDel;
 	}
 

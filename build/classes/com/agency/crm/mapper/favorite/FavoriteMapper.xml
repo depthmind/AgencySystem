@@ -113,7 +113,8 @@
 	
 	<select id="selectFavoriteGoodsByTypeAndUnionId" parameterType="map" resultType="Goods">
 		select 
-		f.id as id,
+		f.id as favoriteId,
+		g.id as id,
         g.product_id as productId,
         g.agency_id as agencyId,
         g.goods_name as goodsName,
@@ -134,7 +135,8 @@
 	
 	<select id="selectFavoriteAgencyByTypeAndUnionId" parameterType="map" resultType="AgencyBase">
 		select
-			f.id,
+			f.id as favoriteId,
+			a.id as id,
 			a.agency_name as agencyName,
 			a.sys_user_name as sysUserName,
 			a.sys_user_password as sysUserPassword,
