@@ -245,6 +245,60 @@ public class GoodsController {
     	goodsService.updateGoods(goods);
     }
     
+    @RequestMapping(value="/deleteGoods.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public Json deleteGoods(@RequestParam(required = true) Integer id) {
+    	int result = 0;
+    	Json json = new Json();
+    	json.setSuccess(false);
+    	Goods goods = new Goods();
+    	
+    	goods.setId(id);
+    	goods.setIsDel(1);
+    	result = goodsService.updateGoods(goods);
+    	if (result > 0) {
+    		json.setSuccess(true);
+    	}
+    	
+    	return json;
+    }
+    
+    @RequestMapping(value="/onlineGoods.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public Json onlineGoods(@RequestParam(required = true) Integer id) {
+    	int result = 0;
+    	Json json = new Json();
+    	json.setSuccess(false);
+    	Goods goods = new Goods();
+    	
+    	goods.setId(id);
+    	goods.setOnline(1);
+    	result = goodsService.updateGoods(goods);
+    	if (result > 0) {
+    		json.setSuccess(true);
+    	}
+    	
+    	return json;
+    }
+    
+    @RequestMapping(value="/offlineGoods.do",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public Json offlineGoods(@RequestParam(required = true) Integer id) {
+    	int result = 0;
+    	Json json = new Json();
+    	json.setSuccess(false);
+    	Goods goods = new Goods();
+    	
+    	goods.setId(id);
+    	goods.setOnline(0);
+    	result = goodsService.updateGoods(goods);
+    	if (result > 0) {
+    		json.setSuccess(true);
+    	}
+    	
+    	return json;
+    }
+    
     /**
      * 
      * @param request

@@ -83,6 +83,7 @@
 		</if>
 		and p2.para_domain = 'publish.category'
 		and p2.para_value = #{paraId}
+		and p1.is_del = 0
 		order by p1.create_time desc
 		limit #{offset}, #{rows}
 	</select>

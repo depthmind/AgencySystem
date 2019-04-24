@@ -45,6 +45,16 @@ public class BrandCategoryService extends BaseService {
 		return result;
 	}
 	
+	public BrandCategory findBrandCategoryByBrandId(int id) {
+		BrandCategory result = new BrandCategory();
+		try {
+			result = mapper.selectBrandCategoryByBrandId(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public List<BrandCategory> findBrandCategoryByAgencyId(String agencyId) {
 		List<BrandCategory> result = new ArrayList<BrandCategory>();
 		try {
@@ -59,6 +69,16 @@ public class BrandCategoryService extends BaseService {
 		int result = 0;
 		try {
 			result = mapper.deleteBrandCategoryById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public int updateBrandCategory(BrandCategory brandCategory) {
+		int result = 0;
+		try {
+			result = mapper.updateBrandCategory(brandCategory);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

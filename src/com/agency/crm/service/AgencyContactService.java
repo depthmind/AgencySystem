@@ -69,4 +69,24 @@ public class AgencyContactService extends BaseService {
 		
 		return pageResult;
 	}
+	
+	public int updateAgencyContact(AgencyContact agencyContact) {
+		int result = 0;
+		try {
+			result = agencyContactMapper.updateAgencyContact(agencyContact);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public AgencyContact findAgencyContactById(int id) {
+		AgencyContact agnecyContact = new AgencyContact();
+		try {
+			agnecyContact = agencyContactMapper.selectAgencyContactById(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return agnecyContact;
+	}
 }

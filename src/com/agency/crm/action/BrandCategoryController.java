@@ -51,6 +51,14 @@ public class BrandCategoryController extends BaseSimpleFormController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/findBrandCategoryById.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public BrandCategory findBrandCategoryById(@RequestParam(required = true) Integer id) {
+		BrandCategory result = new BrandCategory();
+		result = brandCategoryService.findBrandCategoryByBrandId(id);
+		return result;
+	}
+	
 	@RequestMapping(value = "/findBrandCategoryByAgencyId.do", produces = "application/json;charset=utf-8")
 	@ResponseBody
 	public List<BrandCategory> findBrandCategoryByAgencyId(String agencyId) {
@@ -67,6 +75,21 @@ public class BrandCategoryController extends BaseSimpleFormController {
 		int result = 0;
 		
 		result = brandCategoryService.deleteBrandCategoryById(id);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/updateBrandCategory.do", produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Json updateBrandCategory(BrandCategory brandCategory) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		
+		result = brandCategoryService.updateBrandCategory(brandCategory);
 		if (result > 0) {
 			json.setSuccess(true);
 		}

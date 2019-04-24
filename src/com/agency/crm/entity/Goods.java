@@ -25,8 +25,26 @@ public class Goods {
     private String secondLevelCategory;
     private String brandCategory;
     private String seriesCategory;
+    private Integer online;
+    private Integer isDel;
 
-    public Integer getStock() {
+    public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
+
+	public Integer getOnline() {
+		return online;
+	}
+
+	public void setOnline(Integer online) {
+		this.online = online;
+	}
+
+	public Integer getStock() {
 		return stock;
 	}
 

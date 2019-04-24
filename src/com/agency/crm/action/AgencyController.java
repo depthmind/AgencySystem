@@ -275,4 +275,44 @@ System.out.println("agencyBase=" + agencyBase.toString());
 		return json;
 	}
 	
+	@RequestMapping(value = "/deleteAgencyContact.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Json deleteAgencyContact(AgencyContact agencyContact) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		
+		agencyContact.setIsDel(1);
+		result = agencyContactService.updateAgencyContact(agencyContact);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/updateAgencyContact.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Json updateAgencyContact(AgencyContact agencyContact) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		
+		result = agencyContactService.updateAgencyContact(agencyContact);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
+	
+	@RequestMapping(value = "/findAgencyContactById.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public AgencyContact findAgencyContactById(@RequestParam(required = true) Integer id) {
+		AgencyContact agencyContact = new AgencyContact();
+		
+		agencyContact = agencyContactService.findAgencyContactById(id);
+		
+		return agencyContact;
+	}
 }

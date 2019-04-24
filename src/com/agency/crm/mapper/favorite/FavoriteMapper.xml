@@ -113,7 +113,7 @@
 	
 	<select id="selectFavoriteGoodsByTypeAndUnionId" parameterType="map" resultType="Goods">
 		select 
-		g.id as id,
+		f.id as id,
         g.product_id as productId,
         g.agency_id as agencyId,
         g.goods_name as goodsName,
@@ -127,9 +127,14 @@
 		where f.type = '1' and f.open_id = #{openId}
 	</select>
 	
+	<update id="deleteFavoriteById" parameterType="int">
+		delete from favorite
+		where id = #{id}
+	</update>
+	
 	<select id="selectFavoriteAgencyByTypeAndUnionId" parameterType="map" resultType="AgencyBase">
 		select
-			a.id,
+			f.id,
 			a.agency_name as agencyName,
 			a.sys_user_name as sysUserName,
 			a.sys_user_password as sysUserPassword,

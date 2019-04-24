@@ -136,4 +136,22 @@ public class PublishContentController extends BaseSimpleFormController {
 		
 		return json;
 	}
+	
+	@RequestMapping(value = "/deletePublishContent.do", produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public Json deletePublishContent(@RequestParam(required = true) Integer id) {
+		Json json = new Json();
+		json.setSuccess(false);
+		int result = 0;
+		PublishContent publishContent = new PublishContent();
+		
+		publishContent.setId(id);
+		publishContent.setIsDel(1);
+		result = publishContentService.updatePublishContent(publishContent);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
 }

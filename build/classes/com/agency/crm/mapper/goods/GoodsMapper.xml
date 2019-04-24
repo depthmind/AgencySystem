@@ -76,6 +76,7 @@
       		area,
       		create_time,
       		update_time,
+      		online,
       		is_del
       	) values (
       		#{productId,jdbcType=VARCHAR},
@@ -97,6 +98,7 @@
       		#{area,jdbcType=VARCHAR},
       		now(),
       		now(),
+      		1,
       		0
       	)
 	</insert>
@@ -124,16 +126,17 @@
 	
 	<select id="selectGoodsByAgencyId" parameterType="int" resultType="Goods">
 		select id, agency_id as agencyId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
-			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price, online,
 			update_time as updateTime, is_del as isDel
 		from goods
 		where agencyId = #{agencyId}
 		and is_del = 0
+		and online = 1
 	</select>
 	
 	<select id="selectGoodsByOpenId" parameterType="String" resultType="Goods">
 		select id, agency_id as agencyId, open_id as openId, goods_name as goodsName, goods_description as goodsDescription, is_top as isTop, 
-			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price,
+			province, city, area, thumbnail as thumbnail, goods_pic as goodsPic, create_time as createTime, price, online,
 			update_time as updateTime, is_del as isDel
 		from goods
 		where open_id = #{openId}
@@ -149,6 +152,7 @@
 		brand_category = #{brandCategory}
 		and agency_id = #{agencyId}
 		and is_del = 0
+		and online = 1
 	</select>
 	
 	<select id="countGoodsByAgencyId" parameterType="int" resultType="int">
@@ -203,6 +207,12 @@
 			</if>
 			<if test="brandCategory != null and brandCategory != ''">
 				brand_category = #{brandCategory},
+			</if>
+			<if test="isDel != null and isDel != ''">
+				is_del = #{isDel},
+			</if>
+			<if test="online != null and online != '' or online == 0">
+				online = #{online},
 			</if>
 			update_time = now()
 		</set>

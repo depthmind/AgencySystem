@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.agency.crm.common.action.BaseSimpleFormController;
@@ -94,6 +95,21 @@ public class FavoriteController extends BaseSimpleFormController {
 		favorite.setType(type);
 		favorite.setFavoriteId(favoriteId);
 		result = favoriteService.deleteFavorite(favorite);
+		if (result > 0) {
+			json.setSuccess(true);
+		}
+		
+		return json;
+	}
+	
+	@RequestMapping(value="/deleteFavoriteById.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public Json deleteFavoriteById(@RequestParam(required = true) Integer id) {
+		int result = 0;
+		Json json = new Json();
+		json.setSuccess(false);
+		
+		result = favoriteService.deleteFavoriteById(id);
 		if (result > 0) {
 			json.setSuccess(true);
 		}

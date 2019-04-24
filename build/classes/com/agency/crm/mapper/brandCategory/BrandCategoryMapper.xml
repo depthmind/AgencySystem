@@ -58,6 +58,19 @@
 		and is_del = 0
 	</select>
 	
+	<select id="selectBrandCategoryByBrandId" parameterType="int" resultType="BrandCategory">
+		select 
+		id as id,
+        category_name as categoryName,
+        open_id as openId,
+        create_time as createTime,
+        update_time as updateTime,
+        is_del as isDel
+		from brand_category
+		where id = #{id}
+		and is_del = 0
+	</select>
+	
 	<select id="selectBrandCategoryByAgencyId" parameterType="String" resultType="BrandCategory">
 		select 
 		id as id,
@@ -103,6 +116,17 @@
 	<update id="deleteBrandCategoryById" parameterType="int">
 		update brand_category
 		set is_del = 1
+		where id = #{id}
+	</update>
+	
+	<update id="updateBrandCategory" parameterType="BrandCategory">
+		update brand_category
+		<set>
+			<if test="categoryName != null and categoryName != ''">
+				category_name = #{categoryName},
+			</if>
+			update_time = now()
+		</set>
 		where id = #{id}
 	</update>
 </mapper>

@@ -68,6 +68,16 @@ public class FavoriteService extends BaseService {
 		return result;
 	}
 	
+	public int deleteFavoriteById(int id) {
+		int result = 0;
+		try {
+			result = mapper.deleteFavoriteById(id);
+		} catch (Exception e) {
+			logger.error("取消收藏信息出错");
+		}
+		return result;
+	}
+	
 	public List<Favorite> findAllFavoriteByTypeAndUnionId(Map<String, Object> map) {
 		List<Favorite> list = new ArrayList<Favorite>();
 		try {

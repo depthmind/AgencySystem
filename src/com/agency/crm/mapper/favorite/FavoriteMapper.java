@@ -23,6 +23,8 @@ public interface FavoriteMapper {
 	
 	int deleteFavorite(Favorite favorite);
 	
+	int deleteFavoriteById(int id);
+	
 	List<Favorite> findAllFavoriteByTypeAndUnionId(Map<String, Object> map);
 	
 	List<Goods> selectFavoriteGoodsByTypeAndUnionId(Map<String, Object> map);

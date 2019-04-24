@@ -36,11 +36,20 @@
 	</insert>
 	
 	<select id="selectAgnecyContactByAgencyId" parameterType="String" resultType="AgencyContact">
-		select agency_id as agencyId, contact_name as contactName, mobilephone, address, city, location,
+		select id, agency_id as agencyId, contact_name as contactName, mobilephone, address, city, location,
 			sys_user_name as sysUserName, sys_user_password as sysUserPassword, latitude, longitude, area, province,
 			create_time as createTime, update_time as updateTime, is_del as isDel
 		from agency_contact
 		where agency_id = #{agencyId}
+		and is_del = 0
+	</select>
+	
+	<select id="selectAgencyContactById" parameterType="int" resultType="AgencyContact">
+		select id, agency_id as agencyId, contact_name as contactName, mobilephone, address, city, location,
+			sys_user_name as sysUserName, sys_user_password as sysUserPassword, latitude, longitude, area, province,
+			create_time as createTime, update_time as updateTime, is_del as isDel
+		from agency_contact
+		where id = #{id}
 		and is_del = 0
 	</select>
 	
@@ -50,6 +59,38 @@
 		where agency_id = #{agencyId}
 		and is_del = 0
 	</select>
+	
+	<update id="updateAgencyContact" parameterType="AgencyContact">
+		update agency_contact
+		<set>
+			<if test="contactName != null and contactName != ''">
+				contact_name = #{contactName},
+			</if>
+			<if test="mobilephone != null and mobilephone != ''">
+				mobilephone = #{mobilephone},
+			</if>
+			<if test="address != null and address != ''">
+				address = #{address},
+			</if>
+			<if test="city != null and city != ''">
+				city = #{city},
+			</if>
+			<if test="location != null and location != ''">
+				location = #{location},
+			</if>
+			<if test="area != null and area != ''">
+				area = #{area},
+			</if>
+			<if test="province != null and province != ''">
+				province = #{province},
+			</if>
+			<if test="isDel != null and isDel != ''">
+				is_del = #{isDel},
+			</if>
+			update_time = now()
+		</set>
+		where id = #{id}
+	</update>
 </mapper>
 
 
