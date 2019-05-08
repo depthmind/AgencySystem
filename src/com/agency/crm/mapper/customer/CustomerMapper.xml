@@ -48,9 +48,9 @@
 		#{province,jdbcType=VARCHAR},
 		#{city,jdbcType=VARCHAR},
 		#{language,jdbcType=VARCHAR},
-		#{isValid,jdbcType=VARCHAR},
 		now(),
 		now(),
+		1,
 		0
 		)
 	</insert>
